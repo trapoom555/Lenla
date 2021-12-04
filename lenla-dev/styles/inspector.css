@@ -1,0 +1,10 @@
+.inspector {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    width: 30vw;
+    height: 80vh;
+    line-height: 80vh;
+    margin-left: 5vw;
+    text-align: center;
+    font-size: 1vw;
+}

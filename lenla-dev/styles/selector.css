@@ -1,0 +1,17 @@
+.selector {
+    border-radius: 4px;
+    border-style: none;
+    background-color: #f1f1f1;
+    font-size: 1vw;
+    width: 7vw;
+    height: 4vh;
+}
+
+.selectorWrapper{
+    float:left;
+    margin-left: 1vw;
+}
+
+.selected {
+    background-color: #00ca99;
+}

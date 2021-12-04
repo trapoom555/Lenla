@@ -1,0 +1,9 @@
+.workspace {
+    height: 80vh;
+    width: 60vw;
+    border-radius: 5px;
+    border-color: #bfbfbf;   
+    border-style: solid;
+    border-width: 1px;
+    margin-left: 1vw;
+}

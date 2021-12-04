@@ -1,0 +1,15 @@
+.triangle_icon {
+    content:url("../public/ic_triangle.png");
+    object-fit: contain;
+    width: 0.7vw;
+    height: 0.7vw;
+    margin-left: 1vw;
+}
+
+.profile_icon {
+    content:url("../public/ic_profile.png");
+    object-fit: contain;
+    width: 3vw;
+    height: 3vw;
+    margin-left: 6vw;
+}
