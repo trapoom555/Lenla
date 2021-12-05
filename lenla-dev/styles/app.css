@@ -6,6 +6,26 @@
     font-family: 'Raleway', sans-serif;
   }
 
+a:link {
+    text-decoration: none;
+    color: white;
+  }
+  
+a:visited {
+    text-decoration: none;
+    color: white;
+  }
+  
+a:hover {
+    text-decoration: none;
+    color: white;
+  }
+  
+a:active {
+    text-decoration: none;
+    color: black;
+  }
+
 .flexNav {
     display: flex;
     align-items: center;
@@ -21,4 +41,21 @@
     display: flex;
     margin-top: 2vh;
     align-items: center;;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+
+.clicked {
+    text-decoration: none;
+    margin: 3.5vh 3vw;
+    padding: 1vh 0;
+    border-bottom: 2px white solid;
 }

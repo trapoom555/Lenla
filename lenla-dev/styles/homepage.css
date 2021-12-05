@@ -1,0 +1,91 @@
+html {
+    background-color: #ffffff00;
+}
+.homepage_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.img_logo_white {
+    margin-top: 10vh;
+    content: url("../public/logo_white.png");
+    width: 30vw;
+}
+
+.nav_homepage {
+    width: 100vw;
+    height: 10vh;
+    padding-left: 150vw;
+}
+
+.nav_homepage_li {
+    position: relative;
+    text-decoration: none;
+    margin: 3.5vh 3vw;
+    padding: 1vh 0;
+}
+
+.nav_homepage_li:hover {
+    color: white;
+}
+
+.nav_homepage_li::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+.nav_homepage_li:hover::before {
+    transform: scaleX(1);
+  }
+
+.content_homepage_li {
+    font-size: 1vw;
+    padding: 3.5vh 1vw;
+}
+
+.learn_lab {
+    font-size: 2vw;
+    margin-top: 1vh;
+    margin-bottom: 5vh;
+}
+
+.white_char {
+    color: white;
+}
+
+.content_homepage{
+    align-items: center;
+}
+
+.ic_circle {
+    content: url("../public/ic_circle.png");
+    width: 1vw;
+}
+
+.p5Canvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+
+.homepage_background {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(#5C7EF5, #00CA99);
+    z-index: -2;
+}
