@@ -10,13 +10,6 @@ export default function Navbar() {
                 <li> Help </li>
             </ul>
         </div>
-        
-{/* 
-        <button className = "preview_button">Preview</button>
-
-        <div className = "profile"></div> */}
-        
-      
       </div>
     )
   }

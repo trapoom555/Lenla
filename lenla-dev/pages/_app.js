@@ -8,6 +8,7 @@ import "../styles/inspector.css"
 import "../styles/selector.css"
 import "../styles/homepage.css"
 import "../styles/signin.css"
+import "../styles/signup.css"
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />

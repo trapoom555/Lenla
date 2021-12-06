@@ -1,0 +1,112 @@
+.signup_information_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.signup_left_information_container{
+    display: flex;
+    flex-direction: column;
+}
+
+.signup_right_information_container {
+    margin-left: 7vw;
+}
+
+.signup_container {
+    margin-top: 4vh;
+}
+
+.signup_topic {
+    font-size: 2.5vw;
+    margin-bottom: 5vh;
+}
+
+.signup_row_align {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.signup_profile_image {
+    content: url("../public/signup_profile_default.png");
+    width: 20vw;
+    border-radius: 5px;
+}
+
+.signup_upload_profile_button {
+    border-radius: 10px;
+    border-style: none;
+    background-color: #00CA99;
+    height: 6vh;
+    margin-top: 2vh;
+}
+
+.signup_upload_profile_button {
+    font-size: 1.2vw;
+}
+
+.signup_content {
+    font-size: 1.25vw;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.signup_input {
+    box-sizing: border-box;
+    height: 6vh;
+    border-radius: 10px;
+    border-style: solid;
+    margin-bottom: 3vh;
+    border-color: white;
+    font-size: 1.5vw;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    color: white;
+    background-color: #ffffff00;
+}
+
+.signup_left_in_row {
+    margin-right: 5vw;
+}
+
+.signup_large_input {
+    width: 25vw;
+}
+
+.signup_left_in_row_small {
+    margin-right: 2vw;
+}
+
+.signup_button {
+    background-color: #5C7EF5;
+    border-style: none;
+    border-radius: 10px;
+    color: white;
+    width: 7vw;
+    height: 6vh;
+    font-size: 1.25vw;
+    margin-left: 33.5vw;
+    margin-top: 5vh;
+}
+
+.role_selector {
+    color: white;
+    border-style: solid;
+    border-color: white;
+    font-size: 1vw;
+    background-color: #ffffff00;
+    border-radius: 9px;
+    padding: 7px;
+    margin-left: 1vw;
+    margin-top: 3vh;
+}
+
+.role_selector:hover {
+    background-color: white;
+    color: #00CA99;
+}
+
+.signup_margin_top_content {
+    margin-top: 3vh;
+    font-size: 1.25vw;
+}
