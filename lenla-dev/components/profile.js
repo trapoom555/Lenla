@@ -1,8 +1,9 @@
-export default function Profile() {
+export default function Profile(props) {
     return (
-      <>
-        <img className = "profile_icon"/>
-        <img className = "triangle_icon"/>
-      </>
-    )
-  }
+        <>
+            <p>{props.name}</p>
+            <img className="profile_icon" />
+            <img className="triangle_icon" />
+        </>
+    );
+}
