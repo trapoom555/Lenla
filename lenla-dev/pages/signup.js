@@ -78,20 +78,22 @@ export default function Signup({ user, setUser }) {
         // x
         console.log("////////////");
         try {
-            const res = await fetch(Domain + "/sign-in", {
+            const signup_res = await fetch(Domain + "/sign-in", {
                 // mode: "no-cors",
                 method: "POST",
                 headers: {
+                    limit: "50mb",
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(info),
             });
-            //
-            if (res.status == 201) {
+
+            if (signup_res.status == 201) {
                 [console.log("signin success")];
                 try {
-                    res = await fetch(Domain + "/auth/login", {
+                    console.log(1);
+                    const res = await fetch(Domain + "/auth/login", {
                         // mode: "no-cors",
                         method: "POST",
                         headers: {
@@ -103,14 +105,15 @@ export default function Signup({ user, setUser }) {
                             password: info.password,
                         }),
                     });
-                    //
+                    console.log(1.5);
                     if (res.status == 201) {
-                        [console.log("login success")];
+                        [console.log("success")];
                         router.push("/create");
                     }
+                    console.log(2);
                     const data = await res.json();
-                    console.log(data.access_token);
-                    const res = await fetch(Domain + "/profile", {
+                    // console.log(data.access_token);
+                    res = await fetch(Domain + "/profile", {
                         // mode: "no-cors",
                         // method: "POST",
                         headers: {
@@ -122,7 +125,23 @@ export default function Signup({ user, setUser }) {
                     });
                     data = await res.json();
                     setUser(data);
-                    console.log(data);
+                    console.log("get fropile done");
+                    console.log(3);
+                    const img_res = await fetch(Domain + "/profileImg", {
+                        // mode: "no-cors",
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email: info.email,
+                            password: info.password,
+                        }),
+                    });
+                    const img_data = await img_res.json();
+                    setUser({ ...data, profileImage: img_data.profileImg });
+                    console.log(user);
                 } catch (error) {
                     // console.log(res);
                     console.log(error);
