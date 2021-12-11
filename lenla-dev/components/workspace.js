@@ -1,7 +1,9 @@
+import Diagram from "../components/Diagram";
+
 export default function Workspace() {
     return (
       <>
-        <div className = "workspace"/>
+        <Diagram className = "workspace"/>
       </>
     )
   }
