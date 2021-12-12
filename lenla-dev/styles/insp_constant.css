@@ -1,0 +1,28 @@
+.insp_constant {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2vw;
+}
+
+.insp_constant_label {
+    padding-top: 3vh;
+    font-size: 1.2vw;
+    text-align: left;
+    font-weight: bold;
+}
+
+.insp_constant_value {
+    margin-top: 3vh;
+    width: 80%;
+    box-sizing: border-box;
+    height: 5vh;
+    border-radius: 10px;
+    border-style: solid;
+    margin-bottom: 3vh;
+    border-color: #555;
+    font-size: 1.5vw;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    color: #555;
+    background-color: #ffffff00;
+}
