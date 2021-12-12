@@ -105,15 +105,9 @@ export default function Signup({ user, setUser }) {
                             password: info.password,
                         }),
                     });
-                    console.log(1.5);
-                    if (res.status == 201) {
-                        [console.log("success")];
-                        router.push("/create");
-                    }
-                    console.log(2);
                     const data = await res.json();
                     // console.log(data.access_token);
-                    res = await fetch(Domain + "/profile", {
+                    const profile_res = await fetch(Domain + "/profile", {
                         // mode: "no-cors",
                         // method: "POST",
                         headers: {
@@ -123,10 +117,9 @@ export default function Signup({ user, setUser }) {
                         },
                         // body: JSON.stringify({ email, password }),
                     });
-                    data = await res.json();
-                    setUser(data);
-                    console.log("get fropile done");
-                    console.log(3);
+                    const profile_data = await profile_res.json();
+                    setUser(profile_data);
+                    console.log("get profile done");
                     const img_res = await fetch(Domain + "/profileImg", {
                         // mode: "no-cors",
                         method: "POST",
@@ -142,27 +135,15 @@ export default function Signup({ user, setUser }) {
                     const img_data = await img_res.json();
                     setUser({ ...data, profileImage: img_data.profileImg });
                     console.log(user);
+                    if (img_res.status == 201) {
+                        [console.log("success")];
+                        router.push("/create");
+                    }
                 } catch (error) {
                     // console.log(res);
                     console.log(error);
                 }
             }
-            console.log(res.status);
-            // const data = await res.json();
-            // console.log(data.access_token);
-            // const res = await fetch(Domain + "/profile", {
-            //     // mode: "no-cors",
-            //     // method: "POST",
-            //     headers: {
-            //         Accept: "application/json",
-            //         "Content-Type": "application/json",
-            //         Authorization: "Bearer " + data.access_token,
-            //     },
-            //     // body: JSON.stringify({ email, password }),
-            // });
-            // const data = await res.json();
-            // setUser(data);
-            // console.log(data);
         } catch (error) {
             // console.log(res);
             console.log(error);
@@ -274,12 +255,6 @@ export default function Signup({ user, setUser }) {
                             </div>
                             <button className="signup_button" onClick={signIn}>
                                 DONE
-                            </button>
-                            <button
-                                className="signup_button"
-                                onClick={getImgFile}
-                            >
-                                sd
                             </button>
                         </div>
                     </div>

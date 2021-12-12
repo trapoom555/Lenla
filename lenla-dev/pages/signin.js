@@ -34,7 +34,7 @@ export default function Signin({ user, setUser }) {
             }
             const data = await res.json();
             // console.log(data.access_token);
-            const res = await fetch(Domain + "/profile", {
+            const profile_res = await fetch(Domain + "/profile", {
                 // mode: "no-cors",
                 // method: "POST",
                 headers: {
@@ -44,9 +44,9 @@ export default function Signin({ user, setUser }) {
                 },
                 // body: JSON.stringify({ email, password }),
             });
-            const data = await res.json();
-            setUser(data);
-            console.log("get fropile done");
+            const profile_data = await profile_res.json();
+            setUser(profile_data);
+            console.log("get profile done");
             const img_res = await fetch(Domain + "/profileImg", {
                 // mode: "no-cors",
                 method: "POST",
@@ -60,6 +60,7 @@ export default function Signin({ user, setUser }) {
             const img_data = await img_res.json();
             setUser({ ...data, profileImage: img_data.profileImg });
             console.log(user);
+            console.log("get profileImg done");
         } catch (error) {
             // console.log(res);
             console.log(error);

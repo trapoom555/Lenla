@@ -7,6 +7,7 @@ import Inspector from "../components/inspector";
 import Selector from "../components/selector";
 
 export default function Create({ user, setUser }) {
+    // console.log(user.profileImage);
     return (
         <>
             <div className="flexPage">

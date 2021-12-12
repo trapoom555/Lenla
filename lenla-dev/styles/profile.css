@@ -9,7 +9,7 @@
 .profile_icon {
     /* content:url("../public/ic_profile.png"); */
     object-fit: contain;
-    width: 3vw;
-    height: 3vw;
-    margin-left: 6vw;
+    width: 4vw;
+    height: 4vw;
+    margin-left: 4vw;
 }
