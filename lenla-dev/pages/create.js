@@ -9,35 +9,6 @@ import Selector from "../components/selector";
 import Diagram from '../components/Diagram';
 
 export default function Create({ user, setUser }) {
-    const initialElements = [
-        {
-            id: "1",
-            type: 'blk_constant',
-            position: { x: 100, y: 100 },
-            data: { type : 'Constant', data: 10, portsOut : ['num']},
-        },
-        {
-            id: "2",
-            type: 'blk_constant',
-            position: { x: 100, y: 100 },
-            data: { type : 'Constant', data: 5, portsOut : ['num']},
-        },
-        {
-            id: "3",
-            type: 'blk_plus',
-            position: { x: 100, y: 100 },
-            data: {portsIn : ['num', 'num'], portsOut : ['num']},
-        },
-        {
-            id: "4",
-            type: 'blk_gauge',
-            position: { x: 100, y: 100 },
-            data: {portsIn : ['num']},
-        },
-    
-    ];
-    const [elements, setElements] = useState(initialElements);
-
     return (
         <>
             <div className="flexPage">
