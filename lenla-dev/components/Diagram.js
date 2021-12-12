@@ -1,37 +1,7 @@
-import React, {useState} from 'react';
-import ReactFlow, {addEdge, Background} from 'react-flow-renderer';
+import ReactFlow, {addEdge, Background, removeElements,} from 'react-flow-renderer';
 import ConstantBlock from '../blocks/blk_constant';
 import GaugeBlock from '../blocks/blk_gauge';
 import PlusBlock from '../blocks/blk_plus';
-
-
-const initialElements = [
-    {
-        id: "1",
-        type: 'blk_constant',
-        position: { x: 100, y: 100 },
-        data: { type : 'Constant', data: 10, portsOut : ['num']},
-    },
-    {
-        id: "2",
-        type: 'blk_constant',
-        position: { x: 100, y: 100 },
-        data: { type : 'Constant', data: 5, portsOut : ['num']},
-    },
-    {
-        id: "3",
-        type: 'blk_plus',
-        position: { x: 100, y: 100 },
-        data: {portsIn : ['num', 'num'], portsOut : ['num']},
-    },
-    {
-        id: "4",
-        type: 'blk_gauge',
-        position: { x: 100, y: 100 },
-        data: {portsIn : ['num']},
-    },
-
-];
 
 
 const nodeTypes = {
@@ -40,13 +10,17 @@ const nodeTypes = {
     blk_gauge: GaugeBlock,
 };
 
-const Diagram = () => {
-  const [elements, setElements] = useState(initialElements);
+const Diagram = (props) => {
+  const {elements, setElements} = props;
+
+  const onElementClick = (event, element) => console.log('click', element);
+  const onElementsRemove = (elementsToRemove) =>
+    setElements((els) => removeElements(elementsToRemove, els));
 
   const onConnect = (params) => {
       console.log('on connect', params);
       if(params.sourceHandle.split[0] == params.targetHandle.split[0]){
-        setElements((els) => addEdge({ ...params, type: 'smoothstep', style : {stroke: '#333'}, arrowHeadType: 'arrowclosed', animated: true}, els));
+        setElements((els) => addEdge({ ...params, type: 'smoothstep', style : {stroke: '#333'}, arrowHeadType: 'arrowclosed', animated: true, connectionMode: "loose"}, els));
         console.log("Successfully Connected !")
       }
       else {
@@ -61,6 +35,8 @@ const Diagram = () => {
       snapGrid={[10,10]}
       elements={elements} 
       nodeTypes={nodeTypes}
+      onElementsRemove={onElementsRemove}
+      onElementClick={onElementClick}
       onConnect={onConnect}
       connectionLineType={'smoothstep'}
       connectionLineStyle={{stroke: '#333'}}>
