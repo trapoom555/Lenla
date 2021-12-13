@@ -25,13 +25,13 @@ var System = /** @class */ (function () {
     System.prototype.add_element = function (element) {
         this.hash[element.id] = this.childNode.length;
         var node;
-        if (element.type == "blk_constant") {
+        if (element.type == blockType_1.NAME_TYPE.IN_CONSTANT) {
             node = new Constant(element.id, element.data.data);
         }
-        if (element.type == "blk_gauge") {
+        if (element.type == blockType_1.NAME_TYPE.OUT_NUMBER_DISPLAY) {
             node = new NumberDisplay(element.id);
         }
-        if (element.type == "blk_plus") {
+        if (element.type == blockType_1.NAME_TYPE.OP_SUM) {
             node = new Sum(element.id);
         }
         if (node)

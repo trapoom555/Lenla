@@ -4,6 +4,7 @@ export const NAME_TYPE = {
     IN_VECTOR_2D: "vector2d_block",
     //operator
     OP_SUM: "sum_block",
+    OP_LOG: "log_block",
     //output
     OUT_NUMBER_DISPLAY: "number_display_block",
 };

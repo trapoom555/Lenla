@@ -6,11 +6,11 @@ import ReactFlow, {
 import ConstantBlock from "../blocks/blk_constant";
 import GaugeBlock from "../blocks/blk_gauge";
 import PlusBlock from "../blocks/blk_plus";
-
+import { NAME_TYPE } from "../block_system/blockType";
 const nodeTypes = {
-    blk_constant: ConstantBlock,
-    blk_plus: PlusBlock,
-    blk_gauge: GaugeBlock,
+    [NAME_TYPE.IN_CONSTANT]: ConstantBlock,
+    [NAME_TYPE.OP_SUM]: PlusBlock,
+    [NAME_TYPE.OUT_NUMBER_DISPLAY]: GaugeBlock,
 };
 
 const Diagram = (props) => {

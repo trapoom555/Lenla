@@ -10,37 +10,44 @@ import Diagram from "../components/Diagram";
 import CanvasTest from "../components/CanvasTest";
 // import { System } from "../blocks/block";
 import * as Block from "../block_system/sysObj";
-// import { Constant, NumberDisplay, System } from "../blocks/sysObj";
+import { NAME_TYPE } from "../block_system/blockType";
 export default function Create({ user, setUser }) {
     const initialElements = [
         {
             id: "1",
-            type: "blk_constant",
+            type: NAME_TYPE.IN_CONSTANT,
             position: { x: 100, y: 100 },
             data: { type: "Constant", data: 10, portsOut: ["num"] },
             flag: "node",
         },
         {
             id: "2",
-            type: "blk_constant",
+            type: NAME_TYPE.IN_CONSTANT,
             position: { x: 100, y: 100 },
             data: { type: "Constant", data: 5, portsOut: ["num"] },
             flag: "node",
         },
         {
             id: "3",
-            type: "blk_plus",
+            type: NAME_TYPE.OP_SUM,
             position: { x: 100, y: 100 },
             data: { portsIn: ["num", "num"], portsOut: ["num"] },
             flag: "node",
         },
         {
             id: "4",
-            type: "blk_gauge",
+            type: NAME_TYPE.OUT_NUMBER_DISPLAY,
             position: { x: 100, y: 100 },
             data: { portsIn: ["num"] },
             flag: "node",
         },
+        // {
+        //     id: "5",
+        //     type: NAME_TYPE.OP_LOG,
+        //     position: { x: 100, y: 100 },
+        //     data: { portsIn: ["num"] },
+        //     flag: "node",
+        // },
     ];
     const [elements, setElements] = useState(initialElements);
     const system = new Block.System();

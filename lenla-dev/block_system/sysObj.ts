@@ -11,14 +11,14 @@ export class System {
     add_element(element) {
         this.hash[element.id] = this.childNode.length;
         let node: IBlock
-        if (element.type == "blk_constant") {
+        if (element.type == NAME_TYPE.IN_CONSTANT) {
             node = new Constant(element.id, element.data.data);
 
         }
-        if (element.type == "blk_gauge") {
+        if (element.type == NAME_TYPE.OUT_NUMBER_DISPLAY) {
             node = new NumberDisplay(element.id)
         }
-        if (element.type == "blk_plus") {
+        if (element.type == NAME_TYPE.OP_SUM) {
             node = new Sum(element.id)
         }
         if (node)
