@@ -9,7 +9,7 @@ import Selector from "../components/selector";
 import Diagram from "../components/Diagram";
 import CanvasTest from "../components/CanvasTest";
 // import { System } from "../blocks/block";
-import * as Block from "../block_system/sysObj";
+import * as Block from "../block_system/systemObj";
 import { NAME_TYPE } from "../block_system/blockType";
 export default function Create({ user, setUser }) {
     const initialElements = [
