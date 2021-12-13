@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Condition = exports.Plus = exports.Sum = void 0;
+exports.Condition = exports.Greater = exports.Plus = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
 var Sum = /** @class */ (function (_super) {
     __extends(Sum, _super);
@@ -62,6 +62,22 @@ var Plus = /** @class */ (function (_super) {
     return Plus;
 }(block_behavior_1.InOutBlock));
 exports.Plus = Plus;
+var Greater = /** @class */ (function (_super) {
+    __extends(Greater, _super);
+    function Greater(id) {
+        var _this = _super.call(this, id) || this;
+        _this.inValPorts = [null, null];
+        _this.outValPorts = [new block_behavior_1.Bool];
+        return _this;
+    }
+    Greater.prototype.update = function () {
+        this.value = this.inValPorts[0].value >= this.inValPorts[1].value;
+        this.outValPorts[0].value = this.value;
+        // console.log("sum updated")
+    };
+    return Greater;
+}(block_behavior_1.InOutBlock));
+exports.Greater = Greater;
 var Condition = /** @class */ (function (_super) {
     __extends(Condition, _super);
     function Condition(id) {

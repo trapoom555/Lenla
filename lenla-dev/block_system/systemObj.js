@@ -20,6 +20,9 @@ var System = /** @class */ (function () {
         if (element.type == blockType_1.NAME_TYPE.OUT_NUMBER_DISPLAY) {
             node = new OutBlock.NumberDisplay(element.id);
         }
+        if (element.type == blockType_1.NAME_TYPE.OUT_BOOLEAN_DISPLAY) {
+            node = new OutBlock.BoolDisplay(element.id);
+        }
         if (element.type == blockType_1.NAME_TYPE.OP_SUM) {
             node = new InOutBlock.Sum(element.id, element.data.portsIn);
         }
@@ -28,6 +31,9 @@ var System = /** @class */ (function () {
         }
         if (element.type == blockType_1.NAME_TYPE.IN_VECTOR_2D) {
             node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
+        }
+        if (element.type == blockType_1.NAME_TYPE.CON_GREATER) {
+            node = new InOutBlock.Greater(element.id);
         }
         if (node)
             this.childNode.push(node);

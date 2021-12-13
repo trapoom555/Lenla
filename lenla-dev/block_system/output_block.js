@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.NumberDisplay = void 0;
+exports.BoolDisplay = exports.NumberDisplay = void 0;
 var block_behavior_1 = require("./block_behavior");
 var NumberDisplay = /** @class */ (function (_super) {
     __extends(NumberDisplay, _super);
@@ -42,3 +42,28 @@ var NumberDisplay = /** @class */ (function (_super) {
     return NumberDisplay;
 }(block_behavior_1.OutputBlock));
 exports.NumberDisplay = NumberDisplay;
+var BoolDisplay = /** @class */ (function (_super) {
+    __extends(BoolDisplay, _super);
+    // port 0 <Number> : number to display
+    function BoolDisplay(id) {
+        var _this = _super.call(this, id) || this;
+        _this.inValPorts = [null];
+        return _this;
+    }
+    BoolDisplay.prototype.addValPort = function (index, bool) {
+        this.inValPorts[index] = bool;
+    };
+    BoolDisplay.prototype.update = function () {
+        this.value = this.inValPorts[0].value;
+        this.log();
+    };
+    BoolDisplay.prototype.log = function () {
+        console.log("value is ".concat(this.value.toString()));
+        // console.log(this.value)
+    };
+    BoolDisplay.prototype.display = function () {
+        this.log();
+    };
+    return BoolDisplay;
+}(block_behavior_1.OutputBlock));
+exports.BoolDisplay = BoolDisplay;

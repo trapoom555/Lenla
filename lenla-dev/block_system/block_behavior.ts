@@ -100,7 +100,9 @@ class Obj {
 class Int extends Obj {
     value: Int
 }
-
+export class Bool extends Obj {
+    value: boolean
+}
 export class Number extends Obj {
     value: number
 }

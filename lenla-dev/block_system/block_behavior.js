@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.Number = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
+exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
 var blockType_1 = require("./blockType");
 // import { Constant } from "./Input_block.js";
 // export class System {
@@ -117,6 +117,14 @@ var Int = /** @class */ (function (_super) {
     }
     return Int;
 }(Obj));
+var Bool = /** @class */ (function (_super) {
+    __extends(Bool, _super);
+    function Bool() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Bool;
+}(Obj));
+exports.Bool = Bool;
 var Number = /** @class */ (function (_super) {
     __extends(Number, _super);
     function Number() {

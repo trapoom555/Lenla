@@ -1,4 +1,4 @@
-import { InOutBlock, Number } from "./block_behavior";
+import { InOutBlock, Number, Bool } from "./block_behavior";
 
 export class Sum extends InOutBlock {
     inValPorts: Array<Number> = [];
@@ -46,6 +46,21 @@ export class Plus extends InOutBlock {
 
 }
 
+export class Greater extends InOutBlock {
+    inValPorts: Array<Number> = [null, null];
+    outValPorts: Array<Bool> = [new Bool];
+    value: boolean
+    constructor(id: string) {
+        super(id);
+    }
+
+    update() {
+        this.value = this.inValPorts[0].value >= this.inValPorts[1].value
+        this.outValPorts[0].value = this.value
+        // console.log("sum updated")
+    }
+
+}
 export class Condition extends InOutBlock {
     inValPorts: Array<Number> = [null, null];
     outValPorts: Array<Number> = [new Number];

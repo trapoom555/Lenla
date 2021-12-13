@@ -16,6 +16,8 @@ const nodeTypes = {
     [NAME_TYPE.OUT_NUMBER_DISPLAY]: GaugeBlock,
     [NAME_TYPE.Test_OP]: TestBlock,
     [NAME_TYPE.IN_VECTOR_2D]: BasicBlock,
+    [NAME_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
+    [NAME_TYPE.CON_GREATER]: BasicBlock,
 };
 
 const Diagram = (props) => {
