@@ -1,15 +1,15 @@
 
 import { NAME_TYPE, BLOCK_TYPE } from "./blockType";
+
 export class System {
-    hash: {}
+    idToIndex: {}
     childNode: Array<IBlock>
     constructor() {
-        this.hash = {};
+        this.idToIndex = {};
         this.childNode = [];
-
     }
     add_element(element) {
-        this.hash[element.id] = this.childNode.length;
+        this.idToIndex[element.id] = this.childNode.length;
         let node: IBlock
         if (element.type == NAME_TYPE.IN_CONSTANT) {
             node = new Constant(element.id, element.data.data);
@@ -24,10 +24,10 @@ export class System {
         if (node)
             this.childNode.push(node);
     }
-    set_port(sId, tId: string, sPortIndex?, tPortIndex?) {
-        if (!sPortIndex) sPortIndex = 0
-        if (!tPortIndex) tPortIndex = 0
-        let tmp = this.childNode[this.hash[tId]]
+    set_port(sourceId: string, targetId: string, sourcePortIndex?, targetPortIndex?) {
+        if (!sourcePortIndex) sourcePortIndex = 0
+        if (!targetPortIndex) targetPortIndex = 0
+        let tmp = this.childNode[this.idToIndex[targetId]]
         let target: ISub
         if (isISub(tmp)) {
             target = tmp
@@ -35,7 +35,7 @@ export class System {
         else {
 
         }
-        tmp = this.childNode[this.hash[sId]]
+        tmp = this.childNode[this.idToIndex[sourceId]]
         let source: IPub
         if (isIPub(tmp)) {
             source = tmp
@@ -43,30 +43,24 @@ export class System {
         else {
 
         }
-        target.addValPort(tPortIndex, source.outValPort[sPortIndex])
+        target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex])
         let notiPort = new NotiPort
         notiPort.addReciver(target)
-        source.addNotiPort(sPortIndex, notiPort)
+        source.addNotiPort(sourcePortIndex, notiPort)
 
     }
 
     compile() {
         this.childNode.forEach(element => {
-
             if (isIPub(element)) {
                 element.notifyAllPort();
-                // console.log(element.notiPorts)
-                // console.log(`element id ${element.id} notify all port`)
             }
-
-
         });
         this.childNode.forEach(element => {
 
             if (isDisplayable(element)) {
                 element.display();
             }
-
 
         });
 
@@ -85,11 +79,6 @@ interface IBlock {
     id: string
     type: string
 }
-// class BlockGenerator {
-//     public factoryMethod(type:string): IBlock {
-//         if(type==)
-//     }
-// }
 class NotiPort {
     recivers: ISub[] = []
     notify() {
@@ -105,26 +94,25 @@ class NotiPort {
     }
 
 }
-
-interface Int extends Obj {
-    value: Int
-}
-interface Obj {
+class Obj {
     value: any
 }
-class Number implements Obj {
+class Int extends Obj {
+    value: Int
+}
+
+class Number extends Obj {
     value: number
 }
 
 interface ISub extends IBlock {
     inValPorts: Array<Number>
-    // notiPorts: NotiPort[]
     addValPort: (index: number, obj: Obj) => any
     update: () => any
 }
 
 interface IPub extends IBlock {
-    outValPort: Array<Number>
+    outValPorts: Array<Obj>
     notiPorts: NotiPort[];
     addNotiPort: (index: number, port: NotiPort) => any
     notifyAllPort: () => any
@@ -134,55 +122,60 @@ interface IDisplay {
     display: () => any
 }
 
-abstract class InputBlock implements IPub {
+export abstract class InputBlock implements IPub {
     type = BLOCK_TYPE.IN_BLOCK
     id: string
     notiPorts: NotiPort[] = [];
-    outValPort: Array<Number>
+    outValPorts: Array<Obj>
     constructor(id: string) {
         this.id = id
     }
     addNotiPort(index: number, port: NotiPort) {
-
+        this.notiPorts[index] = port
     }
     notifyAllPort() {
         this.notiPorts.forEach(port => {
             port.notify();
-            // console.log(`${this.notiPorts} with id ${this.id} is notified`)
         });
+    }
+    deleteAllPort() {
+        this.notiPorts = []
     }
 
 }
 
-abstract class OutputBlock implements ISub {
+export abstract class OutputBlock implements ISub, IDisplay {
     type = BLOCK_TYPE.OUT_BLOCK
     id: string
-    inValPorts: Array<Number>
+    inValPorts: Array<Obj>
     // ports: NotiPort[] = [];
     constructor(id: string) {
         this.id = id
     }
     addValPort(index: number, obj: Obj) {
-
+        this.inValPorts[index] = obj
     }
 
     update() {
+        this.display();
+    }
+    display() {
 
     }
 
 }
 
-abstract class InOutBlock implements ISub, IPub {
+export abstract class InOutBlock implements ISub, IPub {
     type = BLOCK_TYPE.IN_OUT_BLOCK
     id: string
-    inValPorts: Array<Number>
+    inValPorts: Array<Obj>
     notiPorts: NotiPort[] = [];
-    outValPort: Array<Number>
+    outValPorts: Array<Obj>
     constructor(id: string) {
         this.id = id
     }
     addValPort(index: number, obj: Obj) {
-
+        this.inValPorts[index] = obj
     }
 
     update() {
@@ -201,7 +194,7 @@ abstract class InOutBlock implements ISub, IPub {
 }
 
 export class Constant extends InputBlock {
-    outValPort: Array<Number> = [null];
+    outValPorts: Array<Number> = [null];
 
     notiPorts = [];
 
@@ -210,14 +203,10 @@ export class Constant extends InputBlock {
         console.log("cleate Constant block");
         var num = new Number()
         num.value = value
-        this.outValPort = [num]
+        this.outValPorts = [num]
     }
-    addNotiPort(index: number, port: NotiPort) {
-        this.notiPorts[index] = port
-    }
-    deletePort() {
-        this.notiPorts = []
-    }
+
+
 
 }
 
@@ -241,7 +230,7 @@ export class Vector2D extends InputBlock {
 
 }
 
-export class NumberDisplay extends OutputBlock implements IDisplay {
+export class NumberDisplay extends OutputBlock {
     value: number
     inValPorts: Array<Number> = [null];
 
@@ -267,24 +256,17 @@ export class NumberDisplay extends OutputBlock implements IDisplay {
 
 export class Sum extends InOutBlock {
     inValPorts: Array<Number> = [null, null];
-    outValPort: Array<Number> = [new Number];
+    outValPorts: Array<Number> = [new Number];
     value: number
     constructor(id: string) {
         super(id);
     }
-    addValPort(index: number, num: Number) {
-        this.inValPorts[index] = num
-    }
+
     update() {
         this.value = this.inValPorts[0].value + this.inValPorts[1].value
-        this.outValPort[0].value = this.value
+        this.outValPorts[0].value = this.value
         // console.log("sum updated")
     }
 
-
-
 }
 
-// export class Sum extends InputBlock,OutputBlock{
-
-// }

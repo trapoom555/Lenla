@@ -15,15 +15,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Sum = exports.NumberDisplay = exports.Vector2D = exports.Constant = exports.System = void 0;
+exports.Sum = exports.NumberDisplay = exports.Vector2D = exports.Constant = exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.System = void 0;
 var blockType_1 = require("./blockType");
 var System = /** @class */ (function () {
     function System() {
-        this.hash = {};
+        this.idToIndex = {};
         this.childNode = [];
     }
     System.prototype.add_element = function (element) {
-        this.hash[element.id] = this.childNode.length;
+        this.idToIndex[element.id] = this.childNode.length;
         var node;
         if (element.type == blockType_1.NAME_TYPE.IN_CONSTANT) {
             node = new Constant(element.id, element.data.data);
@@ -37,36 +37,34 @@ var System = /** @class */ (function () {
         if (node)
             this.childNode.push(node);
     };
-    System.prototype.set_port = function (sId, tId, sPortIndex, tPortIndex) {
-        if (!sPortIndex)
-            sPortIndex = 0;
-        if (!tPortIndex)
-            tPortIndex = 0;
-        var tmp = this.childNode[this.hash[tId]];
+    System.prototype.set_port = function (sourceId, targetId, sourcePortIndex, targetPortIndex) {
+        if (!sourcePortIndex)
+            sourcePortIndex = 0;
+        if (!targetPortIndex)
+            targetPortIndex = 0;
+        var tmp = this.childNode[this.idToIndex[targetId]];
         var target;
         if (isISub(tmp)) {
             target = tmp;
         }
         else {
         }
-        tmp = this.childNode[this.hash[sId]];
+        tmp = this.childNode[this.idToIndex[sourceId]];
         var source;
         if (isIPub(tmp)) {
             source = tmp;
         }
         else {
         }
-        target.addValPort(tPortIndex, source.outValPort[sPortIndex]);
+        target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex]);
         var notiPort = new NotiPort;
         notiPort.addReciver(target);
-        source.addNotiPort(sPortIndex, notiPort);
+        source.addNotiPort(sourcePortIndex, notiPort);
     };
     System.prototype.compile = function () {
         this.childNode.forEach(function (element) {
             if (isIPub(element)) {
                 element.notifyAllPort();
-                // console.log(element.notiPorts)
-                // console.log(`element id ${element.id} notify all port`)
             }
         });
         this.childNode.forEach(function (element) {
@@ -87,11 +85,6 @@ function isISub(object) {
 function isIPub(object) {
     return "notifyAllPort" in object;
 }
-// class BlockGenerator {
-//     public factoryMethod(type:string): IBlock {
-//         if(type==)
-//     }
-// }
 var NotiPort = /** @class */ (function () {
     function NotiPort() {
         this.recivers = [];
@@ -109,11 +102,25 @@ var NotiPort = /** @class */ (function () {
     };
     return NotiPort;
 }());
-var Number = /** @class */ (function () {
+var Obj = /** @class */ (function () {
+    function Obj() {
+    }
+    return Obj;
+}());
+var Int = /** @class */ (function (_super) {
+    __extends(Int, _super);
+    function Int() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Int;
+}(Obj));
+var Number = /** @class */ (function (_super) {
+    __extends(Number, _super);
     function Number() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     return Number;
-}());
+}(Obj));
 var InputBlock = /** @class */ (function () {
     function InputBlock(id) {
         this.type = blockType_1.BLOCK_TYPE.IN_BLOCK;
@@ -121,15 +128,19 @@ var InputBlock = /** @class */ (function () {
         this.id = id;
     }
     InputBlock.prototype.addNotiPort = function (index, port) {
+        this.notiPorts[index] = port;
     };
     InputBlock.prototype.notifyAllPort = function () {
         this.notiPorts.forEach(function (port) {
             port.notify();
-            // console.log(`${this.notiPorts} with id ${this.id} is notified`)
         });
+    };
+    InputBlock.prototype.deleteAllPort = function () {
+        this.notiPorts = [];
     };
     return InputBlock;
 }());
+exports.InputBlock = InputBlock;
 var OutputBlock = /** @class */ (function () {
     // ports: NotiPort[] = [];
     function OutputBlock(id) {
@@ -137,11 +148,16 @@ var OutputBlock = /** @class */ (function () {
         this.id = id;
     }
     OutputBlock.prototype.addValPort = function (index, obj) {
+        this.inValPorts[index] = obj;
     };
     OutputBlock.prototype.update = function () {
+        this.display();
+    };
+    OutputBlock.prototype.display = function () {
     };
     return OutputBlock;
 }());
+exports.OutputBlock = OutputBlock;
 var InOutBlock = /** @class */ (function () {
     function InOutBlock(id) {
         this.type = blockType_1.BLOCK_TYPE.IN_OUT_BLOCK;
@@ -149,6 +165,7 @@ var InOutBlock = /** @class */ (function () {
         this.id = id;
     }
     InOutBlock.prototype.addValPort = function (index, obj) {
+        this.inValPorts[index] = obj;
     };
     InOutBlock.prototype.update = function () {
     };
@@ -162,24 +179,19 @@ var InOutBlock = /** @class */ (function () {
     };
     return InOutBlock;
 }());
+exports.InOutBlock = InOutBlock;
 var Constant = /** @class */ (function (_super) {
     __extends(Constant, _super);
     function Constant(id, value) {
         var _this = _super.call(this, id) || this;
-        _this.outValPort = [null];
+        _this.outValPorts = [null];
         _this.notiPorts = [];
         console.log("cleate Constant block");
         var num = new Number();
         num.value = value;
-        _this.outValPort = [num];
+        _this.outValPorts = [num];
         return _this;
     }
-    Constant.prototype.addNotiPort = function (index, port) {
-        this.notiPorts[index] = port;
-    };
-    Constant.prototype.deletePort = function () {
-        this.notiPorts = [];
-    };
     return Constant;
 }(InputBlock));
 exports.Constant = Constant;
@@ -234,19 +246,14 @@ var Sum = /** @class */ (function (_super) {
     function Sum(id) {
         var _this = _super.call(this, id) || this;
         _this.inValPorts = [null, null];
-        _this.outValPort = [new Number];
+        _this.outValPorts = [new Number];
         return _this;
     }
-    Sum.prototype.addValPort = function (index, num) {
-        this.inValPorts[index] = num;
-    };
     Sum.prototype.update = function () {
         this.value = this.inValPorts[0].value + this.inValPorts[1].value;
-        this.outValPort[0].value = this.value;
+        this.outValPorts[0].value = this.value;
         // console.log("sum updated")
     };
     return Sum;
 }(InOutBlock));
 exports.Sum = Sum;
-// export class Sum extends InputBlock,OutputBlock{
-// }
