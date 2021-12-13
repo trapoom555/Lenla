@@ -121,7 +121,12 @@ export interface IPub extends IBlock {
 interface IDisplay {
     display: () => any
 }
-
+function notifyAllPort(notiPorts: NotiPort[]) {
+    notiPorts.forEach(port => {
+        if (port)
+            port.notify();
+    });
+}
 export abstract class InputBlock implements IPub {
     type = BLOCK_TYPE.IN_BLOCK
     id: string
@@ -134,9 +139,7 @@ export abstract class InputBlock implements IPub {
         this.notiPorts[index] = port
     }
     notifyAllPort() {
-        this.notiPorts.forEach(port => {
-            port.notify();
-        });
+        notifyAllPort(this.notiPorts)
     }
     deleteAllPort() {
         this.notiPorts = []
@@ -187,9 +190,7 @@ export abstract class InOutBlock implements ISub, IPub {
         this.notiPorts[index] = port
     }
     notifyAllPort() {
-        this.notiPorts.forEach(port => {
-            port.notify();
-        });
+        notifyAllPort(this.notiPorts)
     }
 }
 

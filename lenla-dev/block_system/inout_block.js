@@ -15,21 +15,66 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Sum = void 0;
+exports.Condition = exports.Plus = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
 var Sum = /** @class */ (function (_super) {
     __extends(Sum, _super);
-    function Sum(id) {
+    function Sum(id, ports_symbol) {
         var _this = _super.call(this, id) || this;
-        _this.inValPorts = [null, null];
+        _this.inValPorts = [];
         _this.outValPorts = [new block_behavior_1.Number];
+        _this.symbols = ports_symbol;
+        for (var i = 0; i < _this.symbols.length; i++) {
+            _this.inValPorts.push(null);
+        }
         return _this;
     }
     Sum.prototype.update = function () {
-        this.value = this.inValPorts[0].value + this.inValPorts[1].value;
+        this.value = 0;
+        for (var i = 0; i < this.symbols.length; i++) {
+            if (this.symbols[i] == "+") {
+                this.value += this.inValPorts[i].value;
+            }
+            else {
+                this.value -= this.inValPorts[i].value;
+            }
+        }
+        this.inValPorts[0].value + this.inValPorts[1].value;
         this.outValPorts[0].value = this.value;
         // console.log("sum updated")
     };
     return Sum;
 }(block_behavior_1.InOutBlock));
 exports.Sum = Sum;
+var Plus = /** @class */ (function (_super) {
+    __extends(Plus, _super);
+    function Plus(id) {
+        var _this = _super.call(this, id) || this;
+        _this.inValPorts = [null, null];
+        _this.outValPorts = [new block_behavior_1.Number];
+        return _this;
+    }
+    Plus.prototype.update = function () {
+        this.value = this.inValPorts[0].value + this.inValPorts[1].value;
+        this.outValPorts[0].value = this.value;
+        // console.log("sum updated")
+    };
+    return Plus;
+}(block_behavior_1.InOutBlock));
+exports.Plus = Plus;
+var Condition = /** @class */ (function (_super) {
+    __extends(Condition, _super);
+    function Condition(id) {
+        var _this = _super.call(this, id) || this;
+        _this.inValPorts = [null, null];
+        _this.outValPorts = [new block_behavior_1.Number];
+        return _this;
+    }
+    Condition.prototype.update = function () {
+        this.value = this.inValPorts[0].value + this.inValPorts[1].value;
+        this.outValPorts[0].value = this.value;
+        // console.log("sum updated")
+    };
+    return Condition;
+}(block_behavior_1.InOutBlock));
+exports.Condition = Condition;

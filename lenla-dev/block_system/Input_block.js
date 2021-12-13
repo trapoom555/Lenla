@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Vector2D = exports.Vector3D = exports.Constant = void 0;
+exports.Vector3D = exports.Vector2D = exports.Constant = void 0;
 var block_behavior_1 = require("./block_behavior");
 var Constant = /** @class */ (function (_super) {
     __extends(Constant, _super);
@@ -32,6 +32,26 @@ var Constant = /** @class */ (function (_super) {
     return Constant;
 }(block_behavior_1.InputBlock));
 exports.Constant = Constant;
+var Vector2D = /** @class */ (function (_super) {
+    __extends(Vector2D, _super);
+    function Vector2D(id, x, y) {
+        var _this = _super.call(this, id) || this;
+        _this.notiPorts = [null, null];
+        _this.outValPorts = [null, null];
+        _this.x = x;
+        _this.y = y;
+        _this.outValPorts = [new block_behavior_1.Number, new block_behavior_1.Number];
+        _this.outValPorts[0].value = x;
+        _this.outValPorts[1].value = y;
+        console.log("cleate 2d vector block");
+        return _this;
+    }
+    Vector2D.prototype.deletePort = function () {
+        this.notiPorts = [null, null];
+    };
+    return Vector2D;
+}(block_behavior_1.InputBlock));
+exports.Vector2D = Vector2D;
 var Vector3D = /** @class */ (function (_super) {
     __extends(Vector3D, _super);
     function Vector3D(id, x, y, z) {
@@ -49,19 +69,3 @@ var Vector3D = /** @class */ (function (_super) {
     return Vector3D;
 }(block_behavior_1.InputBlock));
 exports.Vector3D = Vector3D;
-var Vector2D = /** @class */ (function (_super) {
-    __extends(Vector2D, _super);
-    function Vector2D(id, x, y) {
-        var _this = _super.call(this, id) || this;
-        _this.notiPorts = [null, null];
-        _this.outValPorts = [null, null];
-        _this.x = x;
-        _this.y = y;
-        return _this;
-    }
-    Vector2D.prototype.deletePort = function () {
-        this.notiPorts = [null, null];
-    };
-    return Vector2D;
-}(block_behavior_1.InputBlock));
-exports.Vector2D = Vector2D;

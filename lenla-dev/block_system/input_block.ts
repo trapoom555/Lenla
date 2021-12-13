@@ -15,6 +15,26 @@ export class Constant extends InputBlock {
 
 
 }
+
+export class Vector2D extends InputBlock {
+    public x: number;
+    public y: number;
+    notiPorts = [null, null];
+    outValPorts: Array<Number> = [null, null];
+    constructor(id: string, x: number, y: number) {
+        super(id);
+        this.x = x
+        this.y = y
+        this.outValPorts = [new Number, new Number]
+        this.outValPorts[0].value = x
+        this.outValPorts[1].value = y
+        console.log("cleate 2d vector block");
+    }
+    deletePort() {
+        this.notiPorts = [null, null]
+    }
+
+}
 export class Vector3D extends InputBlock {
     public x: number;
     public y: number;
@@ -27,6 +47,8 @@ export class Vector3D extends InputBlock {
         this.x = x
         this.y = y
         this.z = z
+
+
     }
 
     deletePort() {
@@ -36,19 +58,3 @@ export class Vector3D extends InputBlock {
 
 }
 
-
-export class Vector2D extends InputBlock {
-    public x: number;
-    public y: number;
-    notiPorts = [null, null];
-    outValPorts: Array<Number> = [null, null];
-    constructor(id: string, x: number, y: number) {
-        super(id);
-        this.x = x
-        this.y = y
-    }
-    deletePort() {
-        this.notiPorts = [null, null]
-    }
-
-}

@@ -125,6 +125,12 @@ var Number = /** @class */ (function (_super) {
     return Number;
 }(Obj));
 exports.Number = Number;
+function notifyAllPort(notiPorts) {
+    notiPorts.forEach(function (port) {
+        if (port)
+            port.notify();
+    });
+}
 var InputBlock = /** @class */ (function () {
     function InputBlock(id) {
         this.type = blockType_1.BLOCK_TYPE.IN_BLOCK;
@@ -135,9 +141,7 @@ var InputBlock = /** @class */ (function () {
         this.notiPorts[index] = port;
     };
     InputBlock.prototype.notifyAllPort = function () {
-        this.notiPorts.forEach(function (port) {
-            port.notify();
-        });
+        notifyAllPort(this.notiPorts);
     };
     InputBlock.prototype.deleteAllPort = function () {
         this.notiPorts = [];
@@ -177,9 +181,7 @@ var InOutBlock = /** @class */ (function () {
         this.notiPorts[index] = port;
     };
     InOutBlock.prototype.notifyAllPort = function () {
-        this.notiPorts.forEach(function (port) {
-            port.notify();
-        });
+        notifyAllPort(this.notiPorts);
     };
     return InOutBlock;
 }());

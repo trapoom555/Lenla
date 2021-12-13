@@ -21,7 +21,13 @@ export class System {
             node = new OutBlock.NumberDisplay(element.id)
         }
         if (element.type == NAME_TYPE.OP_SUM) {
-            node = new InOutBlock.Sum(element.id)
+            node = new InOutBlock.Sum(element.id, element.data.portsIn)
+        }
+        if (element.type == NAME_TYPE.OP_ADD) {
+            node = new InOutBlock.Plus(element.id)
+        }
+        if (element.type == NAME_TYPE.IN_VECTOR_2D) {
+            node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
         }
         if (node)
             this.childNode.push(node);

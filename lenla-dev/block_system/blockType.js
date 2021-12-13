@@ -5,8 +5,11 @@ export const NAME_TYPE = {
     //operator
     OP_SUM: "sum_block",
     OP_LOG: "log_block",
+    OP_ADD: "add_block",
     //output
     OUT_NUMBER_DISPLAY: "number_display_block",
+
+    Test_OP: "test block",
 };
 
 export const BLOCK_TYPE = {
