@@ -10,81 +10,39 @@ import Diagram from "../components/Diagram";
 import CanvasTest from "../components/CanvasTest";
 // import { System } from "../blocks/block";
 import * as Block from "../block_system/systemObj";
-import { NAME_TYPE } from "../block_system/blockType";
+import { BLOCK_TYPE } from "../block_system/stringConfig";
 export default function Create({ user, setUser }) {
-    // const initialElements = [];
-    // initialElements.push(
-    //     Block.createElementObj("1", NAME_TYPE.IN_CONSTANT, { value: 5 })
-    // );
-    // initialElements.push(
-    //     Block.createElementObj("2", NAME_TYPE.IN_CONSTANT, { value: 10 })
-    // );
-    // initialElements.push(Block.createElementObj("3", NAME_TYPE.OP_SUM));
-    // initialElements.push(
-    //     Block.createElementObj("4", NAME_TYPE.OUT_NUMBER_DISPLAY)
-    // );
-    const initialElements = [
-        {
-            id: "1",
-            type: NAME_TYPE.IN_CONSTANT,
-            position: { x: 100, y: 100 },
-            data: { type: "Constant", data: 10, portsOut: ["num"] },
-            flag: "node",
-        },
-        {
-            id: "2",
-            type: NAME_TYPE.IN_CONSTANT,
-            position: { x: 100, y: 200 },
-            data: { type: "Constant", data: 5, portsOut: ["num"] },
-            flag: "node",
-        },
-        {
-            id: "3",
-            type: NAME_TYPE.OP_ADD,
-            position: { x: 100, y: 100 },
-            data: { portsIn: ["num", "num"], portsOut: ["num"] },
-            flag: "node",
-        },
-        {
-            id: "4",
-            type: NAME_TYPE.CON_GREATER,
-            position: { x: 300, y: 200 },
-            data: { portsIn: ["a", "b"], portsOut: ["bool"] },
-            flag: "node",
-        },
-        {
-            id: "5",
-            type: NAME_TYPE.OUT_BOOLEAN_DISPLAY,
-            position: { x: 500, y: 200 },
-            data: { portsIn: ["bool"], portsOut: [] },
-            flag: "node",
-        },
-        {
-            id: "6",
-            type: NAME_TYPE.OUT_NUMBER_DISPLAY,
-            position: { x: 100, y: 100 },
-            data: { portsIn: ["num"] },
-            flag: "node",
-        },
-        {
-            id: "7",
-            type: NAME_TYPE.IN_VECTOR_2D,
-            position: { x: 100, y: 300 },
-            data: { portsIn: [], portsOut: ["x", "y"], valOut: [17, 31] },
-            flag: "node",
-        },
-
-        // {
-        //     id: "5",
-        //     type: NAME_TYPE.OP_LOG,
-        //     position: { x: 100, y: 100 },
-        //     data: { portsIn: ["num"] },
-        //     flag: "node",
-        // },
-    ];
-
+    const initialElements = [];
+    initialElements.push(
+        Block.createElementObj(
+            "1",
+            BLOCK_TYPE.IN_CONSTANT,
+            { x: 100, y: 100 },
+            { value: 7 }
+        )
+    );
+    initialElements.push(
+        Block.createElementObj(
+            "2",
+            BLOCK_TYPE.IN_CONSTANT,
+            { x: 100, y: 200 },
+            { value: 9 }
+        )
+    );
+    initialElements.push(
+        Block.createElementObj("3", BLOCK_TYPE.OP_SUM, {
+            x: 300,
+            y: 150,
+        })
+    );
+    initialElements.push(
+        Block.createElementObj("4", BLOCK_TYPE.OUT_NUMBER_DISPLAY, {
+            x: 500,
+            y: 150,
+        })
+    );
     const [elements, setElements] = useState(initialElements);
-    const [selectedElementId, setSelectedElementId] = useState();
+    const [selectedElementId, setSelectedElementId] = useState(-1);
     const system = new Block.System();
     function getIntFromString(str) {
         let n = str.length;
@@ -142,10 +100,16 @@ export default function Create({ user, setUser }) {
                     <Diagram
                         elements={elements}
                         setElements={setElements}
-                        setSelectedElement={setSelectedElementId}
+                        setSelectedElement={(x) => {
+                            setSelectedElementId(x);
+                        }}
                     />
 
-                    <Inspector elements={elements} setElements={setElements} />
+                    <Inspector
+                        elements={elements}
+                        setElements={setElements}
+                        selectedElementId={selectedElementId}
+                    />
                 </div>
 
                 <Selector />

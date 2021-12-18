@@ -12,7 +12,7 @@ export class NumberDisplay extends OutputBlock {
     }
     updateContent() {
         this.value = this.inValPorts[0].value
-        this.log();
+        // this.log();
     }
     log() {
         console.log(`value is ${this.value.toString()}`)

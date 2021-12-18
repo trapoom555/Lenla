@@ -1,6 +1,5 @@
 import React from "react";
 import { Handle } from "react-flow-renderer";
-
 const PlusBlockStyle = {
     background: "#E0F0F0",
     color: "#000000",
@@ -15,24 +14,31 @@ export const BasicBlock = (element) => {
     let inPorts = [];
     let outPorts = [];
     const { data } = element;
-    const n = data.portsIn.length;
+    // console.log("fuck");
+    // console.log(element);
+    let n = 0;
     let i = 0;
+    for (i = 0; i < data.port.in.length; i++) {
+        if (data.port.inEnable[i] == true) {
+            n++;
+        }
+    }
     let space = 100 / (n + 1);
     for (i = 0; i < n; i++) {
         inPorts.push({
             i: i + 1,
-            data: data.portsIn[i],
+            data: data.port.in[i],
             top: space * (i + 1) - 12,
             top2: space * (i + 1),
         });
     }
-    n = data.portsOut.length;
+    n = data.port.out.length;
     i = 0;
     space = 100 / (n + 1);
     for (i = 0; i < n; i++) {
         outPorts.push({
             i: i + 1,
-            data: data.portsOut[i],
+            data: data.port.out[i],
             top: space * (i + 1) - 12,
             top2: space * (i + 1),
         });

@@ -1,5 +1,5 @@
 
-import { NAME_TYPE, BLOCK_TYPE } from "./blockType";
+import { BLOCK_TYPE, BLOCK_CATE } from "./stringConfig";
 // import { Constant } from "./Input_block.js";
 // export class System {
 //     idToIndex: {}
@@ -11,14 +11,14 @@ import { NAME_TYPE, BLOCK_TYPE } from "./blockType";
 //     add_element(element) {
 //         this.idToIndex[element.id] = this.childNode.length;
 //         let node: IBlock
-//         if (element.type == NAME_TYPE.IN_CONSTANT) {
+//         if (element.type == BLOCK_TYPE.IN_CONSTANT) {
 //             node = new Constant(element.id, element.data.data);
 
 //         }
-//         if (element.type == NAME_TYPE.OUT_NUMBER_DISPLAY) {
+//         if (element.type == BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
 //             node = new NumberDisplay(element.id)
 //         }
-//         if (element.type == NAME_TYPE.OP_SUM) {
+//         if (element.type == BLOCK_TYPE.OP_SUM) {
 //             node = new Sum(element.id)
 //         }
 //         if (node)
@@ -130,7 +130,7 @@ function notifyAllPort(notiPorts: NotiPort[]) {
     });
 }
 export abstract class InputBlock implements IPub {
-    type = BLOCK_TYPE.IN_BLOCK
+    type = BLOCK_CATE.IN_BLOCK
     id: string
     notiPorts: NotiPort[] = [];
     outValPorts: Array<Obj>
@@ -150,7 +150,7 @@ export abstract class InputBlock implements IPub {
 }
 
 export abstract class OutputBlock implements ISub, IDisplay {
-    type = BLOCK_TYPE.OUT_BLOCK
+    type = BLOCK_CATE.OUT_BLOCK
     id: string
     inValPorts: Array<Obj>
     // ports: NotiPort[] = [];
@@ -189,7 +189,7 @@ export abstract class OutputBlock implements ISub, IDisplay {
 }
 
 export abstract class InOutBlock implements ISub, IPub {
-    type = BLOCK_TYPE.IN_OUT_BLOCK
+    type = BLOCK_CATE.IN_OUT_BLOCK
     id: string
     inValPorts: Array<Obj>
     notiPorts: NotiPort[] = [];

@@ -11,8 +11,8 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.createElementObj = exports.System = void 0;
-var blockType_1 = require("./blockType");
+exports.blockConfig = exports.createElementObj = exports.System = void 0;
+var stringConfig_1 = require("./stringConfig");
 var InBlock = require("./Input_block");
 var Block = require("./block_behavior");
 var OutBlock = require("./output_block");
@@ -25,25 +25,25 @@ var System = /** @class */ (function () {
     System.prototype.add_element = function (element) {
         this.idToIndex[element.id] = this.childNode.length;
         var node;
-        if (element.type == blockType_1.NAME_TYPE.IN_CONSTANT) {
-            node = new InBlock.Constant(element.id, element.data.data);
+        if (element.type == stringConfig_1.BLOCK_TYPE.IN_CONSTANT) {
+            node = new InBlock.Constant(element.id, element.data.info[0].value);
         }
-        if (element.type == blockType_1.NAME_TYPE.OUT_NUMBER_DISPLAY) {
+        if (element.type == stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
             node = new OutBlock.NumberDisplay(element.id);
         }
-        if (element.type == blockType_1.NAME_TYPE.OUT_BOOLEAN_DISPLAY) {
+        if (element.type == stringConfig_1.BLOCK_TYPE.OUT_BOOLEAN_DISPLAY) {
             node = new OutBlock.BoolDisplay(element.id);
         }
-        if (element.type == blockType_1.NAME_TYPE.OP_SUM) {
-            node = new InOutBlock.Sum(element.id, element.data.portsIn);
+        if (element.type == stringConfig_1.BLOCK_TYPE.OP_SUM) {
+            node = new InOutBlock.Sum(element.id, element.data.port["in"]);
         }
-        if (element.type == blockType_1.NAME_TYPE.OP_ADD) {
+        if (element.type == stringConfig_1.BLOCK_TYPE.OP_ADD) {
             node = new InOutBlock.Plus(element.id);
         }
-        if (element.type == blockType_1.NAME_TYPE.IN_VECTOR_2D) {
-            node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
-        }
-        if (element.type == blockType_1.NAME_TYPE.CON_GREATER) {
+        // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
+        //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
+        // }
+        if (element.type == stringConfig_1.BLOCK_TYPE.CON_GREATER) {
             node = new InOutBlock.Greater(element.id);
         }
         if (node)
@@ -79,11 +79,11 @@ var System = /** @class */ (function () {
                 element.notifyAllPort();
             }
         });
-        this.childNode.forEach(function (element) {
-            if (Block.isDisplayable(element)) {
-                element.display();
-            }
-        });
+        // this.childNode.forEach(element => {
+        //     if (Block.isDisplayable(element)) {
+        //         element.update();
+        //     }
+        // });
     };
     return System;
 }());
@@ -97,38 +97,80 @@ function createElementObj(id, type, position, data, name) {
         position: position,
         type: type,
         port: {},
-        data: {},
         flag: "node"
     };
     switch (type) {
-        case blockType_1.NAME_TYPE.IN_CONSTANT:
-            return __assign(__assign({}, obj), { port: {
-                    "in": [],
-                    inType: [],
-                    out: ["value"],
-                    outType: ["num"],
-                    inEnable: []
-                }, data: {
-                    data: data.value
+        case stringConfig_1.BLOCK_TYPE.IN_CONSTANT:
+            return __assign(__assign({}, obj), { data: {
+                    // data: data.value,
+                    info: [{
+                            index: 0,
+                            name: "value",
+                            value: data.value,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                        }],
+                    port: {
+                        "in": [],
+                        inType: [],
+                        out: ["value"],
+                        outType: ["num"],
+                        inEnable: []
+                    }
                 } });
-        case blockType_1.NAME_TYPE.OP_SUM:
-            return __assign(__assign({}, obj), { port: {
-                    "in": ["+", "+"],
-                    inType: ["num,num"],
-                    out: ["value"],
-                    outType: ["num"],
-                    inEnable: [true, true]
-                }, data: {
-                    symbol: ["+", "+"]
+        case stringConfig_1.BLOCK_TYPE.OP_SUM:
+            return __assign(__assign({}, obj), { data: {
+                    info: [{
+                            index: 0,
+                            name: "sum result",
+                            value: null,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.OUT_NUM
+                        }],
+                    symbol: ["+", "+"],
+                    port: {
+                        "in": ["+", "+"],
+                        inType: ["num,num"],
+                        out: ["value"],
+                        outType: ["num"],
+                        inEnable: [true, true]
+                    }
                 } });
-        case blockType_1.NAME_TYPE.OUT_NUMBER_DISPLAY:
-            return __assign(__assign({}, obj), { port: {
-                    "in": ["num"],
-                    inType: ["num"],
-                    out: [],
-                    outType: [],
-                    inEnable: [true]
-                }, data: {} });
+        case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+            return __assign(__assign({}, obj), { data: {
+                    info: [{
+                            index: 0,
+                            name: "value",
+                            value: null,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.OUT_NUM
+                        }],
+                    port: {
+                        "in": ["num"],
+                        inType: ["num"],
+                        out: [],
+                        outType: [],
+                        inEnable: [true]
+                    }
+                } });
     }
 }
 exports.createElementObj = createElementObj;
+function blockConfig(type) {
+    switch (type) {
+        case stringConfig_1.BLOCK_TYPE.IN_CONSTANT:
+            return {
+                limitIn: [0, 0],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.OP_SUM:
+            return {
+                limitIn: [2, "inf"],
+                choice: ["+", "-"],
+                choiceType: ["num", "num"]
+            };
+        case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+            return {
+                limitIn: [1, 1],
+                choice: []
+            };
+    }
+}
+exports.blockConfig = blockConfig;

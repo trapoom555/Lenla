@@ -1,4 +1,4 @@
-export const NAME_TYPE = {
+export const BLOCK_TYPE = {
     // input
     IN_CONSTANT: "constant_block",
     IN_VECTOR_2D: "vector2d_block",
@@ -16,11 +16,17 @@ export const NAME_TYPE = {
     Test_OP: "test block",
 };
 
-export const BLOCK_TYPE = {
+export const BLOCK_CATE = {
     // input
     IN_BLOCK: "input_block",
     //operator
     OUT_BLOCK: "output_block",
     //output
     IN_OUT_BLOCK: "operation_block",
+};
+
+export const INS_DISPLAY_TYPE = {
+    INPUT_NUM: "input(num)",
+    INPUT_BOOL: "input(bool",
+    OUT_NUM: "output(num)",
 };

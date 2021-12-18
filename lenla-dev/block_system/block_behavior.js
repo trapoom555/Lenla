@@ -16,7 +16,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
-var blockType_1 = require("./blockType");
+var stringConfig_1 = require("./stringConfig");
 // import { Constant } from "./Input_block.js";
 // export class System {
 //     idToIndex: {}
@@ -28,13 +28,13 @@ var blockType_1 = require("./blockType");
 //     add_element(element) {
 //         this.idToIndex[element.id] = this.childNode.length;
 //         let node: IBlock
-//         if (element.type == NAME_TYPE.IN_CONSTANT) {
+//         if (element.type == BLOCK_TYPE.IN_CONSTANT) {
 //             node = new Constant(element.id, element.data.data);
 //         }
-//         if (element.type == NAME_TYPE.OUT_NUMBER_DISPLAY) {
+//         if (element.type == BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
 //             node = new NumberDisplay(element.id)
 //         }
-//         if (element.type == NAME_TYPE.OP_SUM) {
+//         if (element.type == BLOCK_TYPE.OP_SUM) {
 //             node = new Sum(element.id)
 //         }
 //         if (node)
@@ -141,7 +141,7 @@ function notifyAllPort(notiPorts) {
 }
 var InputBlock = /** @class */ (function () {
     function InputBlock(id) {
-        this.type = blockType_1.BLOCK_TYPE.IN_BLOCK;
+        this.type = stringConfig_1.BLOCK_CATE.IN_BLOCK;
         this.notiPorts = [];
         this.id = id;
     }
@@ -160,7 +160,7 @@ exports.InputBlock = InputBlock;
 var OutputBlock = /** @class */ (function () {
     // ports: NotiPort[] = [];
     function OutputBlock(id) {
-        this.type = blockType_1.BLOCK_TYPE.OUT_BLOCK;
+        this.type = stringConfig_1.BLOCK_CATE.OUT_BLOCK;
         this.id = id;
     }
     OutputBlock.prototype.addValPort = function (index, obj) {
@@ -192,7 +192,7 @@ var OutputBlock = /** @class */ (function () {
 exports.OutputBlock = OutputBlock;
 var InOutBlock = /** @class */ (function () {
     function InOutBlock(id) {
-        this.type = blockType_1.BLOCK_TYPE.IN_OUT_BLOCK;
+        this.type = stringConfig_1.BLOCK_CATE.IN_OUT_BLOCK;
         this.notiPorts = [];
         this.id = id;
     }

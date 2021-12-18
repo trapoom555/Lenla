@@ -30,7 +30,7 @@ var NumberDisplay = /** @class */ (function (_super) {
     };
     NumberDisplay.prototype.updateContent = function () {
         this.value = this.inValPorts[0].value;
-        this.log();
+        // this.log();
     };
     NumberDisplay.prototype.log = function () {
         console.log("value is ".concat(this.value.toString()));

@@ -7,24 +7,24 @@ import ConstantBlock from "../blocks/blk_constant";
 import GaugeBlock from "../blocks/blk_gauge";
 import PlusBlock from "../blocks/blk_plus";
 import { TestBlock } from "../blocks/test_block";
-import { NAME_TYPE } from "../block_system/blockType";
+import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { BasicBlock } from "../blocks/base_block";
 const nodeTypes = {
-    [NAME_TYPE.IN_CONSTANT]: ConstantBlock,
-    [NAME_TYPE.OP_SUM]: BasicBlock,
-    [NAME_TYPE.OP_ADD]: PlusBlock,
-    [NAME_TYPE.OUT_NUMBER_DISPLAY]: GaugeBlock,
-    [NAME_TYPE.Test_OP]: TestBlock,
-    [NAME_TYPE.IN_VECTOR_2D]: BasicBlock,
-    [NAME_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
-    [NAME_TYPE.CON_GREATER]: BasicBlock,
+    [BLOCK_TYPE.IN_CONSTANT]: BasicBlock,
+    [BLOCK_TYPE.OP_SUM]: BasicBlock,
+    [BLOCK_TYPE.OP_ADD]: BasicBlock,
+    [BLOCK_TYPE.OUT_NUMBER_DISPLAY]: BasicBlock,
+    [BLOCK_TYPE.Test_OP]: BasicBlock,
+    [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,
+    [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
+    [BLOCK_TYPE.CON_GREATER]: BasicBlock,
 };
 
 const Diagram = (props) => {
     const { elements, setElements, setSelectedElement } = props;
 
     const onElementClick = (event, element) => {
-        console.log("click", element);
+        // console.log("click", element.id);
         setSelectedElement(element.id);
     };
     const onElementsRemove = (elementsToRemove) =>
@@ -65,7 +65,7 @@ const Diagram = (props) => {
                 onConnect={onConnect}
                 connectionLineType={"smoothstep"}
                 connectionLineStyle={{ stroke: "#333" }}
-                key="edges"
+                // key="edges"
             >
                 <Background variant="dots" gap={10} size={0.5} />
             </ReactFlow>

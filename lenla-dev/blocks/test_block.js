@@ -13,14 +13,20 @@ let array = [];
 
 export const TestBlock = (element) => {
     // console.log(element);
-    const { data } = element;
-    const n = data.portsIn.length;
+    const { data, port } = element;
+
+    let n = 0;
     let i = 0;
+    for (i = 0; i < port.in.length; i++) {
+        if (port.inEnable[i] == true) {
+            n++;
+        }
+    }
     let space = 100 / (n + 1);
     for (i = 0; i < n; i++) {
         array.push({
             i: i + 1,
-            data: data.portsIn[i],
+            data: port.in[i],
             top: space * (i + 1) - 12,
             top2: space * (i + 1),
         });
