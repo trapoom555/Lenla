@@ -1,6 +1,17 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
-exports.System = void 0;
+exports.createElementObj = exports.System = void 0;
 var blockType_1 = require("./blockType");
 var InBlock = require("./Input_block");
 var Block = require("./block_behavior");
@@ -77,3 +88,47 @@ var System = /** @class */ (function () {
     return System;
 }());
 exports.System = System;
+function createElementObj(id, type, position, data, name) {
+    if (position === void 0) { position = { x: 100, y: 100 }; }
+    if (data === void 0) { data = {}; }
+    var obj = {
+        id: id,
+        name: name,
+        position: position,
+        type: type,
+        port: {},
+        data: {},
+        flag: "node"
+    };
+    switch (type) {
+        case blockType_1.NAME_TYPE.IN_CONSTANT:
+            return __assign(__assign({}, obj), { port: {
+                    "in": [],
+                    inType: [],
+                    out: ["value"],
+                    outType: ["num"],
+                    inEnable: []
+                }, data: {
+                    data: data.value
+                } });
+        case blockType_1.NAME_TYPE.OP_SUM:
+            return __assign(__assign({}, obj), { port: {
+                    "in": ["+", "+"],
+                    inType: ["num,num"],
+                    out: ["value"],
+                    outType: ["num"],
+                    inEnable: [true, true]
+                }, data: {
+                    symbol: ["+", "+"]
+                } });
+        case blockType_1.NAME_TYPE.OUT_NUMBER_DISPLAY:
+            return __assign(__assign({}, obj), { port: {
+                    "in": ["num"],
+                    inType: ["num"],
+                    out: [],
+                    outType: [],
+                    inEnable: [true]
+                }, data: {} });
+    }
+}
+exports.createElementObj = createElementObj;

@@ -12,6 +12,17 @@ import CanvasTest from "../components/CanvasTest";
 import * as Block from "../block_system/systemObj";
 import { NAME_TYPE } from "../block_system/blockType";
 export default function Create({ user, setUser }) {
+    // const initialElements = [];
+    // initialElements.push(
+    //     Block.createElementObj("1", NAME_TYPE.IN_CONSTANT, { value: 5 })
+    // );
+    // initialElements.push(
+    //     Block.createElementObj("2", NAME_TYPE.IN_CONSTANT, { value: 10 })
+    // );
+    // initialElements.push(Block.createElementObj("3", NAME_TYPE.OP_SUM));
+    // initialElements.push(
+    //     Block.createElementObj("4", NAME_TYPE.OUT_NUMBER_DISPLAY)
+    // );
     const initialElements = [
         {
             id: "1",
@@ -29,34 +40,34 @@ export default function Create({ user, setUser }) {
         },
         {
             id: "3",
-            type: NAME_TYPE.OUT_NUMBER_DISPLAY,
+            type: NAME_TYPE.OP_ADD,
             position: { x: 100, y: 100 },
             data: { portsIn: ["num", "num"], portsOut: ["num"] },
             flag: "node",
         },
         {
-            id: "8",
+            id: "4",
             type: NAME_TYPE.CON_GREATER,
             position: { x: 300, y: 200 },
             data: { portsIn: ["a", "b"], portsOut: ["bool"] },
             flag: "node",
         },
         {
-            id: "4",
+            id: "5",
             type: NAME_TYPE.OUT_BOOLEAN_DISPLAY,
             position: { x: 500, y: 200 },
             data: { portsIn: ["bool"], portsOut: [] },
             flag: "node",
         },
-        // {
-        //     id: "11",
-        //     type: NAME_TYPE.OUT_NUMBER_DISPLAY,
-        //     position: { x: 100, y: 100 },
-        //     data: { portsIn: ["num"] },
-        //     flag: "node",
-        // },
         {
-            id: "5",
+            id: "6",
+            type: NAME_TYPE.OUT_NUMBER_DISPLAY,
+            position: { x: 100, y: 100 },
+            data: { portsIn: ["num"] },
+            flag: "node",
+        },
+        {
+            id: "7",
             type: NAME_TYPE.IN_VECTOR_2D,
             position: { x: 100, y: 300 },
             data: { portsIn: [], portsOut: ["x", "y"], valOut: [17, 31] },
@@ -71,7 +82,9 @@ export default function Create({ user, setUser }) {
         //     flag: "node",
         // },
     ];
+
     const [elements, setElements] = useState(initialElements);
+    const [selectedElementId, setSelectedElementId] = useState();
     const system = new Block.System();
     function getIntFromString(str) {
         let n = str.length;
@@ -126,7 +139,11 @@ export default function Create({ user, setUser }) {
                     />
                 </div> */}
                 <div className="flexContent">
-                    <Diagram elements={elements} setElements={setElements} />
+                    <Diagram
+                        elements={elements}
+                        setElements={setElements}
+                        setSelectedElement={setSelectedElementId}
+                    />
 
                     <Inspector elements={elements} setElements={setElements} />
                 </div>

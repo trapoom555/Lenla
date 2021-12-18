@@ -13,7 +13,7 @@ export class Sum extends InOutBlock {
         }
     }
 
-    update() {
+    updateContent() {
         this.value = 0
         for (let i = 0; i < this.symbols.length; i++) {
             if (this.symbols[i] == "+") {
@@ -38,7 +38,7 @@ export class Plus extends InOutBlock {
         super(id);
     }
 
-    update() {
+    updateContent() {
         this.value = this.inValPorts[0].value + this.inValPorts[1].value
         this.outValPorts[0].value = this.value
         // console.log("sum updated")
@@ -54,8 +54,72 @@ export class Greater extends InOutBlock {
         super(id);
     }
 
-    update() {
+    updateContent() {
+        this.value = this.inValPorts[0].value > this.inValPorts[1].value
+        this.outValPorts[0].value = this.value
+        // console.log("sum updated")
+    }
+
+}
+
+export class GreaterOrEqual extends InOutBlock {
+    inValPorts: Array<Number> = [null, null];
+    outValPorts: Array<Bool> = [new Bool];
+    value: boolean
+    constructor(id: string) {
+        super(id);
+    }
+
+    updateContent() {
         this.value = this.inValPorts[0].value >= this.inValPorts[1].value
+        this.outValPorts[0].value = this.value
+        // console.log("sum updated")
+    }
+
+}
+
+export class AND extends InOutBlock {
+    inValPorts: Array<Bool> = [null, null];
+    outValPorts: Array<Bool> = [new Bool];
+    value: boolean
+    constructor(id: string) {
+        super(id);
+    }
+
+    updateContent() {
+        this.value = this.inValPorts[0].value && this.inValPorts[1].value
+        this.outValPorts[0].value = this.value
+        // console.log("sum updated")
+    }
+
+}
+
+export class OR extends InOutBlock {
+    inValPorts: Array<Bool> = [null, null];
+    outValPorts: Array<Bool> = [new Bool];
+    value: boolean
+    constructor(id: string) {
+        super(id);
+    }
+
+    updateContent() {
+        this.value = this.inValPorts[0].value || this.inValPorts[1].value
+        this.outValPorts[0].value = this.value
+        // console.log("sum updated")
+    }
+
+}
+
+export class NOT extends InOutBlock {
+    inValPorts: Array<Bool> = [null];
+    outValPorts: Array<Bool> = [new Bool];
+    value: boolean
+    constructor(id: string) {
+        super(id);
+    }
+
+    updateContent() {
+        this.value = !this.inValPorts[0].value
         this.outValPorts[0].value = this.value
         // console.log("sum updated")
     }
@@ -69,7 +133,7 @@ export class Condition extends InOutBlock {
         super(id);
     }
 
-    update() {
+    updateContent() {
         this.value = this.inValPorts[0].value + this.inValPorts[1].value
         this.outValPorts[0].value = this.value
         // console.log("sum updated")

@@ -10,7 +10,7 @@ export class NumberDisplay extends OutputBlock {
     addValPort(index: number, num: Number) {
         this.inValPorts[index] = num
     }
-    update() {
+    updateContent() {
         this.value = this.inValPorts[0].value
         this.log();
     }
@@ -18,7 +18,7 @@ export class NumberDisplay extends OutputBlock {
         console.log(`value is ${this.value.toString()}`)
         // console.log(this.value)
     }
-    display() {
+    displayContent() {
         this.log();
     }
 }
@@ -34,7 +34,7 @@ export class BoolDisplay extends OutputBlock {
     addValPort(index: number, bool: Bool) {
         this.inValPorts[index] = bool
     }
-    update() {
+    updateContent() {
         this.value = this.inValPorts[0].value
         this.log();
     }
@@ -42,7 +42,7 @@ export class BoolDisplay extends OutputBlock {
         console.log(`value is ${this.value.toString()}`)
         // console.log(this.value)
     }
-    display() {
+    displayContent() {
         this.log();
     }
 }

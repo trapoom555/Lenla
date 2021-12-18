@@ -160,12 +160,30 @@ export abstract class OutputBlock implements ISub, IDisplay {
     addValPort(index: number, obj: Obj) {
         this.inValPorts[index] = obj
     }
+    updateContent() {
+
+    }
 
     update() {
-        this.display();
+        try {
+            this.updateContent();
+            this.display();
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
+    displayContent() {
+
     }
     display() {
-
+        try {
+            this.displayContent();
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
 }
@@ -183,7 +201,21 @@ export abstract class InOutBlock implements ISub, IPub {
         this.inValPorts[index] = obj
     }
 
+    updateContent() {
+
+    }
+
     update() {
+        let check = 0
+        this.inValPorts.forEach(portVal => {
+            if (portVal == null) {
+                console.log("inValPorts is null")
+                check = 1
+            }
+        });
+        if (check == 0) {
+            this.updateContent();
+        }
 
     }
 

@@ -166,10 +166,26 @@ var OutputBlock = /** @class */ (function () {
     OutputBlock.prototype.addValPort = function (index, obj) {
         this.inValPorts[index] = obj;
     };
+    OutputBlock.prototype.updateContent = function () {
+    };
     OutputBlock.prototype.update = function () {
-        this.display();
+        try {
+            this.updateContent();
+            this.display();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+    OutputBlock.prototype.displayContent = function () {
     };
     OutputBlock.prototype.display = function () {
+        try {
+            this.displayContent();
+        }
+        catch (err) {
+            console.log(err);
+        }
     };
     return OutputBlock;
 }());
@@ -183,7 +199,19 @@ var InOutBlock = /** @class */ (function () {
     InOutBlock.prototype.addValPort = function (index, obj) {
         this.inValPorts[index] = obj;
     };
+    InOutBlock.prototype.updateContent = function () {
+    };
     InOutBlock.prototype.update = function () {
+        var check = 0;
+        this.inValPorts.forEach(function (portVal) {
+            if (portVal == null) {
+                console.log("inValPorts is null");
+                check = 1;
+            }
+        });
+        if (check == 0) {
+            this.updateContent();
+        }
     };
     InOutBlock.prototype.addNotiPort = function (index, port) {
         this.notiPorts[index] = port;

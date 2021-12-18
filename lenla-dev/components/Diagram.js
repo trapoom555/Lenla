@@ -21,9 +21,12 @@ const nodeTypes = {
 };
 
 const Diagram = (props) => {
-    const { elements, setElements } = props;
+    const { elements, setElements, setSelectedElement } = props;
 
-    const onElementClick = (event, element) => console.log("click", element);
+    const onElementClick = (event, element) => {
+        console.log("click", element);
+        setSelectedElement(element.id);
+    };
     const onElementsRemove = (elementsToRemove) =>
         setElements((els) => removeElements(elementsToRemove, els));
 
@@ -62,6 +65,7 @@ const Diagram = (props) => {
                 onConnect={onConnect}
                 connectionLineType={"smoothstep"}
                 connectionLineStyle={{ stroke: "#333" }}
+                key="edges"
             >
                 <Background variant="dots" gap={10} size={0.5} />
             </ReactFlow>

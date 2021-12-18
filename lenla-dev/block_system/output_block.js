@@ -28,7 +28,7 @@ var NumberDisplay = /** @class */ (function (_super) {
     NumberDisplay.prototype.addValPort = function (index, num) {
         this.inValPorts[index] = num;
     };
-    NumberDisplay.prototype.update = function () {
+    NumberDisplay.prototype.updateContent = function () {
         this.value = this.inValPorts[0].value;
         this.log();
     };
@@ -36,7 +36,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         console.log("value is ".concat(this.value.toString()));
         // console.log(this.value)
     };
-    NumberDisplay.prototype.display = function () {
+    NumberDisplay.prototype.displayContent = function () {
         this.log();
     };
     return NumberDisplay;
@@ -53,7 +53,7 @@ var BoolDisplay = /** @class */ (function (_super) {
     BoolDisplay.prototype.addValPort = function (index, bool) {
         this.inValPorts[index] = bool;
     };
-    BoolDisplay.prototype.update = function () {
+    BoolDisplay.prototype.updateContent = function () {
         this.value = this.inValPorts[0].value;
         this.log();
     };
@@ -61,7 +61,7 @@ var BoolDisplay = /** @class */ (function (_super) {
         console.log("value is ".concat(this.value.toString()));
         // console.log(this.value)
     };
-    BoolDisplay.prototype.display = function () {
+    BoolDisplay.prototype.displayContent = function () {
         this.log();
     };
     return BoolDisplay;

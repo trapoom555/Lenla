@@ -80,3 +80,67 @@ export class System {
 
     }
 }
+
+export function createElementObj(id: string, type: string, position = { x: 100, y: 100 }, data: any = {}, name?: string) {
+    let obj = {
+        id,
+        name,
+        position,
+        type,
+        port: {},
+        data: {},
+        flag: "node"
+    }
+    switch (type) {
+        case NAME_TYPE.IN_CONSTANT:
+            return {
+                ...obj,
+                port:
+                {
+                    in: [],
+                    inType: [],
+                    out: ["value"],
+                    outType: ["num"],
+                    inEnable: [],
+                },
+                data:
+                {
+                    data: data.value
+                }
+            }
+        case NAME_TYPE.OP_SUM:
+            return {
+                ...obj,
+                port:
+                {
+                    in: ["+", "+"],
+                    inType: ["num,num"],
+                    out: ["value"],
+                    outType: ["num"],
+                    inEnable: [true, true],
+                },
+                data:
+                {
+                    symbol: ["+", "+"]
+                }
+            }
+        case NAME_TYPE.OUT_NUMBER_DISPLAY:
+            return {
+                ...obj,
+                port:
+                {
+                    in: ["num"],
+                    inType: ["num"],
+                    out: [],
+                    outType: [],
+                    inEnable: [true],
+                },
+                data:
+                {
+
+                }
+            }
+    }
+
+
+}
