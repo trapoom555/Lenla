@@ -100,15 +100,18 @@ export default function Create({ user, setUser }) {
                 </div>
 
                 <div className="flexContent" style = {{display: displayState == 0 ? '' : 'none'}}>
-                    <Diagram
-                        elements={elements}
-                        setElements={setElements}
-                        setSelectedElement={(x) => {
-                            setSelectedElementId(x);
-                        }}
-                        width = {1000}
-                        height = {650}
-                    />
+                    <div>
+                        <Diagram
+                            elements={elements}
+                            setElements={setElements}
+                            setSelectedElement={(x) => {
+                                setSelectedElementId(x);
+                            }}
+                            width = {1000}
+                            height = {650}
+                        />
+                    </div>
+                    
 
                     <Inspector
                         elements={elements}
@@ -120,7 +123,6 @@ export default function Create({ user, setUser }) {
                 <div className="flexContent" style = {{display: displayState == 1 ? '' : 'none'}}>
                     <div>
                         <CanvasTest
-                        className = "canvasTest"
                         width = {1000}
                         height = {650}
                         />
@@ -145,7 +147,6 @@ export default function Create({ user, setUser }) {
                             height = {325}
                         />
                         <CanvasTest
-                            className = "canvasTest"
                             width = {1000}
                             height = {325}
                         />
