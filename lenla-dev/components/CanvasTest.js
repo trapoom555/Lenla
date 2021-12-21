@@ -39,8 +39,9 @@ let a = new eSus(50, 50, 35, 0);
 let eSusList = [a];
 let count = 1;
 export default forwardRef((props, ref) => {
+    const {width, height} = props;
     const setup = (p5, canvasParentRef) => {
-        p5.createCanvas(500, 500).parent(canvasParentRef);
+        p5.createCanvas(width, height).parent(canvasParentRef);
     };
 
     useImperativeHandle(ref, () => ({

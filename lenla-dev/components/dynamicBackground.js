@@ -6,9 +6,6 @@ const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
 })
 
 export default function DynamicBackground(props) {
-	let circleX = 100;
-let circleY = 100;
-let diameter = 150;
 	const setup = (p5, canvasParentRef) => {
 		let width = window.innerWidth;
 		let height = window.innerHeight;
@@ -39,5 +36,5 @@ let diameter = 150;
 		
 	};
 
-	return <Sketch setup={setup} draw={draw} />;
+	return <Sketch style={{position: "absolute", left: "0px", top: "0px", zIndex: "-1"}} setup={setup} draw={draw} />;
 };

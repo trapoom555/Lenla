@@ -12,6 +12,9 @@ import CanvasTest from "../components/CanvasTest";
 import * as Block from "../block_system/systemObj";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 export default function Create({ user, setUser }) {
+    const [displayState, setDisplayState] = useState(0);
+
+
     const initialElements = [];
     initialElements.push(
         Block.createElementObj(
@@ -88,21 +91,15 @@ export default function Create({ user, setUser }) {
                     <Profile name={user.username} url={user.profileImage} />
                 </div>
 
-                {/* <div>
-                    <CanvasTest
-                    // color={color}
-                    // selector={selector}
-                    // selectCallBack={getOriginalColor}
-                    // ref={inspector_ref}
-                    />
-                </div> */}
-                <div className="flexContent">
+                <div className="flexContent" style = {{display: displayState == 0 ? '' : 'none'}}>
                     <Diagram
                         elements={elements}
                         setElements={setElements}
                         setSelectedElement={(x) => {
                             setSelectedElementId(x);
                         }}
+                        width = {1000}
+                        height = {650}
                     />
 
                     <Inspector
@@ -112,7 +109,51 @@ export default function Create({ user, setUser }) {
                     />
                 </div>
 
-                <Selector />
+                <div className="flexContent" style = {{display: displayState == 1 ? '' : 'none'}}>
+                    <div>
+                        <CanvasTest
+                        className = "canvasTest"
+                        width = {1000}
+                        height = {650}
+                        />
+                    </div>
+                        
+                        <Inspector
+                        elements={elements}
+                        setElements={setElements}
+                        selectedElementId={selectedElementId}
+                    />
+                </div>
+                
+                <div className="flexContent" style = {{display: displayState == 2 ? '' : 'none'}}>
+                    <div>
+                        <Diagram
+                            elements={elements}
+                            setElements={setElements}
+                            setSelectedElement={(x) => {
+                                setSelectedElementId(x);
+                            }}
+                            width = {1000}
+                            height = {325}
+                        />
+                        <CanvasTest
+                            className = "canvasTest"
+                            width = {1000}
+                            height = {325}
+                        />
+                    </div>
+                        
+                    <Inspector
+                        elements={elements}
+                        setElements={setElements}
+                        selectedElementId={selectedElementId}
+                    />
+                </div>
+
+                <Selector
+                    displayState = {displayState}
+                    setDisplayState={setDisplayState}
+                 />
             </div>
         </>
     );

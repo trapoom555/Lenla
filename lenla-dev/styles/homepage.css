@@ -73,12 +73,12 @@ html {
     width: 1vw;
 }
 
-.p5Canvas {
+/* .p5Canvas {
     position: absolute;
     left: 0px;
     top: 0px;
     z-index: -1;
-}
+} */
 
 .homepage_background {
     position: absolute;

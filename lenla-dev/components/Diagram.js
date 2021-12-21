@@ -21,6 +21,7 @@ const nodeTypes = {
 };
 
 const Diagram = (props) => {
+    const {width, height} = props;
     const { elements, setElements, setSelectedElement } = props;
 
     const onElementClick = (event, element) => {
@@ -54,7 +55,7 @@ const Diagram = (props) => {
     };
 
     return (
-        <div style={{ height: 650, width: 1000 }}>
+        <div style={{ height: height, width: width }}>
             <ReactFlow
                 snapToGrid={true}
                 snapGrid={[10, 10]}
