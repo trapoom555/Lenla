@@ -87,7 +87,6 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
         name,
         position,
         type,
-        port: {},
         flag: "node"
     }
     switch (type) {
@@ -130,10 +129,10 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     port:
                     {
                         in: ["+", "+"],
-                        inType: ["num,num"],
+                        inType: ["num", "num"],
                         out: ["value"],
                         outType: ["num"],
-                        inEnable: [true, true],
+                        inEnable: [true, true, true],
                     },
                 }
             }

@@ -17,64 +17,6 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
 var stringConfig_1 = require("./stringConfig");
-// import { Constant } from "./Input_block.js";
-// export class System {
-//     idToIndex: {}
-//     childNode: Array<IBlock>
-//     constructor() {
-//         this.idToIndex = {};
-//         this.childNode = [];
-//     }
-//     add_element(element) {
-//         this.idToIndex[element.id] = this.childNode.length;
-//         let node: IBlock
-//         if (element.type == BLOCK_TYPE.IN_CONSTANT) {
-//             node = new Constant(element.id, element.data.data);
-//         }
-//         if (element.type == BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
-//             node = new NumberDisplay(element.id)
-//         }
-//         if (element.type == BLOCK_TYPE.OP_SUM) {
-//             node = new Sum(element.id)
-//         }
-//         if (node)
-//             this.childNode.push(node);
-//     }
-//     set_port(sourceId: string, targetId: string, sourcePortIndex?, targetPortIndex?) {
-//         if (!sourcePortIndex) sourcePortIndex = 0
-//         if (!targetPortIndex) targetPortIndex = 0
-//         let tmp = this.childNode[this.idToIndex[targetId]]
-//         let target: ISub
-//         if (isISub(tmp)) {
-//             target = tmp
-//         }
-//         else {
-//         }
-//         tmp = this.childNode[this.idToIndex[sourceId]]
-//         let source: IPub
-//         if (isIPub(tmp)) {
-//             source = tmp
-//         }
-//         else {
-//         }
-//         target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex])
-//         let notiPort = new NotiPort
-//         notiPort.addReciver(target)
-//         source.addNotiPort(sourcePortIndex, notiPort)
-//     }
-//     compile() {
-//         this.childNode.forEach(element => {
-//             if (isIPub(element)) {
-//                 element.notifyAllPort();
-//             }
-//         });
-//         this.childNode.forEach(element => {
-//             if (isDisplayable(element)) {
-//                 element.display();
-//             }
-//         });
-//     }
-// }
 function isDisplayable(object) {
     return "display" in object;
 }

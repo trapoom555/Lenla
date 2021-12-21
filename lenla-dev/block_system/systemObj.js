@@ -96,7 +96,6 @@ function createElementObj(id, type, position, data, name) {
         name: name,
         position: position,
         type: type,
-        port: {},
         flag: "node"
     };
     switch (type) {
@@ -128,10 +127,10 @@ function createElementObj(id, type, position, data, name) {
                     symbol: ["+", "+"],
                     port: {
                         "in": ["+", "+"],
-                        inType: ["num,num"],
+                        inType: ["num", "num"],
                         out: ["value"],
                         outType: ["num"],
-                        inEnable: [true, true]
+                        inEnable: [true, true, true]
                     }
                 } });
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:

@@ -52,9 +52,10 @@ const Diagram = (props) => {
             console.log("Wrong Connection");
         }
     };
-
+    console.log("draw diagram");
     return (
         <div style={{ height: 650, width: 1000 }}>
+            {/* <ReactFlowProvider> */}
             <ReactFlow
                 snapToGrid={true}
                 snapGrid={[10, 10]}
@@ -69,6 +70,7 @@ const Diagram = (props) => {
             >
                 <Background variant="dots" gap={10} size={0.5} />
             </ReactFlow>
+            {/* </ReactFlowProvider> */}
         </div>
     );
 };
