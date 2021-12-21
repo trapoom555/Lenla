@@ -17,65 +17,44 @@ function DiatailInspect(props) {
         setElements(items);
     }
     if (props.id != -1) {
-        const element = elements[elements.findIndex((x) => x.id === props.id)];
+        const [portIn, setportIn] = useState(
+            elements[elements.findIndex((x) => x.id === props.id)].data.port.in
+        );
+        let element = elements[elements.findIndex((x) => x.id === props.id)];
         const config = Block.blockConfig(element.type);
-        const [portOption, setportOption] = useState("");
 
         if (config.choice) {
             const options = config.choice;
             const defaultOption = options[0];
         }
-        // console.log(element.data.info);
+        const [portChoice, setportChoice] = useState(defaultOption);
         let compList = [];
         let i = 0;
         for (i = 0; i < element.data.info.length; i++) {
             let each = element.data.info[i];
-            // console.log(i);
             if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
                 let tmp = each.value;
                 compList.push(
                     <>
                         <>{each.name} </>
-                        {/* {Form(each, element)} */}
                         <input
                             type="number"
                             value={tmp}
-                            // onChange={(val) => {
-                            //     each.val = val.target.value;
-                            //     console.log(111);
-                            // }}
-                            // onBlur={(inputVal) => {
-                            //     console.log(555);
-                            //     const val = inputVal.target.value;
-                            //     console.log(each.index);
-                            //     element.data.info[each.index].value = val;
-                            //     let tmp = {
-                            //         ...element,
-                            //         info: {
-                            //             ...element.info,
-                            //             data: element.data.info,
-                            //         },
-                            //     };
-                            //     updateElementById(element.id, tmp);
-                            // }}
                             onChange={(inputVal) => {
                                 const val = inputVal.target.value;
                                 console.log(each.index);
-                                element.data.info[each.index].value = val;
-                                let tmp = {
-                                    ...element,
-                                    info: {
-                                        ...element.info,
-                                        data: element.data.info,
-                                    },
-                                };
-                                updateElementById(element.id, tmp);
+                                element.data.info[each.index].value =
+                                    parseInt(val);
+                                updateElementById(element.id, element);
                             }}
                         ></input>
                     </>
                 );
             }
         }
+        let a = element.data.port.in;
+        console.log("a" + a);
+
         return (
             <div
                 style={{
@@ -90,6 +69,7 @@ function DiatailInspect(props) {
                 {config.limitIn[0] < element.data.port.in.length && (
                     <button>delete</button>
                 )}
+                {a}
                 {(config.limitIn[1] > element.data.port.in.length ||
                     config.limitIn[1] == "inf") && (
                     <>
@@ -97,6 +77,7 @@ function DiatailInspect(props) {
                             options={options}
                             onChange={(value) => {
                                 console.log(value);
+                                setportChoice(value.value);
                             }}
                             value={defaultOption}
                             placeholder="Select an option"
@@ -105,8 +86,30 @@ function DiatailInspect(props) {
                         />
                         <button
                             onClick={() => {
-                                // setshowPortOption(true);
-                                console.log("show option");
+                                // setshowPortOption(true)element;
+                                let newElement = {
+                                    ...element,
+                                };
+                                newElement.data.port.in.push(portChoice);
+                                newElement.data.port.inEnable.push(true);
+                                console.log(portIn);
+                                setportIn(newElement.data.port.in);
+
+                                // let tmp = {
+                                //     ...element,
+                                //     data: {
+                                //         ...element.data,
+                                //         port:,
+                                //     },
+                                // };
+                                // console.log(tmp);
+                                updateElementById(element.id, {
+                                    id: element.id,
+                                    type: element.type,
+                                    ...newElement,
+                                });
+                                // console.log(elements);
+                                // updateElementById(element.id, tmp);
                             }}
                         >
                             add port

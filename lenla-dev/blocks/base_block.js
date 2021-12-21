@@ -1,5 +1,5 @@
 import React from "react";
-import { Handle } from "react-flow-renderer";
+import { Handle, Position } from "react-flow-renderer";
 const PlusBlockStyle = {
     background: "#E0F0F0",
     color: "#000000",
@@ -10,6 +10,7 @@ const PlusBlockStyle = {
 };
 
 export const BasicBlock = (element) => {
+    // console.log("redraw block");
     // console.log(element);
     let inPorts = [];
     let outPorts = [];
@@ -61,7 +62,7 @@ export const BasicBlock = (element) => {
                     </div>
                     <Handle
                         type="target"
-                        position="left"
+                        position={Position.Left}
                         id={"number_in" + val.i}
                         isConnectable={true}
                         style={{ top: val.top2 + "%", borderRadius: 0 }}

@@ -44,6 +44,14 @@ export default function Create({ user, setUser }) {
             y: 150,
         })
     );
+    initialElements.push(
+        Block.createElementObj(
+            "5",
+            BLOCK_TYPE.IN_CONSTANT,
+            { x: 100, y: 300 },
+            { value: 7 }
+        )
+    );
     const [elements, setElements] = useState(initialElements);
     const [selectedElementId, setSelectedElementId] = useState(-1);
     const system = new Block.System();

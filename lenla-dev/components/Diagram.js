@@ -53,7 +53,7 @@ const Diagram = (props) => {
             console.log("Wrong Connection");
         }
     };
-
+    console.log("draw diagram");
     return (
         <div style={{ height: height, width: width }}>
             <ReactFlow
@@ -70,6 +70,7 @@ const Diagram = (props) => {
             >
                 <Background variant="dots" gap={10} size={0.5} />
             </ReactFlow>
+            {/* </ReactFlowProvider> */}
         </div>
     );
 };
