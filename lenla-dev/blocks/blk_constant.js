@@ -12,7 +12,6 @@ const ConstantBlockStyle = {
   const ConstantBlock = ({ data }) => {
     return (
       <div style={ConstantBlockStyle}>
-        
         <div style = {{ borderStyle : "none none solid none", textAlign:"center", padding:"10px 0px"}}>{data.type}</div>
           <div style = {{width: "100%",top: "50%", position: "absolute", textAlign: "center", alignItems: "center", fontSize: 30}}>{data.data}</div>
           <div style={{position: "absolute", top: "47%", right: "-30%", color: 'black', fontSize:12}}>{data.portsOut[0]}</div>

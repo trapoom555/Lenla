@@ -3,12 +3,14 @@ import ReactFlow, {
     Background,
     removeElements,
 } from "react-flow-renderer";
+import { useRef } from "react";
 import ConstantBlock from "../blocks/blk_constant";
 import GaugeBlock from "../blocks/blk_gauge";
 import PlusBlock from "../blocks/blk_plus";
 import { TestBlock } from "../blocks/test_block";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { BasicBlock } from "../blocks/base_block";
+import * as Block from "../block_system/systemObj";
 const nodeTypes = {
     [BLOCK_TYPE.IN_CONSTANT]: BasicBlock,
     [BLOCK_TYPE.OP_SUM]: BasicBlock,
@@ -20,9 +22,35 @@ const nodeTypes = {
     [BLOCK_TYPE.CON_GREATER]: BasicBlock,
 };
 
+let currentBlockID = 0;
+const getID = () => `${currentBlockID++}`;
+
 const Diagram = (props) => {
     const {width, height} = props;
     const { elements, setElements, setSelectedElement } = props;
+    const reactFlowWrapper = useRef(null);
+
+    const onDragOver = (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+      };
+
+    const onDrop = (event) => {
+        event.preventDefault();
+    
+        const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+        const type = event.dataTransfer.getData('application/reactflow');
+
+        
+        const newNode = Block.createElementObj(
+                getID(),
+                type,
+                { x: event.clientX - reactFlowBounds.left, y: event.clientY - reactFlowBounds.top },
+            )
+
+    
+        setElements((es) => es.concat(newNode));
+      };
 
     const onElementClick = (event, element) => {
         // console.log("click", element.id);
@@ -55,7 +83,7 @@ const Diagram = (props) => {
     };
     console.log("draw diagram");
     return (
-        <div style={{ height: height, width: width }}>
+        <div style={{ height: height, width: width }} ref={reactFlowWrapper}>
             <ReactFlow
                 snapToGrid={true}
                 snapGrid={[10, 10]}
@@ -64,6 +92,8 @@ const Diagram = (props) => {
                 onElementsRemove={onElementsRemove}
                 onElementClick={onElementClick}
                 onConnect={onConnect}
+                onDrop={onDrop}
+                onDragOver={onDragOver}
                 connectionLineType={"smoothstep"}
                 connectionLineStyle={{ stroke: "#333" }}
                 // key="edges"

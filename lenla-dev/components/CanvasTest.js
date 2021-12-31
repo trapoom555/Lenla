@@ -43,6 +43,7 @@ export default forwardRef((props, ref) => {
     const setup = (p5, canvasParentRef) => {
         p5.createCanvas(width, height).parent(canvasParentRef);
     };
+    
 
     useImperativeHandle(ref, () => ({
         setX(val) {
@@ -75,6 +76,7 @@ export default forwardRef((props, ref) => {
     }
 
     const draw = (p5) => {
+        p5.resizeCanvas(width, height);
         p5.background(225);
 
         // a.draw(p5)

@@ -1,9 +1,10 @@
 import ConstantInspector from "../inspectors/insp_constant";
 import * as Block from "../block_system/systemObj";
-import { useState } from "react";
+import { Children, useState } from "react";
 import styled from "styled-components";
 import Dropdown from "react-dropdown";
 import { INS_DISPLAY_TYPE } from "../block_system/stringConfig";
+import { BLOCK_TYPE } from "../block_system/stringConfig";
 
 function DiatailInspect(props) {
     console.log("drawDetail");
@@ -128,22 +129,81 @@ function DiatailInspect(props) {
         </>
     );
 }
+
+
+
+function BlockShow(props) {
+    // const {allBlocks} = props;
+    let allBlocks = [
+        {
+            groupName : "input",
+            blocksData : [{name:"constant", type:BLOCK_TYPE.IN_CONSTANT}],
+        },
+
+        {
+            groupName : "operation",
+            blocksData : [{name:"sum", type:BLOCK_TYPE.OP_SUM}],
+        },
+
+        {
+            groupName : "output",
+            blocksData : [{name:"number display", type: BLOCK_TYPE.OUT_NUMBER_DISPLAY}],
+        },
+
+    ];
+
+    let divAllBlocks = [];
+
+    const onDragStart = (event, nodeType) => {
+        event.dataTransfer.setData('application/reactflow', nodeType);
+        event.dataTransfer.effectAllowed = 'move';
+      };
+
+    allBlocks.forEach(item => divAllBlocks.push(
+        <div>
+            <div style = {{textAlign: "left", marginBottom: "15px", marginTop: "15px", color: "#5c7ef5", fontSize: 23}}>{item.groupName}</div> 
+            <div style = {{display: "flex", flexFlow: "row wrap", justifyContent: "flex-start"}}>
+                {item.blocksData.map(function(i) {return(<div style = {{border: "solid #555", borderWidth: "1px", padding: "10px", borderRadius: "5px", margin: "4px"}} onDragStart={(event) => onDragStart(event, i.type)} draggable>{i.name}</div>)})}
+            </div>
+        </div>))
+    return (
+        <div style = {{marginLeft: "30px", marginRight: "30px", marginTop: "20px"}}>
+            {divAllBlocks}
+        </div>
+    )
+}
+
+
+
+
+
+
+
 export default function Inspector(props) {
     console.log("draw inspector");
+    const [inspectorState, setInspectorState] = useState(0);
     const { elements, setElements, selectedElementId } = props;
 
     return (
         <>
             <div className="inspector">
                 <div className="inspector_nav">
-                    <div>Object</div>
-                    <div>Inspector</div>
+                    <div style={{fontWeight: inspectorState == 0? "bold" : ""}} onClick={() => {setInspectorState(0)}}>Object</div>
+                    <div style={{fontWeight: inspectorState == 1? "bold" : ""}} onClick={() => {setInspectorState(1)}}>Inspector</div>
                 </div>
-                <DiatailInspect
-                    id={selectedElementId}
-                    elements={elements}
-                    setElements={setElements}
-                />
+
+                <div style= {{display: inspectorState ? '' : 'none'}}>
+                    <DiatailInspect
+                        id={selectedElementId}
+                        elements={elements}
+                        setElements={setElements}
+                    />
+                </div>
+
+                <div style= {{display: inspectorState ? 'none' : ''}}>
+                    <BlockShow />
+                </div>
+                
 
                 {/* <ConstantInspector
                     elements={elements}

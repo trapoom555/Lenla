@@ -14,44 +14,45 @@ import { BLOCK_TYPE } from "../block_system/stringConfig";
 export default function Create({ user, setUser }) {
     const [displayState, setDisplayState] = useState(0);
 
-
     const initialElements = [];
-    initialElements.push(
-        Block.createElementObj(
-            "1",
-            BLOCK_TYPE.IN_CONSTANT,
-            { x: 100, y: 100 },
-            { value: 7 }
-        )
-    );
-    initialElements.push(
-        Block.createElementObj(
-            "2",
-            BLOCK_TYPE.IN_CONSTANT,
-            { x: 100, y: 200 },
-            { value: 9 }
-        )
-    );
-    initialElements.push(
-        Block.createElementObj("3", BLOCK_TYPE.OP_SUM, {
-            x: 300,
-            y: 150,
-        })
-    );
-    initialElements.push(
-        Block.createElementObj("4", BLOCK_TYPE.OUT_NUMBER_DISPLAY, {
-            x: 500,
-            y: 150,
-        })
-    );
-    initialElements.push(
-        Block.createElementObj(
-            "5",
-            BLOCK_TYPE.IN_CONSTANT,
-            { x: 100, y: 300 },
-            { value: 7 }
-        )
-    );
+    // initialElements.push(
+    //     Block.createElementObj(
+    //         getID(),
+    //         BLOCK_TYPE.IN_CONSTANT,
+    //         { x: 100, y: 100 },
+    //         { value: 7 }
+    //     )
+    // );
+    // initialElements.push(
+    //     Block.createElementObj(
+    //         getID(),
+    //         BLOCK_TYPE.IN_CONSTANT,
+    //         { x: 100, y: 200 },
+    //         { value: 9 }
+    //     )
+    // );
+    // initialElements.push(
+    //     Block.createElementObj(
+    //         getID(), 
+    //         BLOCK_TYPE.OP_SUM, {
+    //         x: 300,
+    //         y: 150,
+    //     })
+    // );
+    // initialElements.push(
+    //     Block.createElementObj(getID(), BLOCK_TYPE.OUT_NUMBER_DISPLAY, {
+    //         x: 500,
+    //         y: 150,
+    //     })
+    // );
+    // initialElements.push(
+    //     Block.createElementObj(
+    //         getID(),
+    //         BLOCK_TYPE.IN_CONSTANT,
+    //         { x: 100, y: 300 },
+    //         { value: 7 }
+    //     )
+    // );
     const [elements, setElements] = useState(initialElements);
     const [selectedElementId, setSelectedElementId] = useState(-1);
     const system = new Block.System();
@@ -99,43 +100,9 @@ export default function Create({ user, setUser }) {
                     <Profile name={user.username} url={user.profileImage} />
                 </div>
 
-                <div className="flexContent" style = {{display: displayState == 0 ? '' : 'none'}}>
-                    <div>
-                        <Diagram
-                            elements={elements}
-                            setElements={setElements}
-                            setSelectedElement={(x) => {
-                                setSelectedElementId(x);
-                            }}
-                            width = {1000}
-                            height = {650}
-                        />
-                    </div>
-                    
-
-                    <Inspector
-                        elements={elements}
-                        setElements={setElements}
-                        selectedElementId={selectedElementId}
-                    />
-                </div>
-
-                <div className="flexContent" style = {{display: displayState == 1 ? '' : 'none'}}>
-                    <div>
-                        <CanvasTest
-                        width = {1000}
-                        height = {650}
-                        />
-                    </div>
-                        
-                        <Inspector
-                        elements={elements}
-                        setElements={setElements}
-                        selectedElementId={selectedElementId}
-                    />
-                </div>
+               
                 
-                <div className="flexContent" style = {{display: displayState == 2 ? '' : 'none'}}>
+                <div className="flexContent">
                     <div>
                         <Diagram
                             elements={elements}
@@ -144,11 +111,11 @@ export default function Create({ user, setUser }) {
                                 setSelectedElementId(x);
                             }}
                             width = {1000}
-                            height = {325}
+                            height = {displayState == 0 ? 650 : (displayState == 2 ? 350 : 0)}
                         />
                         <CanvasTest
                             width = {1000}
-                            height = {325}
+                            height = {displayState == 1 ? 650 : (displayState == 2 ? 350 : 0)}
                         />
                     </div>
                         
