@@ -4,6 +4,7 @@ import PreviewButton from "../components/previewButton";
 import ShareButton from "../components/shareButton";
 import Profile from "../components/profile";
 import Workspace from "../components/workspace";
+import useWindowDimensions from "../hook/useWindowDimensions";
 import Inspector from "../components/inspector";
 import Selector from "../components/selector";
 import Diagram from "../components/Diagram";
@@ -11,6 +12,7 @@ import CanvasTest from "../components/CanvasTest";
 // import { System } from "../blocks/block";
 import * as Block from "../block_system/systemObj";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
+
 export default function Create({ user, setUser }) {
     const [displayState, setDisplayState] = useState(0);
 
@@ -53,6 +55,7 @@ export default function Create({ user, setUser }) {
     //         { value: 7 }
     //     )
     // );
+    const { height, width } = useWindowDimensions();
     const [elements, setElements] = useState(initialElements);
     const [selectedElementId, setSelectedElementId] = useState(-1);
     const system = new Block.System();
@@ -88,6 +91,7 @@ export default function Create({ user, setUser }) {
 
         // system.add_elements(elements);
     }
+
     return (
         <>
             <div className="flexPage">
@@ -110,12 +114,12 @@ export default function Create({ user, setUser }) {
                             setSelectedElement={(x) => {
                                 setSelectedElementId(x);
                             }}
-                            width = {1000}
-                            height = {displayState == 0 ? 650 : (displayState == 2 ? 350 : 0)}
+                            width = {Math.floor(0.7*width)}
+                            height = {displayState == 0 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
                         />
                         <CanvasTest
-                            width = {1000}
-                            height = {displayState == 1 ? 650 : (displayState == 2 ? 350 : 0)}
+                            width = {Math.floor(0.7*width)}
+                            height = {displayState == 1 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
                         />
                     </div>
                         
@@ -134,3 +138,4 @@ export default function Create({ user, setUser }) {
         </>
     );
 }
+

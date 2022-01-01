@@ -136,18 +136,18 @@ function BlockShow(props) {
     // const {allBlocks} = props;
     let allBlocks = [
         {
-            groupName : "input",
-            blocksData : [{name:"constant", type:BLOCK_TYPE.IN_CONSTANT}],
+            groupName : "Inputs",
+            blocksData : [{name:"Constant", type:BLOCK_TYPE.IN_CONSTANT}],
         },
 
         {
-            groupName : "operation",
-            blocksData : [{name:"sum", type:BLOCK_TYPE.OP_SUM}],
+            groupName : "Operations",
+            blocksData : [{name:"Sum", type:BLOCK_TYPE.OP_SUM}],
         },
 
         {
-            groupName : "output",
-            blocksData : [{name:"number display", type: BLOCK_TYPE.OUT_NUMBER_DISPLAY}],
+            groupName : "Outputs",
+            blocksData : [{name:"Number Display", type: BLOCK_TYPE.OUT_NUMBER_DISPLAY}],
         },
 
     ];
@@ -188,8 +188,8 @@ export default function Inspector(props) {
         <>
             <div className="inspector">
                 <div className="inspector_nav">
-                    <div style={{fontWeight: inspectorState == 0? "bold" : ""}} onClick={() => {setInspectorState(0)}}>Object</div>
-                    <div style={{fontWeight: inspectorState == 1? "bold" : ""}} onClick={() => {setInspectorState(1)}}>Inspector</div>
+                    <div className={inspectorState == 0? "inspector_selector inspector_selected" : "inspector_selector"} onClick={() => {setInspectorState(0)}}>Object</div>
+                    <div className={inspectorState == 1? "inspector_selector inspector_selected" : "inspector_selector"} onClick={() => {setInspectorState(1)}}>Inspector</div>
                 </div>
 
                 <div style= {{display: inspectorState ? '' : 'none'}}>

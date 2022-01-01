@@ -40,7 +40,8 @@ a:active {
 .flexContent {
     display: flex;
     margin-top: 2vh;
-    align-items: center;;
+    align-items: center;
+    padding-left: 1vw;
 }
 
 .noselect {

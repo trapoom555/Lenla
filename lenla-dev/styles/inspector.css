@@ -18,6 +18,23 @@
     text-align: center;
     justify-content: space-around;
     line-height: 7vh;
-    border-bottom: #c6c6c6 solid;
     font-size: 1.2vw;
+}
+
+.inspector_selector {
+    cursor: pointer;
+    border-bottom: #c6c6c6 solid;
+    width: 100%;
+}
+
+.inspector_selector:hover{
+    color: #555;
+    font-weight: bold;
+}
+
+.inspector_selected {
+    color: black;
+    font-weight: bold;
+    border-bottom-style: solid;
+    border-bottom-color: #5C7EF5;
 }
