@@ -91,51 +91,56 @@ export default function Create({ user, setUser }) {
 
         // system.add_elements(elements);
     }
+    
+    if(typeof window !== 'undefined') {
+        return (
+            <>
+                <div className="flexPage">
+                    <div className="flexNav">
+                        <Navbar />
+                        <ShareButton />
+                        <button className="preview_button" onClick={compileAll}>
+                            Preview
+                        </button>
+                        <Profile name={user.username} url={user.profileImage} />
+                    </div>
 
-    return (
-        <>
-            <div className="flexPage">
-                <div className="flexNav">
-                    <Navbar />
-                    <ShareButton />
-                    <button className="preview_button" onClick={compileAll}>
-                        Preview
-                    </button>
-                    <Profile name={user.username} url={user.profileImage} />
-                </div>
-
-               
                 
-                <div className="flexContent">
-                    <div>
-                        <Diagram
+                    
+                    <div className="flexContent">
+                        <div>
+                            <Diagram
+                                elements={elements}
+                                setElements={setElements}
+                                setSelectedElement={(x) => {
+                                    setSelectedElementId(x);
+                                }}
+                                width = {Math.floor(0.7*width)}
+                                height = {displayState == 0 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
+                            />
+                            <CanvasTest
+                                width = {Math.floor(0.7*width)}
+                                height = {displayState == 1 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
+                            />
+                        </div>
+                            
+                        <Inspector
                             elements={elements}
                             setElements={setElements}
-                            setSelectedElement={(x) => {
-                                setSelectedElementId(x);
-                            }}
-                            width = {Math.floor(0.7*width)}
-                            height = {displayState == 0 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
-                        />
-                        <CanvasTest
-                            width = {Math.floor(0.7*width)}
-                            height = {displayState == 1 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
+                            selectedElementId={selectedElementId}
                         />
                     </div>
-                        
-                    <Inspector
-                        elements={elements}
-                        setElements={setElements}
-                        selectedElementId={selectedElementId}
+
+                    <Selector
+                        displayState = {displayState}
+                        setDisplayState={setDisplayState}
                     />
                 </div>
-
-                <Selector
-                    displayState = {displayState}
-                    setDisplayState={setDisplayState}
-                 />
-            </div>
-        </>
-    );
+            </>
+        );
+    }
+    else {
+        return (<></>)
+    }
 }
 
