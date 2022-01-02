@@ -45,9 +45,10 @@ const Diagram = (props) => {
         const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
         const type = event.dataTransfer.getData('application/reactflow');
 
-        
+        const currentID = getID();
+        console.log(currentID)
         const newNode = Block.createElementObj(
-                getID(),
+                currentID,
                 type,
                 reactFlowInstance.project({
                     x: event.clientX - reactFlowBounds.left,
@@ -63,7 +64,7 @@ const Diagram = (props) => {
         // console.log("click", element.id);
         setSelectedElement(element.id);
         setInspectorState(1);
-        // console.log(element.id)
+        console.log(element.id)
     };
 
     const onPaneClick = (event) => {

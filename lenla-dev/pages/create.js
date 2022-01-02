@@ -59,6 +59,7 @@ export default function Create({ user, setUser }) {
     const { height, width } = useWindowDimensions();
     const [elements, setElements] = useState(initialElements);
     const [selectedElementId, setSelectedElementId] = useState(-1);
+
     const system = new Block.System();
     function getIntFromString(str) {
         let n = str.length;
@@ -92,6 +93,7 @@ export default function Create({ user, setUser }) {
 
         // system.add_elements(elements);
     }
+
     
     if(typeof window !== 'undefined') {
         return (
