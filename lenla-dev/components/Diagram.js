@@ -56,7 +56,14 @@ const Diagram = (props) => {
         // console.log("click", element.id);
         setSelectedElement(element.id);
         setInspectorState(1);
+        console.log(element.id)
     };
+
+    const onPaneClick = (event) => {
+        setSelectedElement(-1);
+        setInspectorState(0);
+    }
+
     const onElementsRemove = (elementsToRemove) =>
         setElements((els) => removeElements(elementsToRemove, els));
 
@@ -92,6 +99,7 @@ const Diagram = (props) => {
                 nodeTypes={nodeTypes}
                 onElementsRemove={onElementsRemove}
                 onElementClick={onElementClick}
+                onPaneClick={onPaneClick}
                 onConnect={onConnect}
                 onDrop={onDrop}
                 onDragOver={onDragOver}
