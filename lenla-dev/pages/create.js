@@ -12,6 +12,7 @@ import CanvasTest from "../components/CanvasTest";
 // import { System } from "../blocks/block";
 import * as Block from "../block_system/systemObj";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
+import { ReactFlowProvider } from "react-flow-renderer";
 
 export default function Create({ user, setUser }) {
     const [displayState, setDisplayState] = useState(0);
@@ -119,6 +120,7 @@ export default function Create({ user, setUser }) {
                                 width = {Math.floor(0.7*width)}
                                 height = {displayState == 0 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
                             />
+                            
                             <CanvasTest
                                 width = {Math.floor(0.7*width)}
                                 height = {displayState == 1 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}

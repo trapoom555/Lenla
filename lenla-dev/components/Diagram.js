@@ -3,7 +3,7 @@ import ReactFlow, {
     Background,
     removeElements,
 } from "react-flow-renderer";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ConstantBlock from "../blocks/blk_constant";
 import GaugeBlock from "../blocks/blk_gauge";
 import PlusBlock from "../blocks/blk_plus";
@@ -29,11 +29,15 @@ const Diagram = (props) => {
     const {width, height} = props;
     const { elements, setElements, setSelectedElement, setInspectorState } = props;
     const reactFlowWrapper = useRef(null);
+    const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
     const onDragOver = (event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = 'move';
       };
+    
+    const onLoad = (_reactFlowInstance) =>
+        setReactFlowInstance(_reactFlowInstance);
 
     const onDrop = (event) => {
         event.preventDefault();
@@ -45,7 +49,10 @@ const Diagram = (props) => {
         const newNode = Block.createElementObj(
                 getID(),
                 type,
-                { x: event.clientX - reactFlowBounds.left, y: event.clientY - reactFlowBounds.top },
+                reactFlowInstance.project({
+                    x: event.clientX - reactFlowBounds.left,
+                    y: event.clientY - reactFlowBounds.top,
+                  }),
             )
 
     
@@ -56,7 +63,7 @@ const Diagram = (props) => {
         // console.log("click", element.id);
         setSelectedElement(element.id);
         setInspectorState(1);
-        console.log(element.id)
+        // console.log(element.id)
     };
 
     const onPaneClick = (event) => {
@@ -97,6 +104,7 @@ const Diagram = (props) => {
                 snapGrid={[10, 10]}
                 elements={elements}
                 nodeTypes={nodeTypes}
+                onLoad={onLoad}
                 onElementsRemove={onElementsRemove}
                 onElementClick={onElementClick}
                 onPaneClick={onPaneClick}
@@ -109,6 +117,7 @@ const Diagram = (props) => {
             >
                 <Background variant="dots" gap={10} size={0.5} />
             </ReactFlow>
+            
             {/* </ReactFlowProvider> */}
         </div>
     );
