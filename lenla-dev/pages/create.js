@@ -15,7 +15,7 @@ import { BLOCK_TYPE } from "../block_system/stringConfig";
 
 export default function Create({ user, setUser }) {
     const [displayState, setDisplayState] = useState(0);
-
+    const [inspectorState, setInspectorState] = useState(0);
     const initialElements = [];
     // initialElements.push(
     //     Block.createElementObj(
@@ -115,6 +115,7 @@ export default function Create({ user, setUser }) {
                                 setSelectedElement={(x) => {
                                     setSelectedElementId(x);
                                 }}
+                                setInspectorState={setInspectorState}
                                 width = {Math.floor(0.7*width)}
                                 height = {displayState == 0 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
                             />
@@ -128,6 +129,8 @@ export default function Create({ user, setUser }) {
                             elements={elements}
                             setElements={setElements}
                             selectedElementId={selectedElementId}
+                            inspectorState={inspectorState}
+                            setInspectorState={setInspectorState}
                         />
                     </div>
 

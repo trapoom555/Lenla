@@ -181,8 +181,7 @@ function BlockShow(props) {
 
 export default function Inspector(props) {
     console.log("draw inspector");
-    const [inspectorState, setInspectorState] = useState(0);
-    const { elements, setElements, selectedElementId } = props;
+    const { elements, setElements, selectedElementId, inspectorState, setInspectorState } = props;
 
     return (
         <>

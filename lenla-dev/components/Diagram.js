@@ -27,7 +27,7 @@ const getID = () => `${currentBlockID++}`;
 
 const Diagram = (props) => {
     const {width, height} = props;
-    const { elements, setElements, setSelectedElement } = props;
+    const { elements, setElements, setSelectedElement, setInspectorState } = props;
     const reactFlowWrapper = useRef(null);
 
     const onDragOver = (event) => {
@@ -55,6 +55,7 @@ const Diagram = (props) => {
     const onElementClick = (event, element) => {
         // console.log("click", element.id);
         setSelectedElement(element.id);
+        setInspectorState(1);
     };
     const onElementsRemove = (elementsToRemove) =>
         setElements((els) => removeElements(elementsToRemove, els));
