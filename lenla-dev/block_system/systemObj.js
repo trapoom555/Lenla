@@ -26,25 +26,28 @@ var System = /** @class */ (function () {
         this.idToIndex[element.id] = this.childNode.length;
         var node;
         if (element.type == stringConfig_1.BLOCK_TYPE.IN_CONSTANT) {
-            node = new InBlock.Constant(element.id, element.data.info[0].value);
+            node = new InBlock.Constant(element.id, element.type, element.data.info[0].value);
         }
         if (element.type == stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
-            node = new OutBlock.NumberDisplay(element.id);
+            node = new OutBlock.NumberDisplay(element.id, element.type);
+            if (Block.isDisplayable(node)) {
+                node.setDisplayPosition(element.data.info[1].value[0].value.x, element.data.info[1].value[0].value.y);
+            }
         }
         if (element.type == stringConfig_1.BLOCK_TYPE.OUT_BOOLEAN_DISPLAY) {
-            node = new OutBlock.BoolDisplay(element.id);
+            node = new OutBlock.BoolDisplay(element.id, element.type);
         }
         if (element.type == stringConfig_1.BLOCK_TYPE.OP_SUM) {
-            node = new InOutBlock.Sum(element.id, element.data.port["in"]);
+            node = new InOutBlock.Sum(element.id, element.type, element.data.port["in"]);
         }
         if (element.type == stringConfig_1.BLOCK_TYPE.OP_ADD) {
-            node = new InOutBlock.Plus(element.id);
+            node = new InOutBlock.Plus(element.id, element.type);
         }
         // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
         //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
         // }
         if (element.type == stringConfig_1.BLOCK_TYPE.CON_GREATER) {
-            node = new InOutBlock.Greater(element.id);
+            node = new InOutBlock.Greater(element.id, element.type);
         }
         if (node)
             this.childNode.push(node);
@@ -135,12 +138,39 @@ function createElementObj(id, type, position, data, name) {
                 } });
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
             return __assign(__assign({}, obj), { data: {
-                    info: [{
+                    info: [
+                        {
                             index: 0,
                             name: "value",
                             value: null,
                             type: stringConfig_1.INS_DISPLAY_TYPE.OUT_NUM
-                        }],
+                        },
+                        {
+                            index: 1,
+                            name: "display properties",
+                            value: [
+                                {
+                                    index: 0,
+                                    name: "position",
+                                    value: { x: 0, y: 0 },
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                                {
+                                    index: 1,
+                                    name: "letter color",
+                                    value: null,
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_COLOR
+                                },
+                            ],
+                            type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
+                        }
+                        // , {
+                        //     index: 1,
+                        //     name: "position",
+                        //     value: null,
+                        //     type: INS_DISPLAY_TYPE.IN_VECTOR_2D
+                        // }
+                    ],
                     port: {
                         "in": ["num"],
                         inType: ["num"],
@@ -148,6 +178,10 @@ function createElementObj(id, type, position, data, name) {
                         outType: [],
                         inEnable: [true]
                     }
+                }, display: {
+                    type: "number",
+                    valueName: "value",
+                    value: 0
                 } });
     }
 }

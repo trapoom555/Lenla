@@ -5,11 +5,11 @@ import styled from "styled-components";
 import Dropdown from "react-dropdown";
 import { INS_DISPLAY_TYPE } from "../block_system/stringConfig";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
-
 function DiatailInspect(props) {
     console.log("drawDetail");
     const elements = props.elements;
     const setElements = props.setElements;
+    // const [color, setColor] = useColor("hex", "#121212");
     // var index = array.findIndex((x) => x.id === id);
     function updateElementById(id, newElementVal) {
         let items = [...elements];
@@ -17,14 +17,91 @@ function DiatailInspect(props) {
         items[index] = newElementVal;
         setElements(items);
     }
+    function pushComplist(each, compList, element, head = -1) {
+        // console.log(555);
+        // console.log(each.type);
+        if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
+            let tmp = each.value;
+            compList.push(
+                <>
+                    <>{each.name} </>
+                    <input
+                        type="number"
+                        value={tmp}
+                        onChange={(inputVal) => {
+                            const val = inputVal.target.value;
+                            if (head == -1) {
+                                element.data.info[each.index].value =
+                                    parseInt(val);
+                            } else {
+                                element.data.info[head].value[each.index] =
+                                    parseInt(val);
+                            }
+                            updateElementById(element.id, element);
+                        }}
+                    ></input>
+                </>
+            );
+        }
+        if (each.type == INS_DISPLAY_TYPE.IN_VECTOR_2D) {
+            let tmp = each.value;
+            // console.log(element);
+            compList.push(
+                <>
+                    <>{each.name} </>
+                    <br></br>
+                    <>x </>
+                    <input
+                        type="number"
+                        value={tmp.x}
+                        onChange={(inputVal) => {
+                            const val = inputVal.target.value;
+                            console.log(each.index);
+                            if (head != -1) {
+                                element.data.info[head].value[
+                                    each.index
+                                ].value.x = parseInt(val);
+                            } else
+                                element.data.info[index].value.x =
+                                    parseInt(val);
+                            updateElementById(element.id, element);
+                        }}
+                    ></input>
+                    <br></br>
+                    <>y </>
+                    <input
+                        type="number"
+                        value={tmp.y}
+                        onChange={(inputVal) => {
+                            const val = inputVal.target.value;
+                            if (head != -1) {
+                                element.data.info[head].value[
+                                    each.index
+                                ].value.y = parseInt(val);
+                            } else
+                                element.data.info[index].value.y =
+                                    parseInt(val);
+                            updateElementById(element.id, element);
+                        }}
+                    ></input>
+                </>
+            );
+        }
+
+        if (each.type == INS_DISPLAY_TYPE.IN_COLOR) {
+            compList.push();
+        }
+    }
     if (props.id != -1) {
         try {
             const [portIn, setportIn] = useState(
-                elements[elements.findIndex((x) => x.id === props.id)].data.port.in
+                elements[elements.findIndex((x) => x.id === props.id)].data.port
+                    .in
             );
-            let element = elements[elements.findIndex((x) => x.id === props.id)];
+            let element =
+                elements[elements.findIndex((x) => x.id === props.id)];
             const config = Block.blockConfig(element.type);
-    
+
             if (config.choice) {
                 const options = config.choice;
                 const defaultOption = options[0];
@@ -34,28 +111,23 @@ function DiatailInspect(props) {
             let i = 0;
             for (i = 0; i < element.data.info.length; i++) {
                 let each = element.data.info[i];
-                if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
-                    let tmp = each.value;
+                pushComplist(each, compList, element);
+                if (each.type == INS_DISPLAY_TYPE.LAYOUT_GROUP) {
+                    let tmp = [];
+                    each.value.forEach((subEach) => {
+                        console.log(subEach.name);
+                        pushComplist(subEach, tmp, element, each.index);
+                    });
                     compList.push(
-                        <>
-                            <>{each.name} </>
-                            <input
-                                type="number"
-                                value={tmp}
-                                onChange={(inputVal) => {
-                                    const val = inputVal.target.value;
-                                    console.log(each.index);
-                                    element.data.info[each.index].value =
-                                        parseInt(val);
-                                    updateElementById(element.id, element);
-                                }}
-                            ></input>
-                        </>
+                        <div style={{ border: "1px solid rgb(0, 0, 0)" }}>
+                            <div style={{}}>{each.name}</div>
+                            {tmp}
+                        </div>
                     );
                 }
             }
             let a = element.data.port.in;
-            console.log("a" + a);
+            // console.log("a" + a);
             return (
                 <div
                     style={{
@@ -66,11 +138,11 @@ function DiatailInspect(props) {
                     <p>type: {element.type}</p>
                     <p>port: {element.type}</p>
                     {compList}
-    
+
                     {config.limitIn[0] < element.data.port.in.length && (
                         <button>delete</button>
                     )}
-                    {a}
+                    {/* {a} */}
                     {(config.limitIn[1] > element.data.port.in.length ||
                         config.limitIn[1] == "inf") && (
                         <>
@@ -95,34 +167,23 @@ function DiatailInspect(props) {
                                     newElement.data.port.inEnable.push(true);
                                     console.log(portIn);
                                     setportIn(newElement.data.port.in);
-    
-                                    // let tmp = {
-                                    //     ...element,
-                                    //     data: {
-                                    //         ...element.data,
-                                    //         port:,
-                                    //     },
-                                    // };
-                                    // console.log(tmp);
+
                                     updateElementById(element.id, {
                                         id: element.id,
                                         type: element.type,
                                         ...newElement,
                                     });
-                                    // console.log(elements);
-                                    // updateElementById(element.id, tmp);
                                 }}
                             >
                                 add port
                             </button>
                         </>
                     )}
-    
+
                     {/* {showPortOption && <></>} */}
                 </div>
             );
-        }
-        catch {
+        } catch {
             // [Ignore] Error from non Sync life cycle
         }
     }
@@ -133,68 +194,132 @@ function DiatailInspect(props) {
     );
 }
 
-
-
 function BlockShow(props) {
     // const {allBlocks} = props;
     let allBlocks = [
         {
-            groupName : "Inputs",
-            blocksData : [{name:"Constant", type:BLOCK_TYPE.IN_CONSTANT}],
+            groupName: "Inputs",
+            blocksData: [{ name: "Constant", type: BLOCK_TYPE.IN_CONSTANT }],
         },
 
         {
-            groupName : "Operations",
-            blocksData : [{name:"Sum", type:BLOCK_TYPE.OP_SUM}],
+            groupName: "Operations",
+            blocksData: [{ name: "Sum", type: BLOCK_TYPE.OP_SUM }],
         },
 
         {
-            groupName : "Outputs",
-            blocksData : [{name:"Number Display", type: BLOCK_TYPE.OUT_NUMBER_DISPLAY}],
+            groupName: "Outputs",
+            blocksData: [
+                { name: "Number Display", type: BLOCK_TYPE.OUT_NUMBER_DISPLAY },
+            ],
         },
-
     ];
 
     let divAllBlocks = [];
 
     const onDragStart = (event, nodeType) => {
-        event.dataTransfer.setData('application/reactflow', nodeType);
-        event.dataTransfer.effectAllowed = 'move';
-      };
+        event.dataTransfer.setData("application/reactflow", nodeType);
+        event.dataTransfer.effectAllowed = "move";
+    };
 
-    allBlocks.forEach(item => divAllBlocks.push(
-        <div>
-            <div style = {{textAlign: "left", marginBottom: "15px", marginTop: "15px", color: "#5c7ef5", fontSize: 23}}>{item.groupName}</div> 
-            <div style = {{display: "flex", flexFlow: "row wrap", justifyContent: "flex-start"}}>
-                {item.blocksData.map(function(i) {return(<div style = {{border: "solid #555", borderWidth: "1px", padding: "10px", borderRadius: "5px", margin: "4px"}} onDragStart={(event) => onDragStart(event, i.type)} draggable>{i.name}</div>)})}
+    allBlocks.forEach((item) =>
+        divAllBlocks.push(
+            <div>
+                <div
+                    style={{
+                        textAlign: "left",
+                        marginBottom: "15px",
+                        marginTop: "15px",
+                        color: "#5c7ef5",
+                        fontSize: 23,
+                    }}
+                >
+                    {item.groupName}
+                </div>
+                <div
+                    style={{
+                        display: "flex",
+                        flexFlow: "row wrap",
+                        justifyContent: "flex-start",
+                    }}
+                >
+                    {item.blocksData.map(function (i) {
+                        return (
+                            <div
+                                style={{
+                                    border: "solid #555",
+                                    borderWidth: "1px",
+                                    padding: "10px",
+                                    borderRadius: "5px",
+                                    margin: "4px",
+                                }}
+                                onDragStart={(event) =>
+                                    onDragStart(event, i.type)
+                                }
+                                draggable
+                            >
+                                {i.name}
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-        </div>))
+        )
+    );
     return (
-        <div style = {{marginLeft: "30px", marginRight: "30px", marginTop: "20px"}}>
+        <div
+            style={{
+                marginLeft: "30px",
+                marginRight: "30px",
+                marginTop: "20px",
+            }}
+        >
             {divAllBlocks}
         </div>
-    )
+    );
 }
 
-
-
-
-
-
-
 export default function Inspector(props) {
-    console.log("draw inspector");
-    const { elements, setElements, selectedElementId, inspectorState, setInspectorState } = props;
+    // console.log("draw inspector");
+    const {
+        elements,
+        setElements,
+        selectedElementId,
+        inspectorState,
+        setInspectorState,
+    } = props;
 
     return (
         <>
             <div className="inspector">
                 <div className="inspector_nav">
-                    <div className={inspectorState == 0? "inspector_selector inspector_selected" : "inspector_selector"} onClick={() => {setInspectorState(0)}}>Object</div>
-                    <div className={inspectorState == 1? "inspector_selector inspector_selected" : "inspector_selector"} onClick={() => {setInspectorState(1)}}>Inspector</div>
+                    <div
+                        className={
+                            inspectorState == 0
+                                ? "inspector_selector inspector_selected"
+                                : "inspector_selector"
+                        }
+                        onClick={() => {
+                            setInspectorState(0);
+                        }}
+                    >
+                        Object
+                    </div>
+                    <div
+                        className={
+                            inspectorState == 1
+                                ? "inspector_selector inspector_selected"
+                                : "inspector_selector"
+                        }
+                        onClick={() => {
+                            setInspectorState(1);
+                        }}
+                    >
+                        Inspector
+                    </div>
                 </div>
 
-                <div style= {{display: inspectorState ? '' : 'none'}}>
+                <div style={{ display: inspectorState ? "" : "none" }}>
                     <DiatailInspect
                         id={selectedElementId}
                         elements={elements}
@@ -202,10 +327,9 @@ export default function Inspector(props) {
                     />
                 </div>
 
-                <div style= {{display: inspectorState ? 'none' : ''}}>
+                <div style={{ display: inspectorState ? "none" : "" }}>
                     <BlockShow />
                 </div>
-                
 
                 {/* <ConstantInspector
                     elements={elements}

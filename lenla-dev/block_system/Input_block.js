@@ -19,8 +19,8 @@ exports.Vector3D = exports.Vector2D = exports.Constant = void 0;
 var block_behavior_1 = require("./block_behavior");
 var Constant = /** @class */ (function (_super) {
     __extends(Constant, _super);
-    function Constant(id, value) {
-        var _this = _super.call(this, id) || this;
+    function Constant(id, type, value) {
+        var _this = _super.call(this, id, type) || this;
         _this.outValPorts = [null];
         _this.notiPorts = [];
         console.log("cleate Constant block");
@@ -34,8 +34,8 @@ var Constant = /** @class */ (function (_super) {
 exports.Constant = Constant;
 var Vector2D = /** @class */ (function (_super) {
     __extends(Vector2D, _super);
-    function Vector2D(id, x, y) {
-        var _this = _super.call(this, id) || this;
+    function Vector2D(id, type, x, y) {
+        var _this = _super.call(this, id, type) || this;
         _this.notiPorts = [null, null];
         _this.outValPorts = [null, null];
         _this.x = x;
@@ -54,8 +54,8 @@ var Vector2D = /** @class */ (function (_super) {
 exports.Vector2D = Vector2D;
 var Vector3D = /** @class */ (function (_super) {
     __extends(Vector3D, _super);
-    function Vector3D(id, x, y, z) {
-        var _this = _super.call(this, id) || this;
+    function Vector3D(id, type, x, y, z) {
+        var _this = _super.call(this, id, type) || this;
         _this.notiPorts = [null, null, null];
         _this.outValPorts = [null, null, null];
         _this.x = x;

@@ -13,54 +13,21 @@ import CanvasTest from "../components/CanvasTest";
 import * as Block from "../block_system/systemObj";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { ReactFlowProvider } from "react-flow-renderer";
+import { isDisplayable } from "../block_system/block_behavior";
+
+// import { HexColorPicker, HexColorInput } from "react-colorful";
+let tempSys = new Block.System();
 
 export default function Create({ user, setUser }) {
     const [displayState, setDisplayState] = useState(0);
     const [inspectorState, setInspectorState] = useState(0);
-    const initialElements = [];
-    // initialElements.push(
-    //     Block.createElementObj(
-    //         getID(),
-    //         BLOCK_TYPE.IN_CONSTANT,
-    //         { x: 100, y: 100 },
-    //         { value: 7 }
-    //     )
-    // );
-    // initialElements.push(
-    //     Block.createElementObj(
-    //         getID(),
-    //         BLOCK_TYPE.IN_CONSTANT,
-    //         { x: 100, y: 200 },
-    //         { value: 9 }
-    //     )
-    // );
-    // initialElements.push(
-    //     Block.createElementObj(
-    //         getID(), 
-    //         BLOCK_TYPE.OP_SUM, {
-    //         x: 300,
-    //         y: 150,
-    //     })
-    // );
-    // initialElements.push(
-    //     Block.createElementObj(getID(), BLOCK_TYPE.OUT_NUMBER_DISPLAY, {
-    //         x: 500,
-    //         y: 150,
-    //     })
-    // );
-    // initialElements.push(
-    //     Block.createElementObj(
-    //         getID(),
-    //         BLOCK_TYPE.IN_CONSTANT,
-    //         { x: 100, y: 300 },
-    //         { value: 7 }
-    //     )
-    // );
-    const { height, width } = useWindowDimensions();
-    const [elements, setElements] = useState(initialElements);
-    const [selectedElementId, setSelectedElementId] = useState(-1);
+    // const initialElements = [];
 
-    const system = new Block.System();
+    const { height, width } = useWindowDimensions();
+    const [elements, setElements] = useState([]);
+    const [selectedElementId, setSelectedElementId] = useState(-1);
+    const [system, setSystem] = useState(tempSys);
+    // const system = new Block.System();
     function getIntFromString(str) {
         let n = str.length;
         let run = n - 1;
@@ -73,15 +40,13 @@ export default function Create({ user, setUser }) {
         return Number(str.slice(run + 1, n)) - 1;
     }
     function compileAll() {
-        console.log(getIntFromString("out1"));
-        system = new Block.System();
+        let tmp = new Block.System();
         elements.forEach((element) => {
             if (element.flag == "node") {
-                // console.log("555");
-                system.add_element(element);
+                tmp.add_element(element);
             }
             if (element.flag == "line") {
-                system.set_port(
+                tmp.set_port(
                     element.source,
                     element.target,
                     getIntFromString(element.sourceHandle),
@@ -89,13 +54,15 @@ export default function Create({ user, setUser }) {
                 );
             }
         });
+
+        setSystem(tmp);
+        tempSys = tmp;
         system.compile();
 
         // system.add_elements(elements);
     }
 
-    
-    if(typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
         return (
             <>
                 <div className="flexPage">
@@ -108,8 +75,6 @@ export default function Create({ user, setUser }) {
                         <Profile name={user.username} url={user.profileImage} />
                     </div>
 
-                
-                    
                     <div className="flexContent">
                         <div>
                             <Diagram
@@ -119,16 +84,29 @@ export default function Create({ user, setUser }) {
                                     setSelectedElementId(x);
                                 }}
                                 setInspectorState={setInspectorState}
-                                width = {Math.floor(0.7*width)}
-                                height = {displayState == 0 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
+                                width={Math.floor(0.7 * width)}
+                                height={
+                                    displayState == 0
+                                        ? Math.floor(0.78 * height)
+                                        : displayState == 2
+                                        ? Math.floor(0.39 * height)
+                                        : 0
+                                }
                             />
-                            
+
                             <CanvasTest
-                                width = {Math.floor(0.7*width)}
-                                height = {displayState == 1 ? Math.floor(0.78*height) : (displayState == 2 ? Math.floor(0.39*height) : 0)}
+                                systemObj={system}
+                                width={Math.floor(0.7 * width)}
+                                height={
+                                    displayState == 1
+                                        ? Math.floor(0.78 * height)
+                                        : displayState == 2
+                                        ? Math.floor(0.39 * height)
+                                        : 0
+                                }
                             />
                         </div>
-                            
+
                         <Inspector
                             elements={elements}
                             setElements={setElements}
@@ -139,15 +117,13 @@ export default function Create({ user, setUser }) {
                     </div>
 
                     <Selector
-                        displayState = {displayState}
+                        displayState={displayState}
                         setDisplayState={setDisplayState}
                     />
                 </div>
             </>
         );
-    }
-    else {
-        return (<></>)
+    } else {
+        return <></>;
     }
 }
-

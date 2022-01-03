@@ -4,8 +4,8 @@ export class Constant extends InputBlock {
 
     notiPorts = [];
 
-    constructor(id: string, value?: number) {
-        super(id);
+    constructor(id: string, type: string, value?: number) {
+        super(id, type);
         console.log("cleate Constant block");
         var num = new Number()
         num.value = value
@@ -21,8 +21,8 @@ export class Vector2D extends InputBlock {
     public y: number;
     notiPorts = [null, null];
     outValPorts: Array<Number> = [null, null];
-    constructor(id: string, x: number, y: number) {
-        super(id);
+    constructor(id: string, type: string, x: number, y: number) {
+        super(id, type);
         this.x = x
         this.y = y
         this.outValPorts = [new Number, new Number]
@@ -42,8 +42,8 @@ export class Vector3D extends InputBlock {
     notiPorts = [null, null, null];
     outValPorts: Array<Number> = [null, null, null];
 
-    constructor(id: string, x: number, y: number, z: number) {
-        super(id);
+    constructor(id: string, type: string, x: number, y: number, z: number) {
+        super(id, type);
         this.x = x
         this.y = y
         this.z = z

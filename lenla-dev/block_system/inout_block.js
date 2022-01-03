@@ -19,8 +19,8 @@ exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEq
 var block_behavior_1 = require("./block_behavior");
 var Sum = /** @class */ (function (_super) {
     __extends(Sum, _super);
-    function Sum(id, ports_symbol) {
-        var _this = _super.call(this, id) || this;
+    function Sum(id, type, ports_symbol) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [];
         _this.outValPorts = [new block_behavior_1.Number];
         _this.symbols = ports_symbol;
@@ -48,8 +48,8 @@ var Sum = /** @class */ (function (_super) {
 exports.Sum = Sum;
 var Plus = /** @class */ (function (_super) {
     __extends(Plus, _super);
-    function Plus(id) {
-        var _this = _super.call(this, id) || this;
+    function Plus(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
         _this.outValPorts = [new block_behavior_1.Number];
         return _this;
@@ -64,8 +64,8 @@ var Plus = /** @class */ (function (_super) {
 exports.Plus = Plus;
 var Greater = /** @class */ (function (_super) {
     __extends(Greater, _super);
-    function Greater(id) {
-        var _this = _super.call(this, id) || this;
+    function Greater(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
         _this.outValPorts = [new block_behavior_1.Bool];
         return _this;
@@ -80,8 +80,8 @@ var Greater = /** @class */ (function (_super) {
 exports.Greater = Greater;
 var GreaterOrEqual = /** @class */ (function (_super) {
     __extends(GreaterOrEqual, _super);
-    function GreaterOrEqual(id) {
-        var _this = _super.call(this, id) || this;
+    function GreaterOrEqual(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
         _this.outValPorts = [new block_behavior_1.Bool];
         return _this;
@@ -96,8 +96,8 @@ var GreaterOrEqual = /** @class */ (function (_super) {
 exports.GreaterOrEqual = GreaterOrEqual;
 var AND = /** @class */ (function (_super) {
     __extends(AND, _super);
-    function AND(id) {
-        var _this = _super.call(this, id) || this;
+    function AND(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
         _this.outValPorts = [new block_behavior_1.Bool];
         return _this;
@@ -112,8 +112,8 @@ var AND = /** @class */ (function (_super) {
 exports.AND = AND;
 var OR = /** @class */ (function (_super) {
     __extends(OR, _super);
-    function OR(id) {
-        var _this = _super.call(this, id) || this;
+    function OR(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
         _this.outValPorts = [new block_behavior_1.Bool];
         return _this;
@@ -128,8 +128,8 @@ var OR = /** @class */ (function (_super) {
 exports.OR = OR;
 var NOT = /** @class */ (function (_super) {
     __extends(NOT, _super);
-    function NOT(id) {
-        var _this = _super.call(this, id) || this;
+    function NOT(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
         _this.outValPorts = [new block_behavior_1.Bool];
         return _this;
@@ -144,8 +144,8 @@ var NOT = /** @class */ (function (_super) {
 exports.NOT = NOT;
 var Condition = /** @class */ (function (_super) {
     __extends(Condition, _super);
-    function Condition(id) {
-        var _this = _super.call(this, id) || this;
+    function Condition(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
         _this.outValPorts = [new block_behavior_1.Number];
         return _this;

@@ -27,6 +27,15 @@ export const BLOCK_CATE = {
 
 export const INS_DISPLAY_TYPE = {
     INPUT_NUM: "input(num)",
-    INPUT_BOOL: "input(bool",
+    INPUT_BOOL: "input(bool)",
     OUT_NUM: "output(num)",
+    IN_VECTOR_2D: "input(vector2d)",
+    LAYOUT_GROUP: "group layout",
+    IN_COLOR: "color picker",
+};
+
+export const CANVAS_DISPLAY_TYPE = {
+    OUT_STR: "string",
+    OUT_IMG: "image",
+    IN_SLIDE: "slide bar",
 };

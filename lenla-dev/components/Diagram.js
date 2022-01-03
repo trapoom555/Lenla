@@ -26,51 +26,54 @@ let currentBlockID = 0;
 const getID = () => `${currentBlockID++}`;
 
 const Diagram = (props) => {
-    const {width, height} = props;
-    const { elements, setElements, setSelectedElement, setInspectorState } = props;
+    const { width, height } = props;
+    const { elements, setElements, setSelectedElement, setInspectorState } =
+        props;
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
     const onDragOver = (event) => {
         event.preventDefault();
-        event.dataTransfer.dropEffect = 'move';
-      };
-    
+        event.dataTransfer.dropEffect = "move";
+    };
+
     const onLoad = (_reactFlowInstance) =>
         setReactFlowInstance(_reactFlowInstance);
 
     const onDrop = (event) => {
         event.preventDefault();
-    
-        const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-        const type = event.dataTransfer.getData('application/reactflow');
+
+        const reactFlowBounds =
+            reactFlowWrapper.current.getBoundingClientRect();
+        const type = event.dataTransfer.getData("application/reactflow");
 
         const currentID = getID();
-        console.log(currentID)
+        console.log(currentID);
         const newNode = Block.createElementObj(
-                currentID,
-                type,
-                reactFlowInstance.project({
-                    x: event.clientX - reactFlowBounds.left,
-                    y: event.clientY - reactFlowBounds.top,
-                  }),
-            )
+            currentID,
+            type,
+            reactFlowInstance.project({
+                x: event.clientX - reactFlowBounds.left,
+                y: event.clientY - reactFlowBounds.top,
+            })
+        );
 
-    
+        // TO DO:
+        // create element in p5.js
         setElements((es) => es.concat(newNode));
-      };
+    };
 
     const onElementClick = (event, element) => {
         // console.log("click", element.id);
         setSelectedElement(element.id);
         setInspectorState(1);
-        console.log(element.id)
+        // console.log(element.id);
     };
 
     const onPaneClick = (event) => {
         setSelectedElement(-1);
         setInspectorState(0);
-    }
+    };
 
     const onElementsRemove = (elementsToRemove) =>
         setElements((els) => removeElements(elementsToRemove, els));
@@ -118,7 +121,7 @@ const Diagram = (props) => {
             >
                 <Background variant="dots" gap={10} size={0.5} />
             </ReactFlow>
-            
+
             {/* </ReactFlowProvider> */}
         </div>
     );

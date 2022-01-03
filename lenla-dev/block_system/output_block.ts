@@ -3,10 +3,10 @@ export class NumberDisplay extends OutputBlock {
     value: number
     inValPorts: Array<Number> = [null];
 
-    // port 0 <Number> : number to display
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
     addValPort(index: number, num: Number) {
         this.inValPorts[index] = num
     }
@@ -19,8 +19,30 @@ export class NumberDisplay extends OutputBlock {
         // console.log(this.value)
     }
     displayContent() {
-        this.log();
+
+        // this.log();
     }
+
+    getDisplayData() {
+        // console.log("position " + this.position.x + " " + this.position.y)
+        try {
+            // this.update()
+            // this.log()
+            // console.log("this valur is " + this.value)
+            return {
+                color: 255,
+                value: this.value,
+                type: "number",
+                position: this.position
+
+            }
+        }
+        catch {
+
+        }
+
+    }
+    // displayDetial:
 }
 
 export class BoolDisplay extends OutputBlock {
@@ -28,9 +50,10 @@ export class BoolDisplay extends OutputBlock {
     inValPorts: Array<Bool> = [null];
 
     // port 0 <Number> : number to display
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
     addValPort(index: number, bool: Bool) {
         this.inValPorts[index] = bool
     }

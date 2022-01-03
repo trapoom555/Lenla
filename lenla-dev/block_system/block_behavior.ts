@@ -1,4 +1,5 @@
 
+import { Vector2D } from "./Input_block";
 import { BLOCK_TYPE, BLOCK_CATE } from "./stringConfig";
 
 export function isDisplayable(object: any): object is IDisplay {
@@ -41,7 +42,16 @@ export class Bool extends Obj {
 export class Number extends Obj {
     value: number
 }
+export class Vector2d extends Obj {
+    x: number
+    y: number
+    constructor(x, y) {
+        super();
+        this.x = x
+        this.y = y
+    }
 
+}
 export interface ISub extends IBlock {
     inValPorts: Array<Number>
     addValPort: (index: number, obj: Obj) => any
@@ -57,6 +67,9 @@ export interface IPub extends IBlock {
 
 interface IDisplay {
     display: () => any
+    getDisplayData()
+    position: Vector2d
+    setDisplayPosition(x: number, y: number)
 }
 function notifyAllPort(notiPorts: NotiPort[]) {
     notiPorts.forEach(port => {
@@ -65,12 +78,14 @@ function notifyAllPort(notiPorts: NotiPort[]) {
     });
 }
 export abstract class InputBlock implements IPub {
-    type = BLOCK_CATE.IN_BLOCK
+    // type = BLOCK_CATE.IN_BLOCK
     id: string
     notiPorts: NotiPort[] = [];
     outValPorts: Array<Obj>
-    constructor(id: string) {
+    type: string
+    constructor(id: string, type: string) {
         this.id = id
+        this.type = type
     }
     addNotiPort(index: number, port: NotiPort) {
         this.notiPorts[index] = port
@@ -85,12 +100,15 @@ export abstract class InputBlock implements IPub {
 }
 
 export abstract class OutputBlock implements ISub, IDisplay {
-    type = BLOCK_CATE.OUT_BLOCK
+    // type = BLOCK_CATE.OUT_BLOCK
     id: string
     inValPorts: Array<Obj>
-    // ports: NotiPort[] = [];
-    constructor(id: string) {
+    position: Vector2d = new Vector2d(0, 0)
+
+    type: string
+    constructor(id: string, type: string) {
         this.id = id
+        this.type = type
     }
     addValPort(index: number, obj: Obj) {
         this.inValPorts[index] = obj
@@ -98,7 +116,11 @@ export abstract class OutputBlock implements ISub, IDisplay {
     updateContent() {
 
     }
+    setDisplayPosition(x: number, y: number) {
+        this.position.x = x
+        this.position.y = y
 
+    }
     update() {
         try {
             this.updateContent();
@@ -120,17 +142,21 @@ export abstract class OutputBlock implements ISub, IDisplay {
             console.log(err)
         }
     }
+    getDisplayData() {
 
+    }
 }
 
 export abstract class InOutBlock implements ISub, IPub {
-    type = BLOCK_CATE.IN_OUT_BLOCK
+    // type = BLOCK_CATE.IN_OUT_BLOCK
     id: string
     inValPorts: Array<Obj>
     notiPorts: NotiPort[] = [];
     outValPorts: Array<Obj>
-    constructor(id: string) {
+    type: string
+    constructor(id: string, type: string) {
         this.id = id
+        this.type = type
     }
     addValPort(index: number, obj: Obj) {
         this.inValPorts[index] = obj

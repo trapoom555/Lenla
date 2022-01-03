@@ -19,9 +19,8 @@ exports.BoolDisplay = exports.NumberDisplay = void 0;
 var block_behavior_1 = require("./block_behavior");
 var NumberDisplay = /** @class */ (function (_super) {
     __extends(NumberDisplay, _super);
-    // port 0 <Number> : number to display
-    function NumberDisplay(id) {
-        var _this = _super.call(this, id) || this;
+    function NumberDisplay(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
         return _this;
     }
@@ -37,7 +36,23 @@ var NumberDisplay = /** @class */ (function (_super) {
         // console.log(this.value)
     };
     NumberDisplay.prototype.displayContent = function () {
-        this.log();
+        // this.log();
+    };
+    NumberDisplay.prototype.getDisplayData = function () {
+        // console.log("position " + this.position.x + " " + this.position.y)
+        try {
+            // this.update()
+            // this.log()
+            // console.log("this valur is " + this.value)
+            return {
+                color: 255,
+                value: this.value,
+                type: "number",
+                position: this.position
+            };
+        }
+        catch (_a) {
+        }
     };
     return NumberDisplay;
 }(block_behavior_1.OutputBlock));
@@ -45,8 +60,8 @@ exports.NumberDisplay = NumberDisplay;
 var BoolDisplay = /** @class */ (function (_super) {
     __extends(BoolDisplay, _super);
     // port 0 <Number> : number to display
-    function BoolDisplay(id) {
-        var _this = _super.call(this, id) || this;
+    function BoolDisplay(id, type) {
+        var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
         return _this;
     }

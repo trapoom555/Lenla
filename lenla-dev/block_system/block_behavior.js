@@ -15,8 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
-var stringConfig_1 = require("./stringConfig");
+exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.Vector2d = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
 function isDisplayable(object) {
     return "display" in object;
 }
@@ -75,6 +74,17 @@ var Number = /** @class */ (function (_super) {
     return Number;
 }(Obj));
 exports.Number = Number;
+var Vector2d = /** @class */ (function (_super) {
+    __extends(Vector2d, _super);
+    function Vector2d(x, y) {
+        var _this = _super.call(this) || this;
+        _this.x = x;
+        _this.y = y;
+        return _this;
+    }
+    return Vector2d;
+}(Obj));
+exports.Vector2d = Vector2d;
 function notifyAllPort(notiPorts) {
     notiPorts.forEach(function (port) {
         if (port)
@@ -82,10 +92,10 @@ function notifyAllPort(notiPorts) {
     });
 }
 var InputBlock = /** @class */ (function () {
-    function InputBlock(id) {
-        this.type = stringConfig_1.BLOCK_CATE.IN_BLOCK;
+    function InputBlock(id, type) {
         this.notiPorts = [];
         this.id = id;
+        this.type = type;
     }
     InputBlock.prototype.addNotiPort = function (index, port) {
         this.notiPorts[index] = port;
@@ -100,15 +110,19 @@ var InputBlock = /** @class */ (function () {
 }());
 exports.InputBlock = InputBlock;
 var OutputBlock = /** @class */ (function () {
-    // ports: NotiPort[] = [];
-    function OutputBlock(id) {
-        this.type = stringConfig_1.BLOCK_CATE.OUT_BLOCK;
+    function OutputBlock(id, type) {
+        this.position = new Vector2d(0, 0);
         this.id = id;
+        this.type = type;
     }
     OutputBlock.prototype.addValPort = function (index, obj) {
         this.inValPorts[index] = obj;
     };
     OutputBlock.prototype.updateContent = function () {
+    };
+    OutputBlock.prototype.setDisplayPosition = function (x, y) {
+        this.position.x = x;
+        this.position.y = y;
     };
     OutputBlock.prototype.update = function () {
         try {
@@ -129,14 +143,16 @@ var OutputBlock = /** @class */ (function () {
             console.log(err);
         }
     };
+    OutputBlock.prototype.getDisplayData = function () {
+    };
     return OutputBlock;
 }());
 exports.OutputBlock = OutputBlock;
 var InOutBlock = /** @class */ (function () {
-    function InOutBlock(id) {
-        this.type = stringConfig_1.BLOCK_CATE.IN_OUT_BLOCK;
+    function InOutBlock(id, type) {
         this.notiPorts = [];
         this.id = id;
+        this.type = type;
     }
     InOutBlock.prototype.addValPort = function (index, obj) {
         this.inValPorts[index] = obj;

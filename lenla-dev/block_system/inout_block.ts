@@ -5,8 +5,8 @@ export class Sum extends InOutBlock {
     outValPorts: Array<Number> = [new Number];
     value: number
     symbols: string[]
-    constructor(id: string, ports_symbol: string[]) {
-        super(id);
+    constructor(id: string, type: string, ports_symbol: string[]) {
+        super(id, type);
         this.symbols = ports_symbol
         for (let i = 0; i < this.symbols.length; i++) {
             this.inValPorts.push(null)
@@ -34,9 +34,10 @@ export class Plus extends InOutBlock {
     inValPorts: Array<Number> = [null, null];
     outValPorts: Array<Number> = [new Number];
     value: number
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
 
     updateContent() {
         this.value = this.inValPorts[0].value + this.inValPorts[1].value
@@ -50,9 +51,10 @@ export class Greater extends InOutBlock {
     inValPorts: Array<Number> = [null, null];
     outValPorts: Array<Bool> = [new Bool];
     value: boolean
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
 
     updateContent() {
         this.value = this.inValPorts[0].value > this.inValPorts[1].value
@@ -66,9 +68,10 @@ export class GreaterOrEqual extends InOutBlock {
     inValPorts: Array<Number> = [null, null];
     outValPorts: Array<Bool> = [new Bool];
     value: boolean
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
 
     updateContent() {
         this.value = this.inValPorts[0].value >= this.inValPorts[1].value
@@ -82,9 +85,10 @@ export class AND extends InOutBlock {
     inValPorts: Array<Bool> = [null, null];
     outValPorts: Array<Bool> = [new Bool];
     value: boolean
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
 
     updateContent() {
         this.value = this.inValPorts[0].value && this.inValPorts[1].value
@@ -98,9 +102,10 @@ export class OR extends InOutBlock {
     inValPorts: Array<Bool> = [null, null];
     outValPorts: Array<Bool> = [new Bool];
     value: boolean
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
 
     updateContent() {
         this.value = this.inValPorts[0].value || this.inValPorts[1].value
@@ -114,9 +119,10 @@ export class NOT extends InOutBlock {
     inValPorts: Array<Bool> = [null];
     outValPorts: Array<Bool> = [new Bool];
     value: boolean
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
+
 
     updateContent() {
         this.value = !this.inValPorts[0].value
@@ -129,8 +135,8 @@ export class Condition extends InOutBlock {
     inValPorts: Array<Number> = [null, null];
     outValPorts: Array<Number> = [new Number];
     value: number
-    constructor(id: string) {
-        super(id);
+    constructor(id: string, type: string) {
+        super(id, type);
     }
 
     updateContent() {
