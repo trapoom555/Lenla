@@ -28,6 +28,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.BoolDisplay = exports.NumberDisplay = void 0;
 var block_behavior_1 = require("./block_behavior");
+var stringConfig_1 = require("./stringConfig");
 var NumberDisplay = /** @class */ (function (_super) {
     __extends(NumberDisplay, _super);
     function NumberDisplay(id, type) {
@@ -36,7 +37,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         _this.displayDetail = {
             color: _this.color,
             value: _this.value,
-            type: "number",
+            type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR,
             position: _this.position
         };
         return _this;
@@ -50,7 +51,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         // this.log();
     };
     NumberDisplay.prototype.setDisplayDetail = function (detail) {
-        this.displayDetail = __assign({ color: this.color, value: this.value, type: "number", position: this.position }, detail);
+        this.displayDetail = __assign({ color: this.color, value: this.value, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.position }, detail);
     };
     NumberDisplay.prototype.log = function () {
         console.log("value is ".concat(this.value.toString()));

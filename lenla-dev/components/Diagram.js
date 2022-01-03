@@ -64,7 +64,7 @@ const Diagram = (props) => {
     };
 
     const onElementClick = (event, element) => {
-        // console.log("click", element.id);
+        console.log("click", element.id);
         setSelectedElement(element.id);
         setInspectorState(1);
         // console.log(element.id);

@@ -25,7 +25,7 @@ export default function Create({ user, setUser }) {
 
     const { height, width } = useWindowDimensions();
     const [elements, setElements] = useState([]);
-    const [selectedElementId, setSelectedElementId] = useState(-1);
+    const [selectedElementId, setSelectedElementId] = useState("-1");
     const [system, setSystem] = useState(tempSys);
     // const system = new Block.System();
     function getIntFromString(str) {
@@ -81,7 +81,9 @@ export default function Create({ user, setUser }) {
                                 elements={elements}
                                 setElements={setElements}
                                 setSelectedElement={(x) => {
-                                    setSelectedElementId(x);
+                                    console.log("WTF");
+                                    console.log(x);
+                                    setSelectedElementId(x + "");
                                 }}
                                 setInspectorState={setInspectorState}
                                 width={Math.floor(0.7 * width)}

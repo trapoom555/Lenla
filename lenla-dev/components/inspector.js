@@ -96,7 +96,6 @@ function DiatailInspect(props) {
                 color = element.data.info[head].value[each.index].value;
             } else color = element.data.info[index].value;
             if (color == null) color = "#FFFFFF";
-            console.log(color);
             compList.push(
                 <div>
                     <>{each.name}</>

@@ -41,6 +41,7 @@ var Sum = /** @class */ (function (_super) {
         }
         this.inValPorts[0].value + this.inValPorts[1].value;
         this.outValPorts[0].value = this.value;
+        console.log("sum updated " + this.value);
         // console.log("sum updated")
     };
     return Sum;
@@ -57,7 +58,7 @@ var Plus = /** @class */ (function (_super) {
     Plus.prototype.updateContent = function () {
         this.value = this.inValPorts[0].value + this.inValPorts[1].value;
         this.outValPorts[0].value = this.value;
-        // console.log("sum updated")
+        console.log("sum updated " + this.value);
     };
     return Plus;
 }(block_behavior_1.InOutBlock));
