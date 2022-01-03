@@ -1,4 +1,5 @@
 import { OutputBlock, Number, Bool } from "./block_behavior";
+import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 export class NumberDisplay extends OutputBlock {
     value: number
     inValPorts: Array<Number> = [null];
@@ -9,7 +10,7 @@ export class NumberDisplay extends OutputBlock {
         this.displayDetail = {
             color: this.color,
             value: this.value,
-            type: "number",
+            type: CANVAS_DISPLAY_TYPE.OUT_STR,
             position: this.position,
         }
     }
@@ -26,7 +27,7 @@ export class NumberDisplay extends OutputBlock {
         this.displayDetail = {
             color: this.color,
             value: this.value,
-            type: "number",
+            type: CANVAS_DISPLAY_TYPE.OUT_STR,
             position: this.position,
             ...detail
         }

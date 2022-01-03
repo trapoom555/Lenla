@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import dynamic from "next/dynamic";
 import { isDisplayable } from "../block_system/block_behavior";
+import { CANVAS_DISPLAY_TYPE } from "../block_system/stringConfig";
 
 // Will only import `react-p5` on client-side
 const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
@@ -21,11 +22,12 @@ function preload() {
 preload();
 export default forwardRef((props, ref) => {
     const { width, height, systemObj } = props;
+    let displayObj = [];
     const setup = (p5, canvasParentRef) => {
         font = p5.loadFont("assets/SourceSansPro-Regular.otf");
         p5.createCanvas(width, height).parent(canvasParentRef);
         // textFont(font);
-        // textSize(fontsize);
+        p5.textSize(fontsize);
         // textAlign(CENTER, CENTER);
     };
     // useImperativeHandle(ref, () => ({
@@ -51,12 +53,21 @@ export default forwardRef((props, ref) => {
             if (isDisplayable(node)) {
                 node.update();
                 const tmp = node.getDisplayData();
+                // console.log(tmp);
                 try {
-                    if (tmp.type == "number") {
-                        // console.log(tmp);
-                        p5.fill(tmp.color);
-                        // p5.text(tmp.value, 100, 100);
-                        p5.text(tmp.value + "", tmp.position.x, tmp.position.y);
+                    switch (tmp.type) {
+                        case CANVAS_DISPLAY_TYPE.OUT_STR:
+                            //
+                            p5.fill(tmp.color);
+                            // p5.text(tmp.value, 100, 100);
+                            p5.text(
+                                tmp.value + "",
+                                tmp.position.x,
+                                tmp.position.y
+                            );
+                            break;
+
+                        // case CANVAS_DISPLAY_TYPE.IN_SLIDE:
                     }
                 } catch {}
                 // console.log(node.type + " is displayable");

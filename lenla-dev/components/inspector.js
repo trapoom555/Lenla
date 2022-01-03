@@ -92,7 +92,12 @@ function DiatailInspect(props) {
                 <div>
                     <>{each.name}</>
                     <InputColor
-                        initialValue="#5e72e4"
+                        initialValue={
+                            head != -1
+                                ? element.data.info[head].value[each.index]
+                                      .value
+                                : element.data.info[index].value
+                        }
                         onChange={(color) => {
                             // setColor(color);
                             if (head != -1) {

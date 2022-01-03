@@ -38,4 +38,5 @@ export const CANVAS_DISPLAY_TYPE = {
     OUT_STR: "string",
     OUT_IMG: "image",
     IN_SLIDE: "slide bar",
+    // OUT_NUM,
 };
