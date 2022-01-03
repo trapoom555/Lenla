@@ -14,6 +14,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 exports.BoolDisplay = exports.NumberDisplay = void 0;
 var block_behavior_1 = require("./block_behavior");
@@ -22,6 +33,12 @@ var NumberDisplay = /** @class */ (function (_super) {
     function NumberDisplay(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
+        _this.displayDetail = {
+            color: _this.color,
+            value: _this.value,
+            type: "number",
+            position: _this.position
+        };
         return _this;
     }
     NumberDisplay.prototype.addValPort = function (index, num) {
@@ -29,7 +46,11 @@ var NumberDisplay = /** @class */ (function (_super) {
     };
     NumberDisplay.prototype.updateContent = function () {
         this.value = this.inValPorts[0].value;
+        this.displayDetail.value = this.value;
         // this.log();
+    };
+    NumberDisplay.prototype.setDisplayDetail = function (detail) {
+        this.displayDetail = __assign({ color: this.color, value: this.value, type: "number", position: this.position }, detail);
     };
     NumberDisplay.prototype.log = function () {
         console.log("value is ".concat(this.value.toString()));
@@ -38,18 +59,16 @@ var NumberDisplay = /** @class */ (function (_super) {
     NumberDisplay.prototype.displayContent = function () {
         // this.log();
     };
+    NumberDisplay.prototype.setColor = function (color) {
+        this.color = color;
+    };
     NumberDisplay.prototype.getDisplayData = function () {
         // console.log("position " + this.position.x + " " + this.position.y)
         try {
             // this.update()
             // this.log()
             // console.log("this valur is " + this.value)
-            return {
-                color: 255,
-                value: this.value,
-                type: "number",
-                position: this.position
-            };
+            return this.displayDetail;
         }
         catch (_a) {
         }

@@ -69,7 +69,7 @@ interface IDisplay {
     display: () => any
     getDisplayData()
     position: Vector2d
-    setDisplayPosition(x: number, y: number)
+    setDisplayDetail(detail: any)
 }
 function notifyAllPort(notiPorts: NotiPort[]) {
     notiPorts.forEach(port => {
@@ -104,7 +104,7 @@ export abstract class OutputBlock implements ISub, IDisplay {
     id: string
     inValPorts: Array<Obj>
     position: Vector2d = new Vector2d(0, 0)
-
+    displayDetail = {}
     type: string
     constructor(id: string, type: string) {
         this.id = id
@@ -116,10 +116,14 @@ export abstract class OutputBlock implements ISub, IDisplay {
     updateContent() {
 
     }
-    setDisplayPosition(x: number, y: number) {
-        this.position.x = x
-        this.position.y = y
 
+    // setDisplayPosition(x: number, y: number) {
+    //     this.position.x = x
+    //     this.position.y = y
+
+    // }
+    setDisplayDetail(detail: any) {
+        this.displayDetail = { ...this.displayDetail, ...detail }
     }
     update() {
         try {

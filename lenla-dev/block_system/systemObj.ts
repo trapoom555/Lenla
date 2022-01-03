@@ -20,8 +20,7 @@ export class System {
         if (element.type == BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
             node = new OutBlock.NumberDisplay(element.id, element.type)
             if (Block.isDisplayable(node)) {
-
-                node.setDisplayPosition(element.data.info[1].value[0].value.x, element.data.info[1].value[0].value.y)
+                node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
             }
 
         }

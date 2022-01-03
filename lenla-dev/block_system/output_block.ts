@@ -2,9 +2,16 @@ import { OutputBlock, Number, Bool } from "./block_behavior";
 export class NumberDisplay extends OutputBlock {
     value: number
     inValPorts: Array<Number> = [null];
-
+    color: string
+    displayDetail: any;
     constructor(id: string, type: string) {
         super(id, type);
+        this.displayDetail = {
+            color: this.color,
+            value: this.value,
+            type: "number",
+            position: this.position,
+        }
     }
 
     addValPort(index: number, num: Number) {
@@ -12,7 +19,17 @@ export class NumberDisplay extends OutputBlock {
     }
     updateContent() {
         this.value = this.inValPorts[0].value
+        this.displayDetail.value = this.value
         // this.log();
+    }
+    setDisplayDetail(detail: any): void {
+        this.displayDetail = {
+            color: this.color,
+            value: this.value,
+            type: "number",
+            position: this.position,
+            ...detail
+        }
     }
     log() {
         console.log(`value is ${this.value.toString()}`)
@@ -22,20 +39,17 @@ export class NumberDisplay extends OutputBlock {
 
         // this.log();
     }
-
+    setColor(color) {
+        this.color = color
+    }
     getDisplayData() {
         // console.log("position " + this.position.x + " " + this.position.y)
         try {
             // this.update()
             // this.log()
             // console.log("this valur is " + this.value)
-            return {
-                color: 255,
-                value: this.value,
-                type: "number",
-                position: this.position
 
-            }
+            return this.displayDetail
         }
         catch {
 

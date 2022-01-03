@@ -5,12 +5,11 @@ import styled from "styled-components";
 import Dropdown from "react-dropdown";
 import { INS_DISPLAY_TYPE } from "../block_system/stringConfig";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
+import InputColor from "react-input-color";
 function DiatailInspect(props) {
     console.log("drawDetail");
     const elements = props.elements;
     const setElements = props.setElements;
-    // const [color, setColor] = useColor("hex", "#121212");
-    // var index = array.findIndex((x) => x.id === id);
     function updateElementById(id, newElementVal) {
         let items = [...elements];
         const index = elements.findIndex((x) => x.id === id);
@@ -47,7 +46,7 @@ function DiatailInspect(props) {
             let tmp = each.value;
             // console.log(element);
             compList.push(
-                <>
+                <div>
                     <>{each.name} </>
                     <br></br>
                     <>x </>
@@ -84,12 +83,29 @@ function DiatailInspect(props) {
                             updateElementById(element.id, element);
                         }}
                     ></input>
-                </>
+                </div>
             );
         }
 
         if (each.type == INS_DISPLAY_TYPE.IN_COLOR) {
-            compList.push();
+            compList.push(
+                <div>
+                    <>{each.name}</>
+                    <InputColor
+                        initialValue="#5e72e4"
+                        onChange={(color) => {
+                            // setColor(color);
+                            if (head != -1) {
+                                element.data.info[head].value[
+                                    each.index
+                                ].value = color.hex;
+                            } else element.data.info[index].value = color.hex;
+                            updateElementById(element.id, element);
+                        }}
+                        placement="right"
+                    />
+                </div>
+            );
         }
     }
     if (props.id != -1) {
