@@ -25,7 +25,7 @@ export default forwardRef((props, ref) => {
         font = p5.loadFont("assets/SourceSansPro-Regular.otf");
         p5.createCanvas(width, height).parent(canvasParentRef);
         // textFont(font);
-        // textSize(fontsize);
+        p5.textSize(fontsize);
         // textAlign(CENTER, CENTER);
     };
     // useImperativeHandle(ref, () => ({

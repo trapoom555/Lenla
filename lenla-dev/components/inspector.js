@@ -3,7 +3,10 @@ import * as Block from "../block_system/systemObj";
 import { Children, useState } from "react";
 import styled from "styled-components";
 import Dropdown from "react-dropdown";
-import { INS_DISPLAY_TYPE } from "../block_system/stringConfig";
+import {
+    CANVAS_DISPLAY_TYPE,
+    INS_DISPLAY_TYPE,
+} from "../block_system/stringConfig";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import InputColor from "react-input-color";
 function DiatailInspect(props) {
@@ -25,7 +28,7 @@ function DiatailInspect(props) {
                 <>
                     <>{each.name} </>
                     <input
-                        type="number"
+                        type={CANVAS_DISPLAY_TYPE.OUT_STR}
                         value={tmp}
                         onChange={(inputVal) => {
                             const val = inputVal.target.value;
@@ -88,11 +91,17 @@ function DiatailInspect(props) {
         }
 
         if (each.type == INS_DISPLAY_TYPE.IN_COLOR) {
+            let color;
+            if (head != -1) {
+                color = element.data.info[head].value[each.index].value;
+            } else color = element.data.info[index].value;
+            if (color == null) color = "#FFFFFF";
+            console.log(color);
             compList.push(
                 <div>
                     <>{each.name}</>
                     <InputColor
-                        initialValue="#5e72e4"
+                        initialValue={color}
                         onChange={(color) => {
                             // setColor(color);
                             if (head != -1) {
