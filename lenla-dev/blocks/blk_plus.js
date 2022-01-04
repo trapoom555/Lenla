@@ -13,9 +13,9 @@ const PlusBlockStyle = {
     return (
       <div style={PlusBlockStyle}>
           <div style = {{width: "100%", height: "100%", position: "absolute", top: "10%", textAlign: "center", fontSize: 40}}>+</div>
-          <div style={{position: "absolute", top: "5%", left: "-65%", color: 'black', fontSize:12}}>{data.portsOut[0]}</div>
-          <div style={{position: "absolute", top: "70%", left: "-65%", color: 'black', fontSize:12}}>{data.portsIn[0]}</div>
-          <div style={{position: "absolute", top: "20%", right: "-65%", color: 'black', fontSize:12}}>{data.portsIn[1]}</div>
+          {/* <div style={{position: "absolute", top: "5%", left: "-65%", color: 'black', fontSize:12}}>{data.port.out[0]}</div>
+          <div style={{position: "absolute", top: "70%", left: "-65%", color: 'black', fontSize:12}}>{data.port.in[0]}</div>
+          <div style={{position: "absolute", top: "20%", right: "-65%", color: 'black', fontSize:12}}>{data.port.in[1]}</div> */}
           <Handle
               type="target"
               position="left"

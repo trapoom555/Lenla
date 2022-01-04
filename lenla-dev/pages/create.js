@@ -19,14 +19,17 @@ import { isDisplayable } from "../block_system/block_behavior";
 let tempSys = new Block.System();
 
 export default function Create({ user, setUser }) {
+
+    // State
     const [displayState, setDisplayState] = useState(0);
     const [inspectorState, setInspectorState] = useState(0);
-    // const initialElements = [];
-
-    const { height, width } = useWindowDimensions();
     const [elements, setElements] = useState([]);
     const [selectedElementId, setSelectedElementId] = useState("-1");
     const [system, setSystem] = useState(tempSys);
+    const [animeState, setAnimeState] = useState(0); // 0 : Stop, 1 : Play, 2 : Pause
+
+    const { height, width } = useWindowDimensions();
+    
     // const system = new Block.System();
     function getIntFromString(str) {
         let n = str.length;
@@ -69,9 +72,22 @@ export default function Create({ user, setUser }) {
                     <div className="flexNav">
                         <Navbar />
                         <ShareButton />
-                        <button className="preview_button" onClick={compileAll}>
-                            Preview
-                        </button>
+                        <div className="preview_wrapper">
+                            <button className="preview_button" onClick={() => {compileAll(); setAnimeState(1)}} style={{display: animeState == 0 ? "":"none"}}>
+                                Preview
+                            </button>
+                            <div className="play_pause_wrapper" style={{display: animeState == 1 ? "":"none"}}>
+                                <div className="pause_button" onClick={() => {setAnimeState(2)}}/>
+                            </div>
+                            <div className="play_pause_wrapper" style={{display: animeState == 2 ? "":"none"}}>
+                                <div className="play_button" onClick={() => {setAnimeState(1)}}/>
+                            </div>
+                            <div className="stop_wrapper" style={{display: animeState != 0 ? "":"none"}}>
+                                <div className="stop_button" onClick={() => {setAnimeState(0)}}/>
+                            </div>
+                            
+                            
+                        </div>
                         <Profile name={user.username} url={user.profileImage} />
                     </div>
 

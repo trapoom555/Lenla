@@ -9,12 +9,14 @@ const ConstantBlockStyle = {
     borderRadius: "15px",
   };
   
-  const ConstantBlock = ({ data }) => {
+  const ConstantBlock = (element) => {
+    const { data } = element;
+    console.log(data)
     return (
       <div style={ConstantBlockStyle}>
-        <div style = {{ borderStyle : "none none solid none", textAlign:"center", padding:"10px 0px"}}>{data.type}</div>
-          <div style = {{width: "100%",top: "50%", position: "absolute", textAlign: "center", alignItems: "center", fontSize: 30}}>{data.data}</div>
-          <div style={{position: "absolute", top: "47%", right: "-30%", color: 'black', fontSize:12}}>{data.portsOut[0]}</div>
+        <div style = {{ borderStyle : "none none solid none", textAlign:"center", padding:"10px 0px"}}>Constant</div>
+          <div style = {{width: "100%",top: "50%", position: "absolute", textAlign: "center", alignItems: "center", fontSize: 30}}>{element.data.info[0].value}</div>
+          <div style={{position: "absolute", top: "47%", right: "-35%", color: 'black', fontSize:12}}>{element.data.port.out[0]}</div>
           <Handle
               type="source"
               position="right"

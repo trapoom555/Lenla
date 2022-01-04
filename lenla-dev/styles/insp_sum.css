@@ -1,0 +1,28 @@
+.insp_sum_wrapper {
+    display: flex;
+    padding: 1vh 2vw;
+    align-items: center;
+}
+
+.insp_sum_dropdown {
+    width: 30%;
+    font-size: 1.5vw;
+    border-radius: 4px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.insp_sum_button {
+    text-align: center;
+    font-size: 1vw;
+    height: 4vh;
+    padding: 1vh 1vw;
+    margin-left: 1.5vw;
+}
+
+.insp_sum_header {
+    text-align: left;
+    margin-bottom: 2vh;
+    margin-top: 3vh;
+    margin-left: 2vw;
+}
