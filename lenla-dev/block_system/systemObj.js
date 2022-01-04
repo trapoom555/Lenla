@@ -30,7 +30,10 @@ var System = /** @class */ (function () {
         }
         if (element.type == stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
             node = new OutBlock.NumberDisplay(element.id, element.type);
+            // console.log("333")
             if (Block.isDisplayable(node)) {
+                // console.log("444")
+                console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
                 node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
             }
         }
@@ -76,17 +79,20 @@ var System = /** @class */ (function () {
         notiPort.addReciver(target);
         source.addNotiPort(sourcePortIndex, notiPort);
     };
+    System.prototype.delete_element = function (element_id) {
+    };
     System.prototype.compile = function () {
         this.childNode.forEach(function (element) {
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
+                console.log(element.type + " is notify");
             }
         });
-        // this.childNode.forEach(element => {
-        //     if (Block.isDisplayable(element)) {
-        //         element.update();
-        //     }
-        // });
+        this.childNode.forEach(function (element) {
+            if (Block.isISub(element)) {
+                element.update();
+            }
+        });
     };
     return System;
 }());
@@ -104,17 +110,17 @@ function createElementObj(id, type, position, data, name) {
     switch (type) {
         case stringConfig_1.BLOCK_TYPE.IN_CONSTANT:
             return __assign(__assign({}, obj), { data: {
-                    // data: data.value,
+                    // data: data.num,
                     info: [{
                             index: 0,
-                            name: "value",
+                            name: "num",
                             value: data.value,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                         }],
                     port: {
                         "in": [],
                         inType: [],
-                        out: ["value"],
+                        out: ["num"],
                         outType: ["num"],
                         inEnable: []
                     }
@@ -141,7 +147,7 @@ function createElementObj(id, type, position, data, name) {
                     info: [
                         {
                             index: 0,
-                            name: "value",
+                            name: "num",
                             value: null,
                             type: stringConfig_1.INS_DISPLAY_TYPE.OUT_NUM
                         },
@@ -180,7 +186,7 @@ function createElementObj(id, type, position, data, name) {
                     }
                 }, display: {
                     type: "number",
-                    valueName: "value",
+                    valueName: "num",
                     value: 0
                 } });
     }

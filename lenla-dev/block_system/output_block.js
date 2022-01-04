@@ -34,6 +34,7 @@ var NumberDisplay = /** @class */ (function (_super) {
     function NumberDisplay(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
+        _this.color = "#FFFFFF";
         _this.displayDetail = {
             color: _this.color,
             value: _this.value,
@@ -51,13 +52,23 @@ var NumberDisplay = /** @class */ (function (_super) {
         // this.log();
     };
     NumberDisplay.prototype.setDisplayDetail = function (detail) {
-        this.displayDetail = __assign({ color: this.color, value: this.value, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.position }, detail);
+        if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            console.log("port is not null");
+            this.updateContent();
+            console.log(detail);
+            this.displayDetail = __assign({ color: this.color, value: this.value.toString(), type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.position }, detail);
+            console.log(this.displayDetail.position);
+        }
+        else {
+            console.log("port is null");
+        }
     };
     NumberDisplay.prototype.log = function () {
-        console.log("value is ".concat(this.value.toString()));
+        console.log("value is " + this.value.toString());
         // console.log(this.value)
     };
     NumberDisplay.prototype.displayContent = function () {
+        // this.setDisplayDetail({});
         // this.log();
     };
     NumberDisplay.prototype.setColor = function (color) {
@@ -93,7 +104,7 @@ var BoolDisplay = /** @class */ (function (_super) {
         this.log();
     };
     BoolDisplay.prototype.log = function () {
-        console.log("value is ".concat(this.value.toString()));
+        console.log("value is " + this.value.toString());
         // console.log(this.value)
     };
     BoolDisplay.prototype.displayContent = function () {
