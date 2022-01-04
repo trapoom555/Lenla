@@ -32,10 +32,9 @@ export class System {
         }
         if (element.type == BLOCK_TYPE.OP_SUM) {
             node = new InOutBlock.Sum(element.id, element.type, element.data.port.in)
+            // console.log("create sum block")
         }
-        if (element.type == BLOCK_TYPE.OP_ADD) {
-            node = new InOutBlock.Plus(element.id, element.type)
-        }
+
         // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
         //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
         // }

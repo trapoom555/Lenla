@@ -14,6 +14,8 @@ export class Sum extends InOutBlock {
     }
 
     updateContent() {
+        console.log(this.inValPorts)
+        console.log("sum updated " + this.inValPorts[0].value + "," + this.inValPorts[1].value)
         this.value = 0
         for (let i = 0; i < this.symbols.length; i++) {
             if (this.symbols[i] == "+") {
@@ -25,25 +27,8 @@ export class Sum extends InOutBlock {
         }
         this.inValPorts[0].value + this.inValPorts[1].value
         this.outValPorts[0].value = this.value
-        console.log("sum updated " + this.value)
+
         // console.log("sum updated")
-    }
-
-}
-
-export class Plus extends InOutBlock {
-    inValPorts: Array<Number> = [null, null];
-    outValPorts: Array<Number> = [new Number];
-    value: number
-    constructor(id: string, type: string) {
-        super(id, type);
-    }
-
-
-    updateContent() {
-        this.value = this.inValPorts[0].value + this.inValPorts[1].value
-        this.outValPorts[0].value = this.value
-        console.log("sum updated " + this.value)
     }
 
 }

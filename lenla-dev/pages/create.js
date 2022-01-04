@@ -40,7 +40,7 @@ export default function Create({ user, setUser }) {
             run -= 1;
             val = Number(str.slice(run, n));
         }
-        return Number(str.slice(run + 1, n)) - 1;
+        return Number(str.slice(run + 1, n));
     }
     function compileAll() {
         // let tmp = new Block.System();

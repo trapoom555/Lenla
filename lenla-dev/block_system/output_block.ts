@@ -21,21 +21,16 @@ export class NumberDisplay extends OutputBlock {
     updateContent() {
         this.value = this.inValPorts[0].value
         this.displayDetail.value = this.value
-        // console.log("this is updatd  fuck")
-        // this.log();
     }
     setDisplayDetail(detail: any): void {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
             console.log("port is not null")
             this.updateContent()
-            console.log(this.value)
             this.displayDetail = {
                 ...this.displayDetail,
                 value: this.inValPorts[0].value,
                 ...detail
             }
-            console.log("position: ")
-            console.log(this.displayDetail.position)
         }
         else {
 
@@ -46,7 +41,6 @@ export class NumberDisplay extends OutputBlock {
                 position: this.displayDetail.position,
                 ...detail
             }
-            console.log(this.displayDetail.position)
 
         }
         this.position = this.displayDetail.position
@@ -54,7 +48,6 @@ export class NumberDisplay extends OutputBlock {
     }
     log() {
         console.log(`value is ${this.value.toString()}`)
-        // console.log(this.value)
     }
     displayContent() {
 
@@ -63,15 +56,7 @@ export class NumberDisplay extends OutputBlock {
         // this.log();
     }
     getDisplayData() {
-        // console.log("position " + this.position.x + " " + this.position.y)
         try {
-            // this.update()
-            // this.log()
-            // if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            //     console.log("port is not null   -- " + this.inValPorts[0].value)
-            // }
-
-            // console.log("this valur is " + this.value)
 
             return this.displayDetail
         }
@@ -101,7 +86,6 @@ export class BoolDisplay extends OutputBlock {
     }
     log() {
         console.log(`value is ${this.value.toString()}`)
-        // console.log(this.value)
     }
     displayContent() {
         this.log();

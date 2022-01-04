@@ -44,15 +44,12 @@ var NotiPort = /** @class */ (function () {
         this.recivers = [];
     }
     NotiPort.prototype.notify = function () {
-        // console.log(`reciver is ${this.recivers}`)
         this.recivers.forEach(function (reciver) {
             reciver.update();
-            // console.log(`reciver id ${reciver.id}`)
         });
     };
     NotiPort.prototype.addReciver = function (reciver) {
         this.recivers.push(reciver);
-        // console.log(`add reciver id ${reciver.id}`)
     };
     return NotiPort;
 }());
@@ -129,8 +126,6 @@ var OutputBlock = /** @class */ (function () {
     }
     OutputBlock.prototype.addValPort = function (index, obj) {
         this.inValPorts[index] = obj;
-        console.log("port add");
-        console.log(this.inValPorts[index]);
     };
     OutputBlock.prototype.updateContent = function () {
     };
@@ -173,20 +168,19 @@ var InOutBlock = /** @class */ (function () {
         this.type = type;
     }
     InOutBlock.prototype.addValPort = function (index, obj) {
+        while (this.inValPorts.length <= index) {
+            this.inValPorts.push(null);
+        }
         this.inValPorts[index] = obj;
     };
     InOutBlock.prototype.updateContent = function () {
     };
     InOutBlock.prototype.update = function () {
-        var check = 0;
-        this.inValPorts.forEach(function (portVal) {
-            if (portVal == null) {
-                console.log("inValPorts is null");
-                check = 1;
-            }
-        });
-        if (check == 0) {
+        try {
             this.updateContent();
+        }
+        catch (err) {
+            console.log(err);
         }
     };
     InOutBlock.prototype.addNotiPort = function (index, port) {

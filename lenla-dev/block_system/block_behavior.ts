@@ -18,15 +18,12 @@ export interface IBlock {
 export class NotiPort {
     recivers: ISub[] = []
     notify() {
-        // console.log(`reciver is ${this.recivers}`)
         this.recivers.forEach(reciver => {
             reciver.update();
-            // console.log(`reciver id ${reciver.id}`)
         });
     }
     addReciver(reciver: ISub) {
         this.recivers.push(reciver);
-        // console.log(`add reciver id ${reciver.id}`)
     }
 
 }
@@ -112,8 +109,6 @@ export abstract class OutputBlock implements ISub, IDisplay {
     }
     addValPort(index: number, obj: Obj) {
         this.inValPorts[index] = obj
-        console.log("port add")
-        console.log(this.inValPorts[index])
     }
     updateContent() {
 
@@ -166,7 +161,12 @@ export abstract class InOutBlock implements ISub, IPub {
         this.type = type
     }
     addValPort(index: number, obj: Obj) {
+
+        while (this.inValPorts.length <= index) {
+            this.inValPorts.push(null)
+        }
         this.inValPorts[index] = obj
+
     }
 
     updateContent() {
@@ -174,15 +174,12 @@ export abstract class InOutBlock implements ISub, IPub {
     }
 
     update() {
-        let check = 0
-        this.inValPorts.forEach(portVal => {
-            if (portVal == null) {
-                console.log("inValPorts is null")
-                check = 1
-            }
-        });
-        if (check == 0) {
+
+        try {
             this.updateContent();
+        }
+        catch (err) {
+            console.log(err)
         }
 
     }
