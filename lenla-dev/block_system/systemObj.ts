@@ -113,10 +113,10 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                 ...obj,
                 data:
                 {
-                    // data: data.value,
+                    // data: data.num,
                     info: [{
                         index: 0,
-                        name: "value",
+                        name: "num",
                         value: data.value,
                         type: INS_DISPLAY_TYPE.INPUT_NUM
                     }],
@@ -124,7 +124,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     {
                         in: [],
                         inType: [],
-                        out: ["value"],
+                        out: ["num"],
                         outType: ["num"],
                         inEnable: [],
                     },
@@ -163,7 +163,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     info: [
                         {
                             index: 0,
-                            name: "value",
+                            name: "num",
                             value: null,
                             type: INS_DISPLAY_TYPE.OUT_NUM
                         },
@@ -207,7 +207,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
 
                 display: {
                     type: "number",
-                    valueName: "value",
+                    valueName: "num",
                     value: 0
                 }
             }

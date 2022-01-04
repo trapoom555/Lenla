@@ -12,11 +12,11 @@ const GaugeBlockStyle = {
     paddingTop: "15px"
   };
   
-  const GaugeBlock = ({ data }) => {
+  const NumberDisplayBlock = ({ data }) => {
     return (
       <div style={GaugeBlockStyle}>
           <Image src="/../public/ic_gauge.png" alt="me" width="50" height="50" draggable="false" />
-          <div style={{position: "absolute", top: "30%", left: "-35%", color: 'black', fontSize:12}}>{data.portsIn[0]}</div>
+          <div style={{position: "absolute", top: "30%", left: "-35%", color: 'black', fontSize:12}}>{data.port.in[0]}</div>
           <Handle
               type="target"
               position="left"
@@ -28,4 +28,4 @@ const GaugeBlockStyle = {
     );
   };
 
-export default GaugeBlock
+export default NumberDisplayBlock

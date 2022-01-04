@@ -206,9 +206,21 @@ function DiatailInspect(props) {
                                 >
                                     Add
                                 </button>
-                                <button className="insp_sum_button">
-                                    Delete
-                                </button>
+                                <button className="insp_sum_button" onClick={() => {
+                                    let newElement = {
+                                        ...element,
+                                    };
+                                    console.log(newElement.data.port.in)
+                                    if(newElement.data.port.in.length > 2){
+                                        newElement.data.port.in.pop();
+                                        newElement.data.port.inEnable.pop();
+                                    }
+                                    updateElementById(element.id, {
+                                        id: element.id,
+                                        type: element.type,
+                                        ...newElement,
+                                    });
+                                }}>Delete</button>
                             </div>
                         </div>
                     )}
