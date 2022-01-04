@@ -30,7 +30,10 @@ var System = /** @class */ (function () {
         }
         if (element.type == stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
             node = new OutBlock.NumberDisplay(element.id, element.type);
+            // console.log("333")
             if (Block.isDisplayable(node)) {
+                // console.log("444")
+                console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
                 node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
             }
         }
@@ -71,22 +74,32 @@ var System = /** @class */ (function () {
         }
         else {
         }
+        console.log("add val port for " + targetId);
         target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex]);
         var notiPort = new Block.NotiPort;
         notiPort.addReciver(target);
         source.addNotiPort(sourcePortIndex, notiPort);
     };
+    System.prototype.delete_element = function (element_id) {
+    };
     System.prototype.compile = function () {
+        // console.log("////////////////////////////////////")
+        console.log(this.childNode);
         this.childNode.forEach(function (element) {
+            console.log(element.type);
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
+                // console.log(element.type + " is notify")
             }
         });
-        // this.childNode.forEach(element => {
-        //     if (Block.isDisplayable(element)) {
-        //         element.update();
-        //     }
-        // });
+        // console.log("done notify")
+        this.childNode.forEach(function (element) {
+            if (Block.isISub(element)) {
+                element.update();
+                // console.log(element.type + " is updatedddddd")
+            }
+        });
+        // console.log("done update")
     };
     return System;
 }());
@@ -158,7 +171,7 @@ function createElementObj(id, type, position, data, name) {
                                 {
                                     index: 1,
                                     name: "letter color",
-                                    value: null,
+                                    value: "#FFFFFF",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.IN_COLOR
                                 },
                             ],

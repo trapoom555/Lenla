@@ -64,29 +64,37 @@ export class System {
         else {
 
         }
+        console.log("add val port for " + targetId)
         target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex])
         let notiPort = new Block.NotiPort
         notiPort.addReciver(target)
         source.addNotiPort(sourcePortIndex, notiPort)
+
 
     }
     delete_element(element_id: string) {
 
     }
     compile() {
+        // console.log("////////////////////////////////////")
+        console.log(this.childNode)
         this.childNode.forEach(element => {
+            console.log(element.type)
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
-                console.log(element.type + " is notify")
+                // console.log(element.type + " is notify")
             }
         });
+        // console.log("done notify")
         this.childNode.forEach(element => {
 
             if (Block.isISub(element)) {
                 element.update();
+                // console.log(element.type + " is updatedddddd")
             }
 
         });
+        // console.log("done update")
 
     }
 }
@@ -172,7 +180,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                 {
                                     index: 1,
                                     name: "letter color",
-                                    value: null,
+                                    value: "#FFFFFF",
                                     type: INS_DISPLAY_TYPE.IN_COLOR
                                 },
 

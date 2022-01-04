@@ -19,7 +19,6 @@ import { isDisplayable } from "../block_system/block_behavior";
 let tempSys = new Block.System();
 
 export default function Create({ user, setUser }) {
-
     // State
     const [displayState, setDisplayState] = useState(0);
     const [inspectorState, setInspectorState] = useState(0);
@@ -27,9 +26,10 @@ export default function Create({ user, setUser }) {
     const [selectedElementId, setSelectedElementId] = useState("-1");
     const [system, setSystem] = useState(tempSys);
     const [animeState, setAnimeState] = useState(0); // 0 : Stop, 1 : Play, 2 : Pause
+    const [systemReady, setsystemReady] = useState(false);
 
     const { height, width } = useWindowDimensions();
-    
+
     // const system = new Block.System();
     function getIntFromString(str) {
         let n = str.length;
@@ -43,13 +43,14 @@ export default function Create({ user, setUser }) {
         return Number(str.slice(run + 1, n)) - 1;
     }
     function compileAll() {
-        let tmp = new Block.System();
+        // let tmp = new Block.System();
+        console.log(elements);
         elements.forEach((element) => {
             if (element.flag == "node") {
-                tmp.add_element(element);
+                system.add_element(element);
             }
             if (element.flag == "line") {
-                tmp.set_port(
+                system.set_port(
                     element.source,
                     element.target,
                     getIntFromString(element.sourceHandle),
@@ -58,8 +59,10 @@ export default function Create({ user, setUser }) {
             }
         });
 
-        setSystem(tmp);
-        tempSys = tmp;
+        // setSystem(tmp);
+        // tempSys = tmp;
+        // console.log(tmp.childNode);
+        console.log(system.childNode);
         system.compile();
 
         // system.add_elements(elements);
@@ -73,20 +76,54 @@ export default function Create({ user, setUser }) {
                         <Navbar />
                         <ShareButton />
                         <div className="preview_wrapper">
-                            <button className="preview_button" onClick={() => {compileAll(); setAnimeState(1)}} style={{display: animeState == 0 ? "":"none"}}>
+                            <button
+                                className="preview_button"
+                                onClick={() => {
+                                    compileAll();
+                                    console.log("done compile");
+                                    setAnimeState(1);
+                                }}
+                                style={{
+                                    display: animeState == 0 ? "" : "none",
+                                }}
+                            >
                                 Preview
                             </button>
-                            <div className="play_pause_wrapper" onClick={() => {setAnimeState(2)}} style={{display: animeState == 1 ? "":"none"}}>
-                                <div className="pause_button"/>
+                            <div
+                                className="play_pause_wrapper"
+                                onClick={() => {
+                                    setAnimeState(2);
+                                }}
+                                style={{
+                                    display: animeState == 1 ? "" : "none",
+                                }}
+                            >
+                                <div className="pause_button" />
                             </div>
-                            <div className="play_pause_wrapper" onClick={() => {setAnimeState(1)}} style={{display: animeState == 2 ? "":"none"}}>
-                                <div className="play_button"/>
+                            <div
+                                className="play_pause_wrapper"
+                                onClick={() => {
+                                    setAnimeState(1);
+                                }}
+                                style={{
+                                    display: animeState == 2 ? "" : "none",
+                                }}
+                            >
+                                <div className="play_button" />
                             </div>
-                            <div className="stop_wrapper" style={{display: animeState != 0 ? "":"none"}}>
-                                <div className="stop_button" onClick={() => {setAnimeState(0)}}/>
+                            <div
+                                className="stop_wrapper"
+                                style={{
+                                    display: animeState != 0 ? "" : "none",
+                                }}
+                            >
+                                <div
+                                    className="stop_button"
+                                    onClick={() => {
+                                        setAnimeState(0);
+                                    }}
+                                />
                             </div>
-                            
-                            
                         </div>
                         <Profile name={user.username} url={user.profileImage} />
                     </div>
@@ -120,6 +157,7 @@ export default function Create({ user, setUser }) {
                                         ? Math.floor(0.39 * height)
                                         : 0
                                 }
+                                animeState={animeState}
                             />
                         </div>
 

@@ -129,6 +129,8 @@ var OutputBlock = /** @class */ (function () {
     }
     OutputBlock.prototype.addValPort = function (index, obj) {
         this.inValPorts[index] = obj;
+        console.log("port add");
+        console.log(this.inValPorts[index]);
     };
     OutputBlock.prototype.updateContent = function () {
     };
@@ -143,6 +145,7 @@ var OutputBlock = /** @class */ (function () {
         try {
             this.updateContent();
             this.display();
+            this.setDisplayDetail({});
         }
         catch (err) {
             console.log(err);

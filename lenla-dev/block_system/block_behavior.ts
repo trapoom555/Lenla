@@ -112,6 +112,8 @@ export abstract class OutputBlock implements ISub, IDisplay {
     }
     addValPort(index: number, obj: Obj) {
         this.inValPorts[index] = obj
+        console.log("port add")
+        console.log(this.inValPorts[index])
     }
     updateContent() {
 
@@ -129,6 +131,7 @@ export abstract class OutputBlock implements ISub, IDisplay {
         try {
             this.updateContent();
             this.display();
+            this.setDisplayDetail({})
         }
         catch (err) {
             console.log(err)

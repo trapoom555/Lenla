@@ -3,12 +3,11 @@ import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 export class NumberDisplay extends OutputBlock {
     value: number
     inValPorts: Array<Number> = [null];
-    color: string = "#FFFFFF"
     displayDetail: any;
     constructor(id: string, type: string) {
         super(id, type);
         this.displayDetail = {
-            color: this.color,
+            color: "#FFFFFF",
             value: this.value,
             type: CANVAS_DISPLAY_TYPE.OUT_STR,
             position: this.position,
@@ -22,25 +21,35 @@ export class NumberDisplay extends OutputBlock {
     updateContent() {
         this.value = this.inValPorts[0].value
         this.displayDetail.value = this.value
+        // console.log("this is updatd  fuck")
         // this.log();
     }
     setDisplayDetail(detail: any): void {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
             console.log("port is not null")
             this.updateContent()
-            console.log(detail)
+            console.log(this.value)
             this.displayDetail = {
-                color: this.color,
-                value: this.value.toString(),
-                type: CANVAS_DISPLAY_TYPE.OUT_STR,
-                position: this.position,
+                ...this.displayDetail,
+                value: this.inValPorts[0].value,
                 ...detail
             }
+            console.log("position: ")
             console.log(this.displayDetail.position)
         }
         else {
+
             console.log("port is null")
+            this.displayDetail = {
+                color: this.displayDetail.color,
+                type: CANVAS_DISPLAY_TYPE.OUT_STR,
+                position: this.displayDetail.position,
+                ...detail
+            }
+            console.log(this.displayDetail.position)
+
         }
+        this.position = this.displayDetail.position
 
     }
     log() {
@@ -53,14 +62,15 @@ export class NumberDisplay extends OutputBlock {
         // this.setDisplayDetail({});
         // this.log();
     }
-    setColor(color) {
-        this.color = color
-    }
     getDisplayData() {
         // console.log("position " + this.position.x + " " + this.position.y)
         try {
             // this.update()
             // this.log()
+            // if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            //     console.log("port is not null   -- " + this.inValPorts[0].value)
+            // }
+
             // console.log("this valur is " + this.value)
 
             return this.displayDetail

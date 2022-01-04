@@ -35,7 +35,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
         _this.displayDetail = {
-            color: _this.color,
+            color: "#FFFFFF",
             value: _this.value,
             type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR,
             position: _this.position
@@ -48,26 +48,41 @@ var NumberDisplay = /** @class */ (function (_super) {
     NumberDisplay.prototype.updateContent = function () {
         this.value = this.inValPorts[0].value;
         this.displayDetail.value = this.value;
+        // console.log("this is updatd  fuck")
         // this.log();
     };
     NumberDisplay.prototype.setDisplayDetail = function (detail) {
-        this.displayDetail = __assign({ color: this.color, value: this.value, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.position }, detail);
+        if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            console.log("port is not null");
+            this.updateContent();
+            console.log(this.value);
+            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { value: this.inValPorts[0].value }), detail);
+            console.log("position: ");
+            console.log(this.displayDetail.position);
+        }
+        else {
+            console.log("port is null");
+            this.displayDetail = __assign({ color: this.displayDetail.color, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
+            console.log(this.displayDetail.position);
+        }
+        this.position = this.displayDetail.position;
     };
     NumberDisplay.prototype.log = function () {
         console.log("value is ".concat(this.value.toString()));
         // console.log(this.value)
     };
     NumberDisplay.prototype.displayContent = function () {
+        // this.setDisplayDetail({});
         // this.log();
-    };
-    NumberDisplay.prototype.setColor = function (color) {
-        this.color = color;
     };
     NumberDisplay.prototype.getDisplayData = function () {
         // console.log("position " + this.position.x + " " + this.position.y)
         try {
             // this.update()
             // this.log()
+            // if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            //     console.log("port is not null   -- " + this.inValPorts[0].value)
+            // }
             // console.log("this valur is " + this.value)
             return this.displayDetail;
         }

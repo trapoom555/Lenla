@@ -21,7 +21,7 @@ function preload() {
 }
 preload();
 export default forwardRef((props, ref) => {
-    const { width, height, systemObj } = props;
+    const { width, height, systemObj, animeState } = props;
     let displayObj = [];
     const setup = (p5, canvasParentRef) => {
         font = p5.loadFont("assets/SourceSansPro-Regular.otf");
@@ -48,32 +48,36 @@ export default forwardRef((props, ref) => {
         p5.resizeCanvas(width, height);
         p5.background(0);
         //
-        systemObj.childNode.forEach((node) => {
-            if (isDisplayable(node)) {
-                node.update();
-                const tmp = node.getDisplayData();
-                try {
-                    switch (tmp.type) {
-                        case CANVAS_DISPLAY_TYPE.OUT_STR:
-                            // console.log("Wow");
-                            // console.log(tmp.position);
-                            p5.fill(tmp.color);
-                            // p5.text(tmp.value, 100, 100);
-                            p5.text(
-                                tmp.value + "",
-                                tmp.position.x,
-                                tmp.position.y
-                            );
-                            // console.log("Wow2");
-                            break;
+        if (animeState == 1) {
+            systemObj.childNode.forEach((node) => {
+                if (isDisplayable(node)) {
+                    // node.update();
+                    const tmp = node.getDisplayData();
 
-                        // case CANVAS_DISPLAY_TYPE.IN_SLIDE:
+                    try {
+                        switch (tmp.type) {
+                            case CANVAS_DISPLAY_TYPE.OUT_STR:
+                                // console.log("Wow");
+                                // console.log(tmp.position);
+                                p5.fill(tmp.color);
+                                // p5.text(tmp.value, 100, 100);
+                                p5.text(
+                                    tmp.value + "",
+                                    tmp.position.x,
+                                    tmp.position.y
+                                );
+                                console.log("Wow " + tmp.value);
+                                break;
+
+                            // case CANVAS_DISPLAY_TYPE.IN_SLIDE:
+                        }
+                    } catch (error) {
+                        console.log(error);
                     }
-                } catch (error) {
-                    console.log(error);
                 }
-            }
-        });
+            });
+        }
+
         // elements.forEach((element) => {
         //     if (element.display) {
         //         // console.log(element.display);
