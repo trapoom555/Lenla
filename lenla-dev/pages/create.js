@@ -97,9 +97,7 @@ export default function Create({ user, setUser }) {
                                 elements={elements}
                                 setElements={setElements}
                                 setSelectedElement={(x) => {
-                                    console.log("WTF");
-                                    console.log(x);
-                                    setSelectedElementId(x + "");
+                                    setSelectedElementId(x);
                                 }}
                                 setInspectorState={setInspectorState}
                                 width={Math.floor(0.7 * width)}

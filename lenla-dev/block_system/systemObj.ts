@@ -19,7 +19,10 @@ export class System {
         }
         if (element.type == BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
             node = new OutBlock.NumberDisplay(element.id, element.type)
+            // console.log("333")
             if (Block.isDisplayable(node)) {
+                // console.log("444")
+                console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
                 node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
             }
 
@@ -67,20 +70,23 @@ export class System {
         source.addNotiPort(sourcePortIndex, notiPort)
 
     }
+    delete_element(element_id: string) {
 
+    }
     compile() {
         this.childNode.forEach(element => {
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
+                console.log(element.type + " is notify")
             }
         });
-        // this.childNode.forEach(element => {
+        this.childNode.forEach(element => {
 
-        //     if (Block.isDisplayable(element)) {
-        //         element.update();
-        //     }
+            if (Block.isISub(element)) {
+                element.update();
+            }
 
-        // });
+        });
 
     }
 }

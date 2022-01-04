@@ -3,7 +3,7 @@ import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 export class NumberDisplay extends OutputBlock {
     value: number
     inValPorts: Array<Number> = [null];
-    color: string
+    color: string = "#FFFFFF"
     displayDetail: any;
     constructor(id: string, type: string) {
         super(id, type);
@@ -17,6 +17,7 @@ export class NumberDisplay extends OutputBlock {
 
     addValPort(index: number, num: Number) {
         this.inValPorts[index] = num
+
     }
     updateContent() {
         this.value = this.inValPorts[0].value
@@ -24,13 +25,23 @@ export class NumberDisplay extends OutputBlock {
         // this.log();
     }
     setDisplayDetail(detail: any): void {
-        this.displayDetail = {
-            color: this.color,
-            value: this.value,
-            type: CANVAS_DISPLAY_TYPE.OUT_STR,
-            position: this.position,
-            ...detail
+        if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            console.log("port is not null")
+            this.updateContent()
+            console.log(detail)
+            this.displayDetail = {
+                color: this.color,
+                value: this.value.toString(),
+                type: CANVAS_DISPLAY_TYPE.OUT_STR,
+                position: this.position,
+                ...detail
+            }
+            console.log(this.displayDetail.position)
         }
+        else {
+            console.log("port is null")
+        }
+
     }
     log() {
         console.log(`value is ${this.value.toString()}`)
@@ -38,6 +49,8 @@ export class NumberDisplay extends OutputBlock {
     }
     displayContent() {
 
+
+        // this.setDisplayDetail({});
         // this.log();
     }
     setColor(color) {

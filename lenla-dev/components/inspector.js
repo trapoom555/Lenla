@@ -2,7 +2,7 @@ import * as Block from "../block_system/systemObj";
 import { Children, useState } from "react";
 import styled from "styled-components";
 import Dropdown from "react-dropdown";
-import 'react-dropdown/style.css';
+import "react-dropdown/style.css";
 import {
     CANVAS_DISPLAY_TYPE,
     INS_DISPLAY_TYPE,
@@ -10,7 +10,7 @@ import {
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import InputColor from "react-input-color";
 function DiatailInspect(props) {
-    console.log("drawDetail");
+    // console.log("drawDetail");
     const elements = props.elements;
     const setElements = props.setElements;
     function updateElementById(id, newElementVal) {
@@ -20,13 +20,10 @@ function DiatailInspect(props) {
         setElements(items);
     }
     function pushComplist(each, compList, element, head = -1) {
-        // console.log(555);
-        // console.log(each.type);
         if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
             let tmp = each.value;
             compList.push(
                 <div className="insp_constant_wrapper">
-
                     {/* <div>{each.name}</div> */}
                     <div className="insp_constant_header">Value</div>
                     <input
@@ -34,13 +31,12 @@ function DiatailInspect(props) {
                         type={CANVAS_DISPLAY_TYPE.OUT_STR}
                         value={tmp}
                         onChange={(inputVal) => {
-                            const val = inputVal.target.value;
+                            const val = parseInt(inputVal.target.value);
+                            val = isNaN(val) ? 0 : val;
                             if (head == -1) {
-                                element.data.info[each.index].value =
-                                    parseInt(val);
+                                element.data.info[each.index].value = val;
                             } else {
-                                element.data.info[head].value[each.index] =
-                                    parseInt(val);
+                                element.data.info[head].value[each.index] = val;
                             }
                             updateElementById(element.id, element);
                         }}
@@ -61,7 +57,6 @@ function DiatailInspect(props) {
                         value={tmp.x}
                         onChange={(inputVal) => {
                             const val = inputVal.target.value;
-                            console.log(each.index);
                             if (head != -1) {
                                 element.data.info[head].value[
                                     each.index
@@ -142,7 +137,7 @@ function DiatailInspect(props) {
                 if (each.type == INS_DISPLAY_TYPE.LAYOUT_GROUP) {
                     let tmp = [];
                     each.value.forEach((subEach) => {
-                        console.log(subEach.name);
+                        // console.log(subEach.name);
                         pushComplist(subEach, tmp, element, each.index);
                     });
                     compList.push(
@@ -193,8 +188,12 @@ function DiatailInspect(props) {
                                         let newElement = {
                                             ...element,
                                         };
-                                        newElement.data.port.in.push(portChoice);
-                                        newElement.data.port.inEnable.push(true);
+                                        newElement.data.port.in.push(
+                                            portChoice
+                                        );
+                                        newElement.data.port.inEnable.push(
+                                            true
+                                        );
                                         console.log(portIn);
                                         setportIn(newElement.data.port.in);
 
@@ -234,8 +233,15 @@ function DiatailInspect(props) {
         }
     }
     return (
-        <div style={{display: "flex", flexFlow: "row", height: "100%", alignItems: "center"}}>
-            <p style={{width: "100%"}}>None of the block is selected</p>
+        <div
+            style={{
+                display: "flex",
+                flexFlow: "row",
+                height: "100%",
+                alignItems: "center",
+            }}
+        >
+            <p style={{ width: "100%" }}>None of the block is selected</p>
         </div>
     );
 }
@@ -326,7 +332,6 @@ function BlockShow(props) {
 }
 
 export default function Inspector(props) {
-    // console.log("draw inspector");
     const {
         elements,
         setElements,
@@ -365,7 +370,12 @@ export default function Inspector(props) {
                     </div>
                 </div>
 
-                <div style={{ display: inspectorState ? "" : "none", height: "100%" }}>
+                <div
+                    style={{
+                        display: inspectorState ? "" : "none",
+                        height: "100%",
+                    }}
+                >
                     <DiatailInspect
                         id={selectedElementId}
                         elements={elements}
