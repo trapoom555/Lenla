@@ -76,11 +76,11 @@ export default function Create({ user, setUser }) {
                             <button className="preview_button" onClick={() => {compileAll(); setAnimeState(1)}} style={{display: animeState == 0 ? "":"none"}}>
                                 Preview
                             </button>
-                            <div className="play_pause_wrapper" style={{display: animeState == 1 ? "":"none"}}>
-                                <div className="pause_button" onClick={() => {setAnimeState(2)}}/>
+                            <div className="play_pause_wrapper" onClick={() => {setAnimeState(2)}} style={{display: animeState == 1 ? "":"none"}}>
+                                <div className="pause_button"/>
                             </div>
-                            <div className="play_pause_wrapper" style={{display: animeState == 2 ? "":"none"}}>
-                                <div className="play_button" onClick={() => {setAnimeState(1)}}/>
+                            <div className="play_pause_wrapper" onClick={() => {setAnimeState(1)}} style={{display: animeState == 2 ? "":"none"}}>
+                                <div className="play_button"/>
                             </div>
                             <div className="stop_wrapper" style={{display: animeState != 0 ? "":"none"}}>
                                 <div className="stop_button" onClick={() => {setAnimeState(0)}}/>
