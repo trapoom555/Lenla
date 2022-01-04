@@ -1,8 +1,8 @@
-import ConstantInspector from "../inspectors/insp_constant";
 import * as Block from "../block_system/systemObj";
 import { Children, useState } from "react";
 import styled from "styled-components";
 import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 import {
     CANVAS_DISPLAY_TYPE,
     INS_DISPLAY_TYPE,
@@ -23,9 +23,11 @@ function DiatailInspect(props) {
         if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
             let tmp = each.value;
             compList.push(
-                <>
-                    <>{each.name} </>
+                <div className="insp_constant_wrapper">
+                    {/* <div>{each.name}</div> */}
+                    <div className="insp_constant_header">Value</div>
                     <input
+                        className="insp_constant_input"
                         type={CANVAS_DISPLAY_TYPE.OUT_STR}
                         value={tmp}
                         onChange={(inputVal) => {
@@ -39,7 +41,7 @@ function DiatailInspect(props) {
                             updateElementById(element.id, element);
                         }}
                     ></input>
-                </>
+                </div>
             );
         }
         if (each.type == INS_DISPLAY_TYPE.IN_VECTOR_2D) {
@@ -149,55 +151,66 @@ function DiatailInspect(props) {
             let a = element.data.port.in;
             // console.log("a" + a);
             return (
-                <div
-                    style={{
-                        fontSize: 20,
-                    }}
-                >
-                    <p>id: {element.id}</p>
+                <div>
+                    {/* <p>id: {element.id}</p>
                     <p>type: {element.type}</p>
-                    <p>port: {element.type}</p>
+                    <p>port: {element.type}</p> */}
                     {compList}
 
-                    {config.limitIn[0] < element.data.port.in.length && (
+                    {/* {config.limitIn[0] < element.data.port.in.length && (
                         <button>delete</button>
-                    )}
+                    )} */}
+
                     {/* {a} */}
                     {(config.limitIn[1] > element.data.port.in.length ||
                         config.limitIn[1] == "inf") && (
-                        <>
-                            <Dropdown
-                                options={options}
-                                onChange={(value) => {
-                                    // console.log(value);
-                                    setportChoice(value.value);
-                                }}
-                                value={defaultOption}
-                                placeholder="Select an option"
-                                arrowClosed={<span className="arrow-closed" />}
-                                arrowOpen={<span className="arrow-open" />}
-                            />
-                            <button
-                                onClick={() => {
-                                    // setshowPortOption(true)element;
-                                    let newElement = {
-                                        ...element,
-                                    };
-                                    newElement.data.port.in.push(portChoice);
-                                    newElement.data.port.inEnable.push(true);
-                                    // console.log(portIn);
-                                    setportIn(newElement.data.port.in);
+                        <div>
+                            <div className="insp_sum_header">Ports</div>
+                            <div className="insp_sum_wrapper">
+                                <Dropdown
+                                    // baseClassName="rdn"
+                                    className="insp_sum_dropdown"
+                                    options={options}
+                                    onChange={(value) => {
+                                        console.log(value);
+                                        setportChoice(value.value);
+                                    }}
+                                    menu="div"
+                                    value={defaultOption}
+                                    placeholder="Select an option"
+                                    // arrowClosed={<span className="arrow-closed" />}
+                                    // arrowOpen={<span className="arrow-open" />}
+                                />
+                                <button
+                                    className="insp_sum_button"
+                                    onClick={() => {
+                                        // setshowPortOption(true)element;
+                                        let newElement = {
+                                            ...element,
+                                        };
+                                        newElement.data.port.in.push(
+                                            portChoice
+                                        );
+                                        newElement.data.port.inEnable.push(
+                                            true
+                                        );
+                                        console.log(portIn);
+                                        setportIn(newElement.data.port.in);
 
-                                    updateElementById(element.id, {
-                                        id: element.id,
-                                        type: element.type,
-                                        ...newElement,
-                                    });
-                                }}
-                            >
-                                add port
-                            </button>
-                        </>
+                                        updateElementById(element.id, {
+                                            id: element.id,
+                                            type: element.type,
+                                            ...newElement,
+                                        });
+                                    }}
+                                >
+                                    Add
+                                </button>
+                                <button className="insp_sum_button">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
                     )}
 
                     {/* {showPortOption && <></>} */}
@@ -208,9 +221,16 @@ function DiatailInspect(props) {
         }
     }
     return (
-        <>
-            <p>non of block is selected</p>
-        </>
+        <div
+            style={{
+                display: "flex",
+                flexFlow: "row",
+                height: "100%",
+                alignItems: "center",
+            }}
+        >
+            <p style={{ width: "100%" }}>None of the block is selected</p>
+        </div>
     );
 }
 
@@ -338,7 +358,12 @@ export default function Inspector(props) {
                     </div>
                 </div>
 
-                <div style={{ display: inspectorState ? "" : "none" }}>
+                <div
+                    style={{
+                        display: inspectorState ? "" : "none",
+                        height: "100%",
+                    }}
+                >
                     <DiatailInspect
                         id={selectedElementId}
                         elements={elements}

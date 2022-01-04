@@ -6,14 +6,14 @@ import ReactFlow, {
 import { useRef, useState } from "react";
 import ConstantBlock from "../blocks/blk_constant";
 import GaugeBlock from "../blocks/blk_gauge";
-import PlusBlock from "../blocks/blk_plus";
+import SumBlock from "../blocks/blk_sum";
 import { TestBlock } from "../blocks/test_block";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { BasicBlock } from "../blocks/base_block";
 import * as Block from "../block_system/systemObj";
 const nodeTypes = {
-    [BLOCK_TYPE.IN_CONSTANT]: BasicBlock,
-    [BLOCK_TYPE.OP_SUM]: BasicBlock,
+    [BLOCK_TYPE.IN_CONSTANT]: ConstantBlock,
+    [BLOCK_TYPE.OP_SUM]: SumBlock,
     [BLOCK_TYPE.OP_ADD]: BasicBlock,
     [BLOCK_TYPE.OUT_NUMBER_DISPLAY]: BasicBlock,
     [BLOCK_TYPE.Test_OP]: BasicBlock,
