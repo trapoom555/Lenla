@@ -10,7 +10,7 @@ import {
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import InputColor from "react-input-color";
 function DiatailInspect(props) {
-    console.log("drawDetail");
+    // console.log("drawDetail");
     const elements = props.elements;
     const setElements = props.setElements;
     function updateElementById(id, newElementVal) {
@@ -20,8 +20,6 @@ function DiatailInspect(props) {
         setElements(items);
     }
     function pushComplist(each, compList, element, head = -1) {
-        // console.log(555);
-        // console.log(each.type);
         if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
             let tmp = each.value;
             compList.push(
@@ -31,13 +29,12 @@ function DiatailInspect(props) {
                         type={CANVAS_DISPLAY_TYPE.OUT_STR}
                         value={tmp}
                         onChange={(inputVal) => {
-                            const val = inputVal.target.value;
+                            const val = parseInt(inputVal.target.value);
+                            val = isNaN(val) ? 0 : val;
                             if (head == -1) {
-                                element.data.info[each.index].value =
-                                    parseInt(val);
+                                element.data.info[each.index].value = val;
                             } else {
-                                element.data.info[head].value[each.index] =
-                                    parseInt(val);
+                                element.data.info[head].value[each.index] = val;
                             }
                             updateElementById(element.id, element);
                         }}
@@ -58,7 +55,6 @@ function DiatailInspect(props) {
                         value={tmp.x}
                         onChange={(inputVal) => {
                             const val = inputVal.target.value;
-                            console.log(each.index);
                             if (head != -1) {
                                 element.data.info[head].value[
                                     each.index
@@ -139,7 +135,7 @@ function DiatailInspect(props) {
                 if (each.type == INS_DISPLAY_TYPE.LAYOUT_GROUP) {
                     let tmp = [];
                     each.value.forEach((subEach) => {
-                        console.log(subEach.name);
+                        // console.log(subEach.name);
                         pushComplist(subEach, tmp, element, each.index);
                     });
                     compList.push(
@@ -173,7 +169,7 @@ function DiatailInspect(props) {
                             <Dropdown
                                 options={options}
                                 onChange={(value) => {
-                                    console.log(value);
+                                    // console.log(value);
                                     setportChoice(value.value);
                                 }}
                                 value={defaultOption}
@@ -189,7 +185,7 @@ function DiatailInspect(props) {
                                     };
                                     newElement.data.port.in.push(portChoice);
                                     newElement.data.port.inEnable.push(true);
-                                    console.log(portIn);
+                                    // console.log(portIn);
                                     setportIn(newElement.data.port.in);
 
                                     updateElementById(element.id, {
@@ -304,7 +300,6 @@ function BlockShow(props) {
 }
 
 export default function Inspector(props) {
-    // console.log("draw inspector");
     const {
         elements,
         setElements,
