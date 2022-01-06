@@ -9,10 +9,21 @@ export class Sum extends InOutBlock {
         super(id, type);
         this.symbols = ports_symbol
         for (let i = 0; i < this.symbols.length; i++) {
-            this.inValPorts.push(null)
+            const tmp = new Number
+            tmp.value = 0
+            this.inValPorts.push(tmp)
         }
     }
+    addValPort(index: number, num: Number) {
 
+        while (this.inValPorts.length <= index) {
+            const tmp = new Number
+            tmp.value = 0
+            this.inValPorts.push(tmp)
+        }
+        this.inValPorts[index] = num
+
+    }
     updateContent() {
         console.log(this.inValPorts)
         console.log("sum updated " + this.inValPorts[0].value + "," + this.inValPorts[1].value)
