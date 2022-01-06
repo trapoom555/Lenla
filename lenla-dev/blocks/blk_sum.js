@@ -4,14 +4,18 @@ import { Handle } from 'react-flow-renderer';
   const SumBlock = ({ data }) => {
     let handleInList = [];
     for(let i=0; i < data.port.in.length; i++) {
+      if(data.port.inEnable[i] == true){
+        handleInList.push(
+          <Handle
+                type="target"
+                position="left"
+                id={`number_in${i}`}
+                isConnectable={true}
+                style={{top: `${((i+0.5) / data.port.in.length)  * 100}%`, borderRadius: 0 }}
+            />
+        )
+      }
       handleInList.push(
-        <Handle
-              type="target"
-              position="left"
-              id={`number_in${i}`}
-              isConnectable={true}
-              style={{top: `${((i+0.5) / data.port.in.length)  * 100}%`, borderRadius: 0 }}
-          />,
           <div style={{position: "absolute", top: `${((i+0.27) / data.port.in.length)  * 100}%`, left: "10%", color: 'black', fontSize:12}}>
             {data.port.in[i]}
           </div>

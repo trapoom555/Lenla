@@ -160,7 +160,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         inType: ["num", "num"],
                         out: ["value"],
                         outType: ["num"],
-                        inEnable: [true, true, true],
+                        inEnable: [true, true],
                     },
                 }
             }

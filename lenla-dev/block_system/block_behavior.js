@@ -208,6 +208,12 @@ var InOutBlock = /** @class */ (function () {
         }
         this.inValPorts[index] = obj;
     };
+    // addValNum(index: number, obj: Obj) {
+    //     while (this.inValPorts.length <= index) {
+    //         this.inValPorts.push(null)
+    //     }
+    //     this.inValPorts[index] = obj
+    // }
     InOutBlock.prototype.updateContent = function () {
     };
     InOutBlock.prototype.update = function () {
@@ -227,3 +233,5 @@ var InOutBlock = /** @class */ (function () {
     return InOutBlock;
 }());
 exports.InOutBlock = InOutBlock;
+// export abstract class InDisplay extends InOutBlock implements IDisplay {
+// }

@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Vector3D = exports.Vector2D = exports.Slider = exports.Constant = void 0;
+exports.Vector3D = exports.Vector2D = exports.Constant = void 0;
 var block_behavior_1 = require("./block_behavior");
 var Constant = /** @class */ (function (_super) {
     __extends(Constant, _super);
@@ -32,26 +32,23 @@ var Constant = /** @class */ (function (_super) {
     return Constant;
 }(block_behavior_1.InputBlock));
 exports.Constant = Constant;
-var Slider = /** @class */ (function (_super) {
-    __extends(Slider, _super);
-    function Slider(id, type, x, y) {
-        var _this = _super.call(this, id, type) || this;
-        _this.notiPorts = [null, null];
-        _this.outValPorts = [null, null];
-        _this.x = x;
-        _this.y = y;
-        _this.outValPorts = [new block_behavior_1.Number, new block_behavior_1.Number];
-        _this.outValPorts[0].value = x;
-        _this.outValPorts[1].value = y;
-        console.log("cleate slider block");
-        return _this;
-    }
-    Slider.prototype.deletePort = function () {
-        this.notiPorts = [null, null];
-    };
-    return Slider;
-}(block_behavior_1.InputDisplay));
-exports.Slider = Slider;
+// export class Slider extends InputDisplay {
+//     public value: number;
+//     notiPorts = [null];
+//     outValPorts: Array<Number> = [null, null];
+//     constructor(id: string, type: string, x: number, y: number) {
+//         super(id, type);
+//         this.x = x
+//         this.y = y
+//         this.outValPorts = [new Number, new Number]
+//         this.outValPorts[0].value = x
+//         this.outValPorts[1].value = y
+//         console.log("cleate slider block");
+//     }
+//     deletePort() {
+//         this.notiPorts = [null, null]
+//     }
+// }
 var Vector2D = /** @class */ (function (_super) {
     __extends(Vector2D, _super);
     function Vector2D(id, type, x, y) {

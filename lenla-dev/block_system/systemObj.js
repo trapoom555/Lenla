@@ -152,7 +152,7 @@ function createElementObj(id, type, position, data, name) {
                         inType: ["num", "num"],
                         out: ["value"],
                         outType: ["num"],
-                        inEnable: [true, true, true]
+                        inEnable: [true, true]
                     }
                 } });
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
@@ -178,7 +178,7 @@ function createElementObj(id, type, position, data, name) {
                                     index: 1,
                                     name: "letter color",
                                     value: "#FFFFFF",
-                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_COLOR
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
                             ],
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP

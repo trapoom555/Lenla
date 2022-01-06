@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Sum = void 0;
+exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
 var Sum = /** @class */ (function (_super) {
     __extends(Sum, _super);
@@ -25,10 +25,20 @@ var Sum = /** @class */ (function (_super) {
         _this.outValPorts = [new block_behavior_1.Number];
         _this.symbols = ports_symbol;
         for (var i = 0; i < _this.symbols.length; i++) {
-            _this.inValPorts.push(null);
+            var tmp = new block_behavior_1.Number;
+            tmp.value = 0;
+            _this.inValPorts.push(tmp);
         }
         return _this;
     }
+    Sum.prototype.addValPort = function (index, num) {
+        while (this.inValPorts.length <= index) {
+            var tmp = new block_behavior_1.Number;
+            tmp.value = 0;
+            this.inValPorts.push(tmp);
+        }
+        this.inValPorts[index] = num;
+    };
     Sum.prototype.updateContent = function () {
         console.log(this.inValPorts);
         console.log("sum updated " + this.inValPorts[0].value + "," + this.inValPorts[1].value);
@@ -48,6 +58,14 @@ var Sum = /** @class */ (function (_super) {
     return Sum;
 }(block_behavior_1.InOutBlock));
 exports.Sum = Sum;
+var Slider = /** @class */ (function (_super) {
+    __extends(Slider, _super);
+    function Slider() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Slider;
+}(block_behavior_1.InOutBlock));
+exports.Slider = Slider;
 var Greater = /** @class */ (function (_super) {
     __extends(Greater, _super);
     function Greater(id, type) {
