@@ -26,7 +26,7 @@ let currentBlockID = 0;
 const getID = () => `${currentBlockID++}`;
 
 const Diagram = (props) => {
-    const { width, height } = props;
+    const { width, height, compileAll } = props;
     const { elements, setElements, setSelectedElement, setInspectorState } =
         props;
     const reactFlowWrapper = useRef(null);
@@ -61,6 +61,8 @@ const Diagram = (props) => {
         // TO DO:
         // create element in p5.js
         setElements((es) => es.concat(newNode));
+        // system.add_element(newNode);
+        compileAll();
     };
 
     const onElementClick = (event, element) => {
@@ -75,8 +77,10 @@ const Diagram = (props) => {
         setInspectorState(0);
     };
 
-    const onElementsRemove = (elementsToRemove) =>
+    const onElementsRemove = (elementsToRemove) => {
         setElements((els) => removeElements(elementsToRemove, els));
+        compileAll();
+    };
 
     const onConnect = (params) => {
         if (params.sourceHandle.split[0] == params.targetHandle.split[0]) {
@@ -96,6 +100,14 @@ const Diagram = (props) => {
                 )
             );
             console.log("Successfully Connected !");
+            const element = elements[elements.length - 1];
+            // system.set_port(
+            //     element.source,
+            //     element.target,
+            //     getIntFromString(element.sourceHandle),
+            //     getIntFromString(element.targetHandle)
+            // );
+            compileAll();
         } else {
             console.log("Wrong Connection");
         }

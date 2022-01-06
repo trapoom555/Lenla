@@ -42,9 +42,29 @@ export default function Create({ user, setUser }) {
         }
         return Number(str.slice(run + 1, n));
     }
+    function setUpAll() {
+        // let tmp = new Block.System();
+        system = new Block.System();
+        // console.log(elements);
+        elements.forEach((element) => {
+            if (element.flag == "node") {
+                system.add_element(element);
+            }
+            if (element.flag == "line") {
+                system.set_port(
+                    element.source,
+                    element.target,
+                    getIntFromString(element.sourceHandle),
+                    getIntFromString(element.targetHandle)
+                );
+            }
+        });
+        setSystem(system);
+    }
     function compileAll() {
         // let tmp = new Block.System();
         console.log(elements);
+        system = new Block.System();
         elements.forEach((element) => {
             if (element.flag == "node") {
                 system.add_element(element);
@@ -59,7 +79,7 @@ export default function Create({ user, setUser }) {
             }
         });
 
-        // setSystem(tmp);
+        setSystem(system);
         // tempSys = tmp;
         // console.log(tmp.childNode);
         console.log(system.childNode);
@@ -80,7 +100,6 @@ export default function Create({ user, setUser }) {
                                 className="preview_button"
                                 onClick={() => {
                                     compileAll();
-                                    console.log("done compile");
                                     setAnimeState(1);
                                 }}
                                 style={{
@@ -133,6 +152,7 @@ export default function Create({ user, setUser }) {
                             <Diagram
                                 elements={elements}
                                 setElements={setElements}
+                                compileAll={compileAll}
                                 setSelectedElement={(x) => {
                                     setSelectedElementId(x);
                                 }}

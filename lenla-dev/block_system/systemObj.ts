@@ -6,9 +6,11 @@ import * as InOutBlock from "./inout_block";
 export class System {
     idToIndex: {}
     childNode: Array<Block.IBlock>
+    blankSpace: number
     constructor() {
         this.idToIndex = {};
         this.childNode = [];
+        this.blankSpace = 0;
     }
     add_element(element) {
         this.idToIndex[element.id] = this.childNode.length;
@@ -72,6 +74,13 @@ export class System {
 
     }
     delete_element(element_id: string) {
+        this.blankSpace += 1
+
+        this.childNode[element_id] = null
+
+    }
+
+    delete_port(sourceId: string, targetId: string, sourcePortIndex?, targetPortIndex?) {
 
     }
     compile() {
