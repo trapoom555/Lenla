@@ -1,6 +1,7 @@
 export const BLOCK_TYPE = {
     // input
     IN_CONSTANT: "constant_block",
+    IN_SLIDER: "slider bar",
     IN_VECTOR_2D: "vector2d_block",
     //operator
     OP_SUM: "sum_block",
@@ -27,11 +28,12 @@ export const BLOCK_CATE = {
 
 export const INS_DISPLAY_TYPE = {
     INPUT_NUM: "input(num)",
+    IN_NUM: "input/port(num)",
     INPUT_BOOL: "input(bool)",
     OUT_NUM: "output(num)",
-    IN_VECTOR_2D: "input(vector2d)",
+    IN_VECTOR_2D: "input/port(vector2d)",
     LAYOUT_GROUP: "group layout",
-    IN_COLOR: "color picker",
+    INPUT_COLOR: "color picker",
 };
 
 export const CANVAS_DISPLAY_TYPE = {

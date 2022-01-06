@@ -88,7 +88,7 @@ function DiatailInspect(props) {
             );
         }
 
-        if (each.type == INS_DISPLAY_TYPE.IN_COLOR) {
+        if (each.type == INS_DISPLAY_TYPE.INPUT_COLOR) {
             let color;
             if (head != -1) {
                 color = element.data.info[head].value[each.index].value;
@@ -206,21 +206,28 @@ function DiatailInspect(props) {
                                 >
                                     Add
                                 </button>
-                                <button className="insp_sum_button" onClick={() => {
-                                    let newElement = {
-                                        ...element,
-                                    };
-                                    console.log(newElement.data.port.in)
-                                    if(newElement.data.port.in.length > 2){
-                                        newElement.data.port.in.pop();
-                                        newElement.data.port.inEnable.pop();
-                                    }
-                                    updateElementById(element.id, {
-                                        id: element.id,
-                                        type: element.type,
-                                        ...newElement,
-                                    });
-                                }}>Delete</button>
+                                <button
+                                    className="insp_sum_button"
+                                    onClick={() => {
+                                        let newElement = {
+                                            ...element,
+                                        };
+                                        console.log(newElement.data.port.in);
+                                        if (
+                                            newElement.data.port.in.length > 2
+                                        ) {
+                                            newElement.data.port.in.pop();
+                                            newElement.data.port.inEnable.pop();
+                                        }
+                                        updateElementById(element.id, {
+                                            id: element.id,
+                                            type: element.type,
+                                            ...newElement,
+                                        });
+                                    }}
+                                >
+                                    Delete
+                                </button>
                             </div>
                         </div>
                     )}

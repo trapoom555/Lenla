@@ -33,6 +33,9 @@ export class Sum extends InOutBlock {
 
 }
 
+export class Slider extends InOutBlock {
+
+}
 export class Greater extends InOutBlock {
     inValPorts: Array<Number> = [null, null];
     outValPorts: Array<Bool> = [new Bool];

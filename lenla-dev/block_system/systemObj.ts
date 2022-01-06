@@ -36,7 +36,9 @@ export class System {
             node = new InOutBlock.Sum(element.id, element.type, element.data.port.in)
             // console.log("create sum block")
         }
-
+        // if (element.type == BLOCK_TYPE.IN_SLIDER) {
+        //     node = new InOutBlock.Greater(element.id, element.type);
+        // }
         // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
         //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
         // }
@@ -189,7 +191,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                     index: 1,
                                     name: "letter color",
                                     value: "#FFFFFF",
-                                    type: INS_DISPLAY_TYPE.IN_COLOR
+                                    type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
 
                             ],
@@ -219,6 +221,49 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     value: 0
                 }
             }
+        case BLOCK_TYPE.IN_SLIDER:
+            return {
+                ...obj,
+                data:
+                {
+                    // data: data.num,
+                    info: [
+                        {
+                            index: 0,
+                            name: "min",
+                            value: 0,
+                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 1,
+                            name: "max",
+                            value: 100,
+                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 2,
+                            name: "default",
+                            value: 50,
+                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 3,
+                            name: "step",
+                            value: null,
+                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                        }
+                    ],
+                    port:
+                    {
+                        in: [],
+                        inType: [],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: [],
+                    },
+
+                }
+            }
     }
 
 
@@ -242,6 +287,12 @@ export function blockConfig(type: string) {
             return {
                 limitIn: [1, 1],
                 choice: []
+            }
+        case BLOCK_TYPE.IN_SLIDER:
+            return {
+                limitIn: [0, 0],
+                choice: [],
+
             }
     }
 }

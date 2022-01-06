@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.InOutBlock = exports.OutputBlock = exports.InputBlock = exports.Vector2d = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
+exports.InOutBlock = exports.OutputBlock = exports.InputDisplay = exports.InputBlock = exports.Vector2d = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
 function isDisplayable(object) {
     return "display" in object;
 }
@@ -117,6 +117,41 @@ var InputBlock = /** @class */ (function () {
     return InputBlock;
 }());
 exports.InputBlock = InputBlock;
+var InputDisplay = /** @class */ (function () {
+    function InputDisplay(id, type) {
+        this.notiPorts = [];
+        this.position = new Vector2d(0, 0);
+        this.displayDetail = {};
+        this.id = id;
+        this.type = type;
+    }
+    InputDisplay.prototype.addNotiPort = function (index, port) {
+        this.notiPorts[index] = port;
+    };
+    InputDisplay.prototype.notifyAllPort = function () {
+        notifyAllPort(this.notiPorts);
+    };
+    InputDisplay.prototype.deleteAllPort = function () {
+        this.notiPorts = [];
+    };
+    InputDisplay.prototype.setDisplayDetail = function (detail) {
+        this.displayDetail = __assign(__assign({}, this.displayDetail), detail);
+    };
+    InputDisplay.prototype.displayContent = function () {
+    };
+    InputDisplay.prototype.display = function () {
+        try {
+            this.displayContent();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+    InputDisplay.prototype.getDisplayData = function () {
+    };
+    return InputDisplay;
+}());
+exports.InputDisplay = InputDisplay;
 var OutputBlock = /** @class */ (function () {
     function OutputBlock(id, type) {
         this.position = new Vector2d(0, 0);

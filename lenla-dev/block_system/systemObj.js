@@ -21,6 +21,7 @@ var System = /** @class */ (function () {
     function System() {
         this.idToIndex = {};
         this.childNode = [];
+        this.blankSpace = 0;
     }
     System.prototype.add_element = function (element) {
         this.idToIndex[element.id] = this.childNode.length;
@@ -44,6 +45,9 @@ var System = /** @class */ (function () {
             node = new InOutBlock.Sum(element.id, element.type, element.data.port["in"]);
             // console.log("create sum block")
         }
+        // if (element.type == BLOCK_TYPE.IN_SLIDER) {
+        //     node = new InOutBlock.Greater(element.id, element.type);
+        // }
         // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
         //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
         // }
@@ -79,6 +83,10 @@ var System = /** @class */ (function () {
         source.addNotiPort(sourcePortIndex, notiPort);
     };
     System.prototype.delete_element = function (element_id) {
+        this.blankSpace += 1;
+        this.childNode[element_id] = null;
+    };
+    System.prototype.delete_port = function (sourceId, targetId, sourcePortIndex, targetPortIndex) {
     };
     System.prototype.compile = function () {
         // console.log("////////////////////////////////////")
@@ -194,6 +202,43 @@ function createElementObj(id, type, position, data, name) {
                     valueName: "num",
                     value: 0
                 } });
+        case stringConfig_1.BLOCK_TYPE.IN_SLIDER:
+            return __assign(__assign({}, obj), { data: {
+                    // data: data.num,
+                    info: [
+                        {
+                            index: 0,
+                            name: "min",
+                            value: 0,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 1,
+                            name: "max",
+                            value: 100,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 2,
+                            name: "default",
+                            value: 50,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 3,
+                            name: "step",
+                            value: null,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                        }
+                    ],
+                    port: {
+                        "in": [],
+                        inType: [],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: []
+                    }
+                } });
     }
 }
 exports.createElementObj = createElementObj;
@@ -213,6 +258,11 @@ function blockConfig(type) {
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
             return {
                 limitIn: [1, 1],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.IN_SLIDER:
+            return {
+                limitIn: [0, 0],
                 choice: []
             };
     }

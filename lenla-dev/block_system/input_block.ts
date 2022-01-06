@@ -1,4 +1,4 @@
-import { InputBlock, Number } from "./block_behavior";
+import { InputBlock, Number, InputDisplay } from "./block_behavior";
 export class Constant extends InputBlock {
     outValPorts: Array<Number> = [null];
 
@@ -15,6 +15,25 @@ export class Constant extends InputBlock {
 
 
 }
+// export class Slider extends InputDisplay {
+//     public value: number;
+//     notiPorts = [null];
+//     outValPorts: Array<Number> = [null, null];
+//     constructor(id: string, type: string, x: number, y: number) {
+//         super(id, type);
+//         this.x = x
+//         this.y = y
+//         this.outValPorts = [new Number, new Number]
+//         this.outValPorts[0].value = x
+//         this.outValPorts[1].value = y
+//         console.log("cleate slider block");
+//     }
+
+//     deletePort() {
+//         this.notiPorts = [null, null]
+//     }
+
+// }
 
 export class Vector2D extends InputBlock {
     public x: number;
