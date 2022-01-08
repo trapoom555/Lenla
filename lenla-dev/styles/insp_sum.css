@@ -20,9 +20,25 @@
     margin-left: 1.5vw;
 }
 
+.insp_sum_input {
+    height: 2.5vw;
+    border: solid #555 1px;
+}
+
 .insp_sum_header {
     text-align: left;
     margin-bottom: 2vh;
     margin-top: 3vh;
     margin-left: 2vw;
+}
+
+.insp_sum_port_enable_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 2vw;
+}
+
+.insp_sum_port_enable_check {
+    margin-right: 1vw;
 }

@@ -1,5 +1,5 @@
 import * as Block from "../block_system/systemObj";
-import { Children, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import styled from "styled-components";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -9,6 +9,85 @@ import {
 } from "../block_system/stringConfig";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import InputColor from "react-input-color";
+
+function PortsEdit(props) {
+    const {elements, setElements, element, i} = props;
+
+    function updateElementById(id, newElementVal) {
+        let items = [...elements];
+        const index = elements.findIndex((x) => x.id === id);
+        items[index] = newElementVal;
+        setElements(items);
+    }
+
+    const config = Block.blockConfig(element.type);
+
+    if (config.choice) {
+        const options = config.choice;
+        const defaultOption = options[0];
+    }
+    const [portChoice, setPortChoice] = useState(element.data.port.in[i]);
+    const [portEnable, setPortEnable] = useState(element.data.port.inEnable[i]);
+    const [portDisableValue, setPortDisableValue] = useState(0);
+    useEffect(() => {element.data.port.inEnable[i] = portEnable; 
+        if(portEnable && !options.includes(portChoice)) {
+            element.data.port.in[i] = defaultOption;
+            setPortChoice(defaultOption);
+        }
+        else if(!portEnable && options.includes(portChoice)) {
+            element.data.port.in[i] = 0;
+            setPortChoice(0);
+        }
+        updateElementById(element.id, element)}, [portEnable])
+    useEffect(() => {element.data.port.in[i] = portChoice; updateElementById(element.id, element)}, [portChoice])
+    return (
+        <div>
+            <div>Port {i}</div>
+                <div className="insp_sum_port_enable_wrapper">
+                    <input className="insp_sum_port_enable_check" type="checkbox" defaultChecked={portEnable} onChange={() => {setPortEnable((pe) => !pe);}}/>
+                    <div>Port Enable</div>
+                </div>
+                <div className="insp_sum_wrapper">
+                            
+                    <div className="insp_sum_dropdown" style={{display: portEnable ? "" : "none"}}>
+                        <Dropdown
+                            options={options}
+                            onChange={(value) => {
+                                console.log(value);
+                                setPortChoice(value.value);
+                            }}
+                            value={portChoice}
+                            placeholder="Select an option"
+                        />
+                    </div>
+
+                    <input type="number" className="insp_sum_dropdown insp_sum_input" defaultValue={portChoice}  style={{display: portEnable ? "none" : ""}} onChange={(e) => setPortChoice(e.target.value)}/>
+                    <button
+                        className="insp_sum_button"
+                        onClick={() => {
+                            let newElement = {
+                                ...element,
+                            };
+                            if (
+                                newElement.data.port.in.length > 2
+                            ) {
+                                newElement.data.port.in.splice(i,1);
+                                newElement.data.port.inEnable.splice(i,1);
+                            }
+                            updateElementById(element.id, {
+                                id: element.id,
+                                type: element.type,
+                                ...newElement,
+                            });
+                        }}
+                    >
+                        Delete
+                    </button>
+                </div>
+        </div>
+    )
+}
+
 function DiatailInspect(props) {
     // console.log("drawDetail");
     const elements = props.elements;
@@ -129,6 +208,8 @@ function DiatailInspect(props) {
                 const defaultOption = options[0];
             }
             const [portChoice, setportChoice] = useState(defaultOption);
+            const [portEnable, setPortEnable] = useState(1); // 1 : Enable, 0 : Disable
+            const [portDisableValue, setPortDisableValue] = useState(0);
             let compList = [];
             let i = 0;
             for (i = 0; i < element.data.info.length; i++) {
@@ -148,8 +229,14 @@ function DiatailInspect(props) {
                     );
                 }
             }
-            let a = element.data.port.in;
-            // console.log("a" + a);
+
+            let portEditShowArr = [];
+
+            portEditShowArr.push(<div className="insp_sum_header">Ports</div>);
+            for (let i=0; i < element.data.port.in.length; i++){
+                portEditShowArr.push(<PortsEdit elements={elements} setElements={setElements} element={element} i={i}/>)
+            }
+
             return (
                 <div>
                     {/* <p>id: {element.id}</p>
@@ -165,22 +252,30 @@ function DiatailInspect(props) {
                     {(config.limitIn[1] > element.data.port.in.length ||
                         config.limitIn[1] == "inf") && (
                         <div>
-                            <div className="insp_sum_header">Ports</div>
+                            <div className="insp_sum_header">Add Ports</div>
+                            <div className="insp_sum_port_enable_wrapper">
+                                <input className="insp_sum_port_enable_check" type="checkbox" defaultChecked={true} onChange={() => setPortEnable((pe) => !pe)}/>
+                                <div>Port Enable</div>
+                            </div>
                             <div className="insp_sum_wrapper">
-                                <Dropdown
-                                    // baseClassName="rdn"
-                                    className="insp_sum_dropdown"
-                                    options={options}
-                                    onChange={(value) => {
-                                        console.log(value);
-                                        setportChoice(value.value);
-                                    }}
-                                    menu="div"
-                                    value={defaultOption}
-                                    placeholder="Select an option"
-                                    // arrowClosed={<span className="arrow-closed" />}
-                                    // arrowOpen={<span className="arrow-open" />}
-                                />
+                                
+                                <div className="insp_sum_dropdown" style={{display: portEnable ? "" : "none"}}>
+                                    <Dropdown
+                                        // baseClassName="rdn"
+                                        options={options}
+                                        onChange={(value) => {
+                                            console.log(value);
+                                            setportChoice(value.value);
+                                        }}
+                                        // menu="div"
+                                        value={defaultOption}
+                                        placeholder="Select an option"
+                                        // arrowClosed={<span className="arrow-closed" />}
+                                        // arrowOpen={<span className="arrow-open" />}
+                                    />
+                                </div>
+
+                                <input type="number" className="insp_sum_dropdown insp_sum_input" style={{display: portEnable ? "none" : ""}} onChange={(e) => setPortDisableValue(e.target.value)}/>
                                 <button
                                     className="insp_sum_button"
                                     onClick={() => {
@@ -189,12 +284,14 @@ function DiatailInspect(props) {
                                             ...element,
                                         };
                                         newElement.data.port.in.push(
-                                            portChoice
+                                            portEnable ? portChoice : portDisableValue
                                         );
                                         newElement.data.port.inEnable.push(
-                                            true
+                                            portEnable
                                         );
-                                        console.log(portIn);
+                                        // console.log(portIn);
+                                        console.log(newElement.data.port.inEnable)
+                                        console.log(newElement.data.port.in)
                                         setportIn(newElement.data.port.in);
 
                                         updateElementById(element.id, {
@@ -206,36 +303,17 @@ function DiatailInspect(props) {
                                 >
                                     Add
                                 </button>
-                                <button
-                                    className="insp_sum_button"
-                                    onClick={() => {
-                                        let newElement = {
-                                            ...element,
-                                        };
-                                        console.log(newElement.data.port.in);
-                                        if (
-                                            newElement.data.port.in.length > 2
-                                        ) {
-                                            newElement.data.port.in.pop();
-                                            newElement.data.port.inEnable.pop();
-                                        }
-                                        updateElementById(element.id, {
-                                            id: element.id,
-                                            type: element.type,
-                                            ...newElement,
-                                        });
-                                    }}
-                                >
-                                    Delete
-                                </button>
                             </div>
                         </div>
                     )}
 
+                    {portEditShowArr}
+
                     {/* {showPortOption && <></>} */}
                 </div>
             );
-        } catch {
+        } catch(err) {
+            console.log(err)
             // [Ignore] Error from non Sync life cycle
         }
     }
@@ -381,6 +459,7 @@ export default function Inspector(props) {
                     style={{
                         display: inspectorState ? "" : "none",
                         height: "100%",
+                        overflow: "scroll",
                     }}
                 >
                     <DiatailInspect

@@ -1,6 +1,8 @@
 import { InOutBlock, Number, Bool, Vector2d, InOutDisplay } from "./block_behavior";
 import { Vector2D } from "./Input_block";
 import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
+import { ThemeProvider } from "styled-components";
+
 
 export class Sum extends InOutBlock {
     inValPorts: Array<Number> = [];
@@ -34,8 +36,11 @@ export class Sum extends InOutBlock {
             if (this.symbols[i] == "+") {
                 this.value += this.inValPorts[i].value
             }
-            else {
+            else if (this.symbols[i] == "-") {
                 this.value -= this.inValPorts[i].value
+            }
+            else {
+                this.value += parseInt(this.symbols[i])
             }
         }
         this.inValPorts[0].value + this.inValPorts[1].value
