@@ -1,3 +1,4 @@
+import { ThemeProvider } from "styled-components";
 import { InOutBlock, Number, Bool } from "./block_behavior";
 
 export class Sum extends InOutBlock {
@@ -32,8 +33,11 @@ export class Sum extends InOutBlock {
             if (this.symbols[i] == "+") {
                 this.value += this.inValPorts[i].value
             }
-            else {
+            else if (this.symbols[i] == "-") {
                 this.value -= this.inValPorts[i].value
+            }
+            else {
+                this.value += parseInt(this.symbols[i])
             }
         }
         this.inValPorts[0].value + this.inValPorts[1].value

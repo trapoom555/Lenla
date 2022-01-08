@@ -47,8 +47,11 @@ var Sum = /** @class */ (function (_super) {
             if (this.symbols[i] == "+") {
                 this.value += this.inValPorts[i].value;
             }
-            else {
+            else if (this.symbols[i] == "-") {
                 this.value -= this.inValPorts[i].value;
+            }
+            else {
+                this.value += parseInt(this.symbols[i]);
             }
         }
         this.inValPorts[0].value + this.inValPorts[1].value;
