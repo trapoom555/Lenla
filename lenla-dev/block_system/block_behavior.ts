@@ -186,6 +186,13 @@ export abstract class OutputBlock implements ISub, IDisplay {
         }
     }
     getDisplayData() {
+        try {
+
+            return this.displayDetail
+        }
+        catch {
+
+        }
 
     }
 }
@@ -241,7 +248,71 @@ export abstract class InOutBlock implements ISub, IPub {
     }
 }
 
-// export abstract class InDisplay extends InOutBlock implements IDisplay {
+export abstract class InOutDisplay extends InOutBlock implements IDisplay {
+    id: string
+    inValPorts: Array<Obj>
+    notiPorts: NotiPort[] = [];
+    outValPorts: Array<Obj>
+    displayDetail = {}
+    position: Vector2d = new Vector2d(0, 0)
+    type: string
+    constructor(id: string, type: string) {
+        super(id, type);
+    }
+    addValPort(index: number, obj: Obj) {
 
-// }
+        while (this.inValPorts.length <= index) {
+            this.inValPorts.push(null)
+        }
+        this.inValPorts[index] = obj
 
+    }
+    updateContent() {
+
+    }
+
+    update() {
+
+        try {
+            this.updateContent();
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
+
+
+    addNotiPort(index: number, port: NotiPort) {
+        this.notiPorts[index] = port
+    }
+    notifyAllPort() {
+        notifyAllPort(this.notiPorts)
+    }
+
+    setDisplayDetail(detail: any) {
+        this.displayDetail = { ...this.displayDetail, ...detail }
+    }
+
+    displayContent() {
+
+    }
+    display() {
+        try {
+            this.displayContent();
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    getDisplayData() {
+        try {
+
+            return this.displayDetail
+        }
+        catch {
+
+        }
+
+    }
+}

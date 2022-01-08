@@ -1,4 +1,6 @@
-import { InOutBlock, Number, Bool } from "./block_behavior";
+import { InOutBlock, Number, Bool, Vector2d, InOutDisplay } from "./block_behavior";
+import { Vector2D } from "./Input_block";
+import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 
 export class Sum extends InOutBlock {
     inValPorts: Array<Number> = [];
@@ -44,8 +46,53 @@ export class Sum extends InOutBlock {
 
 }
 
-export class Slider extends InOutBlock {
+export class Slider extends InOutDisplay {
+    inValPorts: Array<Number> = [new Number, new Number, new Number, new Number];//min max default step
+    outValPorts: Array<Number> = [new Number];
+    value: number
+    displayDetail: any
+    // position = new Vector2d(0, 0)
+    constructor(id: string, type: string) {
+        super(id, type);
+        this.displayDetail = {
+            color: "#FFFFFF",
+            value: this.value,
+            type: CANVAS_DISPLAY_TYPE.IN_SLIDE,
+            position: this.position,
+        }
+    }
+    addValPort(index: number, num: Number) {
+        this.inValPorts[index] = num
 
+    }
+    updateContent() {
+        // this.value = this.inValPorts[0].value
+        this.displayDetail.value = this.value
+    }
+    setDisplayDetail(detail: any): void {
+
+        if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            console.log("port is not null")
+            this.updateContent()
+            this.displayDetail = {
+                ...this.displayDetail,
+                value: this.inValPorts[0].value,
+                ...detail
+            }
+        }
+        else {
+
+            console.log("port is null")
+            this.displayDetail = {
+                type: CANVAS_DISPLAY_TYPE.OUT_STR,
+                position: this.displayDetail.position,
+                ...detail
+            }
+
+        }
+        this.position = this.displayDetail.position
+
+    }
 }
 export class Greater extends InOutBlock {
     inValPorts: Array<Number> = [null, null];

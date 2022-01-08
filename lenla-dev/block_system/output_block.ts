@@ -55,16 +55,7 @@ export class NumberDisplay extends OutputBlock {
         // this.setDisplayDetail({});
         // this.log();
     }
-    getDisplayData() {
-        try {
 
-            return this.displayDetail
-        }
-        catch {
-
-        }
-
-    }
     // displayDetial:
 }
 
