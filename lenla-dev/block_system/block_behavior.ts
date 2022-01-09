@@ -38,6 +38,11 @@ export class Bool extends Obj {
 }
 export class Number extends Obj {
     value: number
+    constructor(val: number = null) {
+        super()
+        if (val != null) this.value = val
+    }
+
 }
 export class Vector2d extends Obj {
     x: number

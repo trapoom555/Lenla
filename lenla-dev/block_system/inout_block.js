@@ -78,7 +78,7 @@ var Slider = /** @class */ (function (_super) {
     // position = new Vector2d(0, 0)
     function Slider(id, type) {
         var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [new block_behavior_1.Number, new block_behavior_1.Number, new block_behavior_1.Number, new block_behavior_1.Number]; //min max default step
+        _this.inValPorts = [new block_behavior_1.Number(0), new block_behavior_1.Number(100), new block_behavior_1.Number(50), new block_behavior_1.Number(1)]; //min max default step
         _this.outValPorts = [new block_behavior_1.Number];
         _this.displayDetail = {
             color: "#FFFFFF",
@@ -88,6 +88,9 @@ var Slider = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Slider.prototype.setValue = function (val) {
+        this.value = val;
+    };
     Slider.prototype.addValPort = function (index, num) {
         this.inValPorts[index] = num;
     };

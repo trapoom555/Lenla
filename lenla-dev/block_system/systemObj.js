@@ -23,7 +23,7 @@ var System = /** @class */ (function () {
         this.childNode = [];
         this.blankSpace = 0;
     }
-    System.prototype.add_element = function (element) {
+    System.prototype.add_element = function (element, fnc) {
         this.idToIndex[element.id] = this.childNode.length;
         var node;
         if (element.type == stringConfig_1.BLOCK_TYPE.IN_CONSTANT) {
@@ -45,9 +45,14 @@ var System = /** @class */ (function () {
             node = new InOutBlock.Sum(element.id, element.type, element.data.port["in"]);
             // console.log("create sum block")
         }
-        // if (element.type == BLOCK_TYPE.IN_SLIDER) {
-        //     node = new InOutBlock.Greater(element.id, element.type);
-        // }
+        if (element.type == stringConfig_1.BLOCK_TYPE.IN_SLIDER) {
+            node = new InOutBlock.Slider(element.id, element.type);
+            if (Block.isDisplayable(node)) {
+                node.setDisplayDetail({ position: element.data.info[4].value[0].value, color: element.data.info[4].value[1].value });
+                var tmp = element.data.info;
+                fnc(element.id, tmp[0].value, tmp[1].value, tmp[2].value, tmp[3].value);
+            }
+        }
         // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
         //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
         // }
@@ -227,8 +232,27 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 3,
                             name: "step",
-                            value: null,
+                            value: 1,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 4,
+                            name: "display properties",
+                            value: [
+                                {
+                                    index: 0,
+                                    name: "position",
+                                    value: { x: 0, y: 0 },
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                                {
+                                    index: 1,
+                                    name: "letter color",
+                                    value: "#FFFFFF",
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                            ],
+                            type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
                         }
                     ],
                     port: {

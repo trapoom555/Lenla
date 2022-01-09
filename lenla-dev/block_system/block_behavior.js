@@ -76,8 +76,12 @@ var Bool = /** @class */ (function (_super) {
 exports.Bool = Bool;
 var Number = /** @class */ (function (_super) {
     __extends(Number, _super);
-    function Number() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Number(val) {
+        if (val === void 0) { val = null; }
+        var _this = _super.call(this) || this;
+        if (val != null)
+            _this.value = val;
+        return _this;
     }
     return Number;
 }(Obj));

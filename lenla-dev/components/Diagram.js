@@ -20,6 +20,7 @@ const nodeTypes = {
     [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,
     [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
     [BLOCK_TYPE.CON_GREATER]: BasicBlock,
+    [BLOCK_TYPE.IN_SLIDER]: BasicBlock,
 };
 
 let currentBlockID = 0;
