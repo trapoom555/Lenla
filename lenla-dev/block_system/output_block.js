@@ -68,13 +68,6 @@ var NumberDisplay = /** @class */ (function (_super) {
         // this.setDisplayDetail({});
         // this.log();
     };
-    NumberDisplay.prototype.getDisplayData = function () {
-        try {
-            return this.displayDetail;
-        }
-        catch (_a) {
-        }
-    };
     return NumberDisplay;
 }(block_behavior_1.OutputBlock));
 exports.NumberDisplay = NumberDisplay;

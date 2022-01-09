@@ -14,9 +14,21 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
+var stringConfig_1 = require("./stringConfig");
 var Sum = /** @class */ (function (_super) {
     __extends(Sum, _super);
     function Sum(id, type, ports_symbol) {
@@ -63,11 +75,40 @@ var Sum = /** @class */ (function (_super) {
 exports.Sum = Sum;
 var Slider = /** @class */ (function (_super) {
     __extends(Slider, _super);
-    function Slider() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // position = new Vector2d(0, 0)
+    function Slider(id, type) {
+        var _this = _super.call(this, id, type) || this;
+        _this.inValPorts = [new block_behavior_1.Number, new block_behavior_1.Number, new block_behavior_1.Number, new block_behavior_1.Number]; //min max default step
+        _this.outValPorts = [new block_behavior_1.Number];
+        _this.displayDetail = {
+            color: "#FFFFFF",
+            value: _this.value,
+            type: stringConfig_1.CANVAS_DISPLAY_TYPE.IN_SLIDE,
+            position: _this.position
+        };
+        return _this;
     }
+    Slider.prototype.addValPort = function (index, num) {
+        this.inValPorts[index] = num;
+    };
+    Slider.prototype.updateContent = function () {
+        // this.value = this.inValPorts[0].value
+        this.displayDetail.value = this.value;
+    };
+    Slider.prototype.setDisplayDetail = function (detail) {
+        if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            console.log("port is not null");
+            this.updateContent();
+            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { value: this.inValPorts[0].value }), detail);
+        }
+        else {
+            console.log("port is null");
+            this.displayDetail = __assign({ type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
+        }
+        this.position = this.displayDetail.position;
+    };
     return Slider;
-}(block_behavior_1.InOutBlock));
+}(block_behavior_1.InOutDisplay));
 exports.Slider = Slider;
 var Greater = /** @class */ (function (_super) {
     __extends(Greater, _super);

@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.InOutBlock = exports.OutputBlock = exports.InputDisplay = exports.InputBlock = exports.Vector2d = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
+exports.InOutDisplay = exports.InOutBlock = exports.OutputBlock = exports.InputDisplay = exports.InputBlock = exports.Vector2d = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
 function isDisplayable(object) {
     return "display" in object;
 }
@@ -192,6 +192,11 @@ var OutputBlock = /** @class */ (function () {
         }
     };
     OutputBlock.prototype.getDisplayData = function () {
+        try {
+            return this.displayDetail;
+        }
+        catch (_a) {
+        }
     };
     return OutputBlock;
 }());
@@ -233,5 +238,57 @@ var InOutBlock = /** @class */ (function () {
     return InOutBlock;
 }());
 exports.InOutBlock = InOutBlock;
-// export abstract class InDisplay extends InOutBlock implements IDisplay {
-// }
+var InOutDisplay = /** @class */ (function (_super) {
+    __extends(InOutDisplay, _super);
+    function InOutDisplay(id, type) {
+        var _this = _super.call(this, id, type) || this;
+        _this.notiPorts = [];
+        _this.displayDetail = {};
+        _this.position = new Vector2d(0, 0);
+        return _this;
+    }
+    InOutDisplay.prototype.addValPort = function (index, obj) {
+        while (this.inValPorts.length <= index) {
+            this.inValPorts.push(null);
+        }
+        this.inValPorts[index] = obj;
+    };
+    InOutDisplay.prototype.updateContent = function () {
+    };
+    InOutDisplay.prototype.update = function () {
+        try {
+            this.updateContent();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+    InOutDisplay.prototype.addNotiPort = function (index, port) {
+        this.notiPorts[index] = port;
+    };
+    InOutDisplay.prototype.notifyAllPort = function () {
+        notifyAllPort(this.notiPorts);
+    };
+    InOutDisplay.prototype.setDisplayDetail = function (detail) {
+        this.displayDetail = __assign(__assign({}, this.displayDetail), detail);
+    };
+    InOutDisplay.prototype.displayContent = function () {
+    };
+    InOutDisplay.prototype.display = function () {
+        try {
+            this.displayContent();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+    InOutDisplay.prototype.getDisplayData = function () {
+        try {
+            return this.displayDetail;
+        }
+        catch (_a) {
+        }
+    };
+    return InOutDisplay;
+}(InOutBlock));
+exports.InOutDisplay = InOutDisplay;

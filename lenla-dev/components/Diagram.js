@@ -49,20 +49,30 @@ const Diagram = (props) => {
 
         const currentID = getID();
         console.log(currentID);
+        let data = {};
+        if (type == BLOCK_TYPE.IN_CONSTANT) data = { data: 0 };
         const newNode = Block.createElementObj(
             currentID,
             type,
-            reactFlowInstance.project({
-                x: event.clientX - reactFlowBounds.left,
-                y: event.clientY - reactFlowBounds.top,
-            })
+
+            reactFlowInstance.project(
+                {
+                    x: event.clientX - reactFlowBounds.left,
+                    y: event.clientY - reactFlowBounds.top,
+                },
+                data
+            )
         );
 
         // TO DO:
         // create element in p5.js
-        setElements((es) => es.concat(newNode));
+        setElements(elements.concat(newNode));
         // system.add_element(newNode);
+        console.log(elements);
+
+        console.log("before setup");
         compileAll();
+        console.log(elements);
     };
 
     const onElementClick = (event, element) => {
