@@ -14,7 +14,7 @@ import * as Block from "../block_system/systemObj";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { ReactFlowProvider } from "react-flow-renderer";
 import { isDisplayable } from "../block_system/block_behavior";
-import { Tp } from "../components/threeCanvas"
+import ThreeCanvas from "../components/threeCanvas";
 
 // import { HexColorPicker, HexColorInput } from "react-colorful";
 let tempSys = new Block.System();
@@ -181,7 +181,7 @@ export default function Create({ user, setUser }) {
                                 animeState={animeState}
                             /> */}
 
-                            <Tp
+                            <ThreeCanvas
 
                                 width={Math.floor(0.7 * width)}
                                 height={
