@@ -2,6 +2,7 @@ import ReactFlow, {
     addEdge,
     Background,
     removeElements,
+    isEdge,
 } from "react-flow-renderer";
 import { useRef, useState } from "react";
 import ConstantBlock from "../blocks/blk_constant";
@@ -94,33 +95,38 @@ const Diagram = (props) => {
     };
 
     const onConnect = (params) => {
-        if (params.sourceHandle.split[0] == params.targetHandle.split[0]) {
-            // console.log("on connect", getIntFromString(params.targetHandle));
-            setElements((els) =>
-                addEdge(
-                    {
-                        ...params,
-                        type: "smoothstep",
-                        style: { stroke: "#333" },
-                        arrowHeadType: "arrowclosed",
-                        animated: true,
-                        connectionMode: "loose",
-                        flag: "line",
-                    },
-                    els
-                )
-            );
-            console.log("Successfully Connected !");
-            const element = elements[elements.length - 1];
-            // system.set_port(
-            //     element.source,
-            //     element.target,
-            //     getIntFromString(element.sourceHandle),
-            //     getIntFromString(element.targetHandle)
-            // );
-            compileAll();
+        var incomersIds = elements.filter(function (e) { return isEdge(e) && e.target == params.target; }).map(function (e) { return e.source; });
+        if (incomersIds.length == 0){
+            if (params.sourceHandle.split[0] == params.targetHandle.split[0]) {
+                // console.log("on connect", getIntFromString(params.targetHandle));
+                setElements((els) =>
+                    addEdge(
+                        {
+                            ...params,
+                            type: "smoothstep",
+                            style: { stroke: "#333" },
+                            arrowHeadType: "arrowclosed",
+                            animated: true,
+                            connectionMode: "loose",
+                            flag: "line",
+                        },
+                        els
+                    )
+                );
+                console.log("Successfully Connected !");
+                const element = elements[elements.length - 1];
+                // system.set_port(
+                //     element.source,
+                //     element.target,
+                //     getIntFromString(element.sourceHandle),
+                //     getIntFromString(element.targetHandle)
+                // );
+                compileAll();
+            } else {
+                console.log("Wrong Connection");
+            }
         } else {
-            console.log("Wrong Connection");
+            console.log("Many to one connection case")
         }
     };
     console.log("draw diagram");
