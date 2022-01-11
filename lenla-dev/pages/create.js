@@ -14,6 +14,7 @@ import * as Block from "../block_system/systemObj";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { ReactFlowProvider } from "react-flow-renderer";
 import { isDisplayable } from "../block_system/block_behavior";
+import ThreeCanvas from "../components/threeCanvas";
 
 // import { HexColorPicker, HexColorInput } from "react-colorful";
 let tempSys = new Block.System();
@@ -169,7 +170,7 @@ export default function Create({ user, setUser }) {
                                 }
                             />
 
-                            <CanvasTest
+                            {/* <CanvasTest
                                 systemObj={system}
                                 width={Math.floor(0.7 * width)}
                                 height={
@@ -180,7 +181,17 @@ export default function Create({ user, setUser }) {
                                         : 0
                                 }
                                 animeState={animeState}
-                                ref={canvasRef}
+                            /> */}
+
+                            <ThreeCanvas
+                                width={Math.floor(0.7 * width)}
+                                height={
+                                    displayState == 1
+                                        ? Math.floor(0.78 * height)
+                                        : displayState == 2
+                                        ? Math.floor(0.39 * height)
+                                        : 0
+                                }
                             />
                         </div>
 
