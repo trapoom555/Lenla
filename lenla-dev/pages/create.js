@@ -69,7 +69,7 @@ export default function Create({ user, setUser }) {
         system = new Block.System();
         elements.forEach((element) => {
             if (element.flag == "node") {
-                system.add_element(element, canvasRef.current.createSliderObj);
+                system.add_element(element);
             }
             if (element.flag == "line") {
                 system.set_port(
@@ -192,6 +192,8 @@ export default function Create({ user, setUser }) {
                                         ? Math.floor(0.39 * height)
                                         : 0
                                 }
+                                system={system}
+                                setSystem={setSystem}
                             />
                         </div>
 
