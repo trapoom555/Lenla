@@ -186,6 +186,7 @@ var InOutBlock = /** @class */ (function () {
     InOutBlock.prototype.update = function () {
         try {
             this.updateContent();
+            this.notifyAllPort();
         }
         catch (err) {
             console.log(err);
@@ -215,21 +216,8 @@ var InOutDisplay = /** @class */ (function (_super) {
         }
         this.inValPorts[index] = obj;
     };
-    InOutDisplay.prototype.updateContent = function () {
-    };
-    InOutDisplay.prototype.update = function () {
-        try {
-            this.updateContent();
-        }
-        catch (err) {
-            console.log(err);
-        }
-    };
     InOutDisplay.prototype.addNotiPort = function (index, port) {
         this.notiPorts[index] = port;
-    };
-    InOutDisplay.prototype.notifyAllPort = function () {
-        notifyAllPort(this.notiPorts);
     };
     InOutDisplay.prototype.setDisplayDetail = function (detail) {
         this.displayDetail = __assign(__assign({}, this.displayDetail), detail);

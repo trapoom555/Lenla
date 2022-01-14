@@ -212,6 +212,7 @@ export abstract class InOutBlock implements ISub, IPub {
 
         try {
             this.updateContent();
+            this.notifyAllPort();
         }
         catch (err) {
             console.log(err)
@@ -247,27 +248,8 @@ export abstract class InOutDisplay extends InOutBlock implements IDisplay {
         this.inValPorts[index] = obj
 
     }
-    updateContent() {
-
-    }
-
-    update() {
-
-        try {
-            this.updateContent();
-        }
-        catch (err) {
-            console.log(err)
-        }
-
-    }
-
-
     addNotiPort(index: number, port: NotiPort) {
         this.notiPorts[index] = port
-    }
-    notifyAllPort() {
-        notifyAllPort(this.notiPorts)
     }
 
     setDisplayDetail(detail: any) {

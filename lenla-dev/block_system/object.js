@@ -70,7 +70,12 @@ exports.Color = Color;
 var Signal = /** @class */ (function (_super) {
     __extends(Signal, _super);
     function Signal() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.risingCallback = [];
+        _this.rNullIndex = [];
+        _this.fNullIndex = [];
+        _this.fallingCallback = [];
+        return _this;
     }
     Signal.prototype.setState = function (newState) {
         this.lastState = this.state;

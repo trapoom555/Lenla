@@ -37,10 +37,10 @@ export class Color extends Obj {
 export class Signal extends Obj {
     state: boolean
     lastState: boolean
-    risingCallback: Array<Function>
-    rNullIndex: Array<number>
-    fNullIndex: Array<number>
-    fallingCallback: Array<Function>
+    risingCallback: Array<Function> = []
+    rNullIndex: Array<number> = []
+    fNullIndex: Array<number> = []
+    fallingCallback: Array<Function> = []
     setState(newState: boolean) {
         this.lastState = this.state
         this.state = newState

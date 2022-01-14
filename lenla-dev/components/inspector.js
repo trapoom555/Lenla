@@ -121,7 +121,7 @@ function DiatailInspect(props) {
             compList.push(
                 <div className="insp_constant_wrapper">
                     {/* <div>{each.name}</div> */}
-                    <div className="insp_constant_header">Value</div>
+                    <div className="insp_constant_header">{each.name}</div>
                     <input
                         className="insp_constant_input"
                         type={CANVAS_DISPLAY_TYPE.OUT_STR}
@@ -142,7 +142,6 @@ function DiatailInspect(props) {
         }
         if (each.type == INS_DISPLAY_TYPE.IN_VECTOR_2D) {
             let tmp = each.value;
-            // console.log(element);
             compList.push(
                 <div>
                     <>{each.name} </>
@@ -158,7 +157,7 @@ function DiatailInspect(props) {
                                     each.index
                                 ].value.x = parseInt(val);
                             } else
-                                element.data.info[index].value.x =
+                                element.data.info[each.index].value.x =
                                     parseInt(val);
                             updateElementById(element.id, element);
                         }}
@@ -175,7 +174,7 @@ function DiatailInspect(props) {
                                     each.index
                                 ].value.y = parseInt(val);
                             } else
-                                element.data.info[index].value.y =
+                                element.data.info[each.index].value.y =
                                     parseInt(val);
                             updateElementById(element.id, element);
                         }}
@@ -188,7 +187,10 @@ function DiatailInspect(props) {
             let color;
             if (head != -1) {
                 color = element.data.info[head].value[each.index].value;
-            } else color = element.data.info[index].value;
+            } else {
+                color = element.data.info[each.index].value;
+            }
+
             if (color == null) color = "#FFFFFF";
             compList.push(
                 <div>
@@ -201,7 +203,8 @@ function DiatailInspect(props) {
                                 element.data.info[head].value[
                                     each.index
                                 ].value = color.hex;
-                            } else element.data.info[index].value = color.hex;
+                            } else
+                                element.data.info[each.index].value = color.hex;
                             updateElementById(element.id, element);
                         }}
                         placement="right"
@@ -212,6 +215,7 @@ function DiatailInspect(props) {
     }
     if (props.id != -1) {
         try {
+            // console.log("section 0");
             const [portIn, setportIn] = useState(
                 elements[elements.findIndex((x) => x.id === props.id)].data.port
                     .in
@@ -232,10 +236,10 @@ function DiatailInspect(props) {
             for (i = 0; i < element.data.info.length; i++) {
                 let each = element.data.info[i];
                 pushComplist(each, compList, element);
+                // console.log(each);
                 if (each.type == INS_DISPLAY_TYPE.LAYOUT_GROUP) {
                     let tmp = [];
                     each.value.forEach((subEach) => {
-                        // console.log(subEach.name);
                         pushComplist(subEach, tmp, element, each.index);
                     });
                     compList.push(
@@ -248,7 +252,7 @@ function DiatailInspect(props) {
             }
 
             let portEditShowArr = [];
-
+            // console.log("section 2");
             portEditShowArr.push(<div className="insp_sum_header">Ports</div>);
             for (let i = 0; i < element.data.port.in.length; i++) {
                 portEditShowArr.push(
@@ -260,7 +264,7 @@ function DiatailInspect(props) {
                     />
                 );
             }
-
+            // console.log("section 3");
             return (
                 <div>
                     {/* <p>id: {element.id}</p>
@@ -385,6 +389,7 @@ function BlockShow(props) {
             blocksData: [
                 { name: "Constant", type: BLOCK_TYPE.IN_CONSTANT },
                 { name: "Slider", type: BLOCK_TYPE.IN_SLIDER },
+                { name: "basic button", type: BLOCK_TYPE.IN_BASIC_BUTTON },
             ],
         },
 

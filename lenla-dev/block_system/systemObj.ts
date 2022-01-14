@@ -22,8 +22,9 @@ export class System {
             case BLOCK_TYPE.IN_BASIC_BUTTON:
                 console.log(element.type)
                 node = new InBlock.BasicButton(element.id, element.type)
+                // console.log(element.data.info[4].value[0])
                 if (Block.isDisplayable(node)) {
-                    node.setDisplayDetail({ position: element.data.info[4].value[0].value, color: element.data.info[4].value[1].value })
+                    node.setDisplayDetail({ position: element.data.info[4].value[0].value })
 
                 }
                 break
@@ -296,13 +297,13 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         {
                             index: 1,
                             name: "on color",
-                            value: 100,
+                            value: '#F8DE7E',
                             type: INS_DISPLAY_TYPE.INPUT_COLOR
                         },
                         {
                             index: 2,
                             name: "of color",
-                            value: 50,
+                            Evalue: "#7E7E7E",
                             type: INS_DISPLAY_TYPE.INPUT_COLOR
                         },
                         {

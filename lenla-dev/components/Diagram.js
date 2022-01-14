@@ -22,6 +22,7 @@ const nodeTypes = {
     [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
     [BLOCK_TYPE.CON_GREATER]: BasicBlock,
     [BLOCK_TYPE.IN_SLIDER]: BasicBlock,
+    [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicBlock,
 };
 
 let currentBlockID = 0;
@@ -95,8 +96,14 @@ const Diagram = (props) => {
     };
 
     const onConnect = (params) => {
-        var incomersIds = elements.filter(function (e) { return isEdge(e) && e.target == params.target; }).map(function (e) { return e.source; });
-        if (incomersIds.length == 0){
+        var incomersIds = elements
+            .filter(function (e) {
+                return isEdge(e) && e.target == params.target;
+            })
+            .map(function (e) {
+                return e.source;
+            });
+        if (incomersIds.length == 0) {
             if (params.sourceHandle.split[0] == params.targetHandle.split[0]) {
                 // console.log("on connect", getIntFromString(params.targetHandle));
                 setElements((els) =>
@@ -126,7 +133,7 @@ const Diagram = (props) => {
                 console.log("Wrong Connection");
             }
         } else {
-            console.log("Many to one connection case")
+            console.log("Many to one connection case");
         }
     };
     console.log("draw diagram");

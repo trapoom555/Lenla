@@ -26,6 +26,30 @@ function Box(props) {
         </mesh>
     );
 }
+function Button(props) {
+    const { node, tmp } = props;
+    const [clicked, click] = useState(!tmp.init);
+    return (
+        <mesh
+            {...props}
+            // ref={ref}
+            // scale={clicked ? 1.5 : 1}
+            onClick={(event) => {
+                click(!clicked);
+
+                node.setState(clicked);
+                // console.log(node.state);
+            }}
+            // onPointerOver={(event) => hover(true)}
+            // onPointerOut={(event) => hover(false)}
+        >
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial
+                color={clicked ? tmp.on_color : tmp.off_color}
+            />
+        </mesh>
+    );
+}
 
 export default function ThreeCanvas(props) {
     const { width, height, system, setSystem } = props;
@@ -42,7 +66,8 @@ export default function ThreeCanvas(props) {
             try {
                 switch (tmp.type) {
                     case CANVAS_DISPLAY_TYPE.OUT_STR:
-                        console.log("Hey:" + tmp.color);
+                        // console.log("Hey:" + tmp);
+                        // console.log(tmp);
                         displayObj.push(
                             <Text
                                 scale={[5, 5, 10]}
@@ -56,7 +81,38 @@ export default function ThreeCanvas(props) {
                         );
                         break;
 
-                    case CANVAS_DISPLAY_TYPE.IN_SLIDE:
+                    case CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON:
+                        console.log(tmp.on_color);
+                        displayObj.push(
+                            <Button
+                                tmp={tmp}
+                                node={node}
+                                position={[0, 0, 0]}
+                            ></Button>
+                            // <mesh
+                            //     {...props}
+                            //     // ref={ref}
+                            //     scale={node.state ? 1.5 : 1}
+                            //     onClick={(event) => {
+                            //         node.setState(!node.state);
+                            //         console.log("button click");
+                            //         console.log(node.state);
+                            //         setSystem(system);
+                            //     }}
+                            //     // onPointerOver={(event) => hover(true)}
+                            //     // onPointerOut={(event) => hover(false)}
+                            // >
+                            //     <boxGeometry args={[1, 1, 1]} />
+                            //     <meshStandardMaterial
+                            //         color={
+                            //             node.state
+                            //                 ? tmp.on_color
+                            //                 : tmp.off_color
+                            //         }
+                            //     />
+                            // </mesh>
+                        );
+                        break;
                 }
             } catch (error) {
                 console.log(error);

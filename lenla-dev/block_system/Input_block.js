@@ -55,10 +55,12 @@ var BasicButton = /** @class */ (function (_super) {
         //initial state,on color,off color,button type(0->toggle,1-> hold to on,2->hold to off)
         _this.outValPorts = [new object_1.Signal];
         _this.inValPorts[0] = initState;
+        _this.state = initState;
         _this.displayDetail = {
             off_color: _this.inValPorts[1].hex,
             on_color: _this.inValPorts[2].hex,
             state: initState,
+            init: initState,
             type: stringConfig_1.CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON,
             position: _this.position
         };
@@ -67,6 +69,7 @@ var BasicButton = /** @class */ (function (_super) {
     BasicButton.prototype.setState = function (val) {
         this.state = val;
         this.outValPorts[0].setState(val);
+        this.update();
     };
     BasicButton.prototype.addValPort = function (index, num) {
         this.inValPorts[index] = num;
@@ -74,6 +77,7 @@ var BasicButton = /** @class */ (function (_super) {
     BasicButton.prototype.updateContent = function () {
         // this.value = this.inValPorts[0].value
         this.displayDetail.state = this.state;
+        // console.log(this.state)
     };
     BasicButton.prototype.setDisplayDetail = function (detail) {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
@@ -83,7 +87,7 @@ var BasicButton = /** @class */ (function (_super) {
         }
         else {
             console.log("port is null");
-            this.displayDetail = __assign({ type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
+            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { type: stringConfig_1.CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON, position: this.displayDetail.position }), detail);
         }
         this.position = this.displayDetail.position;
     };
