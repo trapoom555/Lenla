@@ -35,7 +35,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
         _this.displayDetail = {
-            color: "#FFFFFF",
+            color: "#000000",
             value: _this.value,
             type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR,
             position: _this.position
@@ -62,7 +62,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         this.position = this.displayDetail.position;
     };
     NumberDisplay.prototype.log = function () {
-        console.log("value is " + this.value.toString());
+        console.log("value is ".concat(this.value.toString()));
     };
     NumberDisplay.prototype.displayContent = function () {
         // this.setDisplayDetail({});
@@ -87,7 +87,7 @@ var BoolDisplay = /** @class */ (function (_super) {
         this.log();
     };
     BoolDisplay.prototype.log = function () {
-        console.log("value is " + this.value.toString());
+        console.log("value is ".concat(this.value.toString()));
     };
     BoolDisplay.prototype.displayContent = function () {
         this.log();

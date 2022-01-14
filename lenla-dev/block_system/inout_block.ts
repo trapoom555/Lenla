@@ -1,4 +1,5 @@
-import { InOutBlock, Number, Bool, Vector2d, InOutDisplay } from "./block_behavior";
+import { InOutBlock, InOutDisplay } from "./block_behavior";
+import { Number, Bool, Vector2d } from "./object";
 import { Vector2D } from "./Input_block";
 import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 import { ThemeProvider } from "styled-components";
@@ -52,7 +53,7 @@ export class Sum extends InOutBlock {
 }
 
 export class Slider extends InOutDisplay {
-    inValPorts: Array<Number> = [new Number, new Number, new Number, new Number];//min max default step
+    inValPorts: Array<Number> = [new Number(0), new Number(100), new Number(50), new Number(1)];//min max default step
     outValPorts: Array<Number> = [new Number];
     value: number
     displayDetail: any
@@ -65,6 +66,9 @@ export class Slider extends InOutDisplay {
             type: CANVAS_DISPLAY_TYPE.IN_SLIDE,
             position: this.position,
         }
+    }
+    setValue(val: number) {
+        this.value = val
     }
     addValPort(index: number, num: Number) {
         this.inValPorts[index] = num

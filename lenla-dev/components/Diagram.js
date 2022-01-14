@@ -21,6 +21,8 @@ const nodeTypes = {
     [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,
     [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
     [BLOCK_TYPE.CON_GREATER]: BasicBlock,
+    [BLOCK_TYPE.IN_SLIDER]: BasicBlock,
+    [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicBlock,
 };
 
 let currentBlockID = 0;
@@ -126,7 +128,7 @@ const Diagram = (props) => {
                 console.log("Wrong Connection");
             }
         } else {
-            console.log("Many to one connection case")
+            console.log("Many to one connection case");
         }
     };
     console.log("draw diagram");

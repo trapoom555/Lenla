@@ -20,22 +20,28 @@ function preload() {
     // is loaded before setup() and draw() are called
 }
 preload();
+// export let ObjInCanvas = [];
 export default forwardRef((props, ref) => {
     const { width, height, systemObj, animeState } = props;
-    let displayObj = [];
+    let displayObj = {};
+
     const setup = (p5, canvasParentRef) => {
         font = p5.loadFont("assets/SourceSansPro-Regular.otf");
         p5.createCanvas(width, height).parent(canvasParentRef);
         // textFont(font);
         p5.textSize(fontsize);
+        // slider = new p5.Slider(1, 10, 5, 3);
+        const slider = p5.createSlider(0, 100, 50);
         // textAlign(CENTER, CENTER);
     };
-    // useImperativeHandle(ref, () => ({
-    //     setX() {
-    //         x = 100;
-    //         console.log(x);
-    //     },
-    // }));
+    useImperativeHandle(ref, () => ({
+        createSliderObj(id, min, max, def, step = 1) {
+            displayObj[id] = p5.createSlider(min, max, def, step);
+        },
+    }));
+    function createSliderObj(p5, id, min, max, def, step = 1) {
+        displayObj[id] = p5.createSlider(min, max, def, step);
+    }
     function mouseOver(p5, mx, my, radius) {
         let xDiff = p5.mouseX - mx;
         let yDiff = p5.mouseY - my;
@@ -43,13 +49,14 @@ export default forwardRef((props, ref) => {
         // print(distance);
         return distance <= radius;
     }
-
+    let c = 0;
     const draw = (p5) => {
         p5.resizeCanvas(width, height);
         p5.background(0);
-        //
+
         if (animeState == 1) {
         }
+        // slider.render();
         systemObj.childNode.forEach((node) => {
             if (isDisplayable(node)) {
                 // node.update();
@@ -70,7 +77,12 @@ export default forwardRef((props, ref) => {
                             // console.log("Wow " + tmp.value);
                             break;
 
-                        // case CANVAS_DISPLAY_TYPE.IN_SLIDE:
+                        case CANVAS_DISPLAY_TYPE.IN_SLIDE:
+                            displayObj[id].position(
+                                tmp.position.x,
+                                tmp.position.y
+                            );
+                            node.setValue(displayObj[id].val);
                     }
                 } catch (error) {
                     console.log(error);

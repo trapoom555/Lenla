@@ -1,4 +1,6 @@
-import { InputBlock, Number, InputDisplay } from "./block_behavior";
+import { InputBlock, InputDisplay, InOutDisplay } from "./block_behavior";
+import { Number, Bool, Color, Signal } from "./object";
+import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 export class Constant extends InputBlock {
     outValPorts: Array<Number> = [null];
 
@@ -14,6 +16,67 @@ export class Constant extends InputBlock {
 
 
 
+}
+
+export class BasicButton extends InOutDisplay {
+    inValPorts: Array<any> = [new Bool(false), new Color("#F8DE7E"), new Color("#7E7E7E"), new Number(0)];
+    //initial state,on color,off color,button type(0->toggle,1-> hold to on,2->hold to off)
+    outValPorts: Array<Signal> = [new Signal];
+    state: boolean
+    displayDetail: any
+    // position = new Vector2d(0, 0)
+    constructor(id: string, type: string, initState = false) {
+        super(id, type);
+        this.inValPorts[0] = initState
+        this.state = initState
+        this.displayDetail = {
+            off_color: this.inValPorts[1].hex,
+            on_color: this.inValPorts[2].hex,
+            state: initState,
+            init: initState,
+            type: CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON,
+            position: this.position,
+        }
+    }
+    setState(val: boolean) {
+        this.state = val
+        this.outValPorts[0].setState(val)
+        this.update()
+    }
+    addValPort(index: number, num: Number) {
+        this.inValPorts[index] = num
+
+    }
+    updateContent() {
+        // this.value = this.inValPorts[0].value
+        this.displayDetail.state = this.state
+        // console.log(this.state)
+    }
+    setDisplayDetail(detail: any): void {
+
+        if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            console.log("port is not null")
+            this.updateContent()
+            this.displayDetail = {
+                ...this.displayDetail,
+                state: this.inValPorts[0].value,
+                ...detail
+            }
+        }
+        else {
+
+            console.log("port is null")
+            this.displayDetail = {
+                ...this.displayDetail,
+                type: CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON,
+                position: this.displayDetail.position,
+                ...detail
+            }
+
+        }
+        this.position = this.displayDetail.position
+
+    }
 }
 // export class Slider extends InputDisplay {
 //     public value: number;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../components/navbar";
 import PreviewButton from "../components/previewButton";
 import ShareButton from "../components/shareButton";
@@ -30,6 +30,7 @@ export default function Create({ user, setUser }) {
     const [systemReady, setsystemReady] = useState(false);
 
     const { height, width } = useWindowDimensions();
+    const canvasRef = useRef(null);
 
     // const system = new Block.System();
     function getIntFromString(str) {
@@ -85,6 +86,7 @@ export default function Create({ user, setUser }) {
         // console.log(tmp.childNode);
         console.log(system.childNode);
         system.compile();
+        // canvasRef.current.createSliderObj(0, 0, 100, 50, 1);
 
         // system.add_elements(elements);
     }
@@ -182,7 +184,6 @@ export default function Create({ user, setUser }) {
                             /> */}
 
                             <ThreeCanvas
-
                                 width={Math.floor(0.7 * width)}
                                 height={
                                     displayState == 1
@@ -191,9 +192,9 @@ export default function Create({ user, setUser }) {
                                         ? Math.floor(0.39 * height)
                                         : 0
                                 }
-                             />
-
-
+                                system={system}
+                                setSystem={setSystem}
+                            />
                         </div>
 
                         <Inspector

@@ -12,38 +12,34 @@ export class System {
         this.childNode = [];
         this.blankSpace = 0;
     }
-    add_element(element) {
+    add_element(element, fnc) {
         this.idToIndex[element.id] = this.childNode.length;
         let node: Block.IBlock
-        if (element.type == BLOCK_TYPE.IN_CONSTANT) {
-            node = new InBlock.Constant(element.id, element.type, element.data.info[0].value);
+        switch (element.type) {
+            case BLOCK_TYPE.IN_CONSTANT:
+                node = new InBlock.Constant(element.id, element.type, element.data.info[0].value);
+                break
+            case BLOCK_TYPE.IN_BASIC_BUTTON:
+                console.log(element.type)
+                node = new InBlock.BasicButton(element.id, element.type)
+                // console.log(element.data.info[4].value[0])
+                if (Block.isDisplayable(node)) {
+                    node.setDisplayDetail({ position: element.data.info[4].value[0].value })
 
-        }
-        if (element.type == BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
-            node = new OutBlock.NumberDisplay(element.id, element.type)
-            // console.log("333")
-            if (Block.isDisplayable(node)) {
-                // console.log("444")
-                console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
-                node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
-            }
-
-        }
-        if (element.type == BLOCK_TYPE.OUT_BOOLEAN_DISPLAY) {
-            node = new OutBlock.BoolDisplay(element.id, element.type)
-        }
-        if (element.type == BLOCK_TYPE.OP_SUM) {
-            node = new InOutBlock.Sum(element.id, element.type, element.data.port.in)
-            // console.log("create sum block")
-        }
-        // if (element.type == BLOCK_TYPE.IN_SLIDER) {
-        //     node = new InOutBlock.Greater(element.id, element.type);
-        // }
-        // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
-        //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
-        // }
-        if (element.type == BLOCK_TYPE.CON_GREATER) {
-            node = new InOutBlock.Greater(element.id, element.type);
+                }
+                break
+            case BLOCK_TYPE.OP_SUM:
+                node = new InOutBlock.Sum(element.id, element.type, element.data.port.in)
+                break
+            case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+                node = new OutBlock.NumberDisplay(element.id, element.type)
+                // console.log("333")
+                if (Block.isDisplayable(node)) {
+                    // console.log("444")
+                    console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                }
+                break
         }
         if (node)
             this.childNode.push(node);
@@ -190,7 +186,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                 {
                                     index: 1,
                                     name: "letter color",
-                                    value: "#FFFFFF",
+                                    value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
 
@@ -249,8 +245,87 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         {
                             index: 3,
                             name: "step",
-                            value: null,
+                            value: 1,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 4,
+                            name: "display properties",
+                            value: [
+                                {
+                                    index: 0,
+                                    name: "position",
+                                    value: { x: 0, y: 0 },
+                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                                {
+                                    index: 1,
+                                    name: "letter color",
+                                    value: "#FFFFFF",
+                                    type: INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+
+                            ],
+                            type: INS_DISPLAY_TYPE.LAYOUT_GROUP
+
+                        }
+                    ],
+                    port:
+                    {
+                        in: [],
+                        inType: [],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: [],
+                    },
+
+                }
+            }
+        case BLOCK_TYPE.IN_BASIC_BUTTON:
+            return {
+                ...obj,
+                data:
+                {
+                    // data: data.num,
+                    info: [
+                        {
+                            index: 0,
+                            name: "initial state",
+                            value: 0,
+                            type: INS_DISPLAY_TYPE.INPUT_BOOL
+                        },
+                        {
+                            index: 1,
+                            name: "on color",
+                            value: '#F8DE7E',
+                            type: INS_DISPLAY_TYPE.INPUT_COLOR
+                        },
+                        {
+                            index: 2,
+                            name: "of color",
+                            Evalue: "#7E7E7E",
+                            type: INS_DISPLAY_TYPE.INPUT_COLOR
+                        },
+                        {
+                            index: 3,
+                            name: "type",
+                            value: 1,
+                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 4,
+                            name: "display properties",
+                            value: [
+                                {
+                                    index: 0,
+                                    name: "position",
+                                    value: { x: 0, y: 0 },
+                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+
+                            ],
+                            type: INS_DISPLAY_TYPE.LAYOUT_GROUP
+
                         }
                     ],
                     port:
@@ -289,6 +364,12 @@ export function blockConfig(type: string) {
                 choice: []
             }
         case BLOCK_TYPE.IN_SLIDER:
+            return {
+                limitIn: [0, 0],
+                choice: [],
+
+            }
+        case BLOCK_TYPE.IN_BASIC_BUTTON:
             return {
                 limitIn: [0, 0],
                 choice: [],

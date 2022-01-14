@@ -1,4 +1,5 @@
-import { OutputBlock, Number, Bool } from "./block_behavior";
+import { OutputBlock } from "./block_behavior";
+import { Signal, Number, Bool } from "./object";
 import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 export class NumberDisplay extends OutputBlock {
     value: number
@@ -7,7 +8,7 @@ export class NumberDisplay extends OutputBlock {
     constructor(id: string, type: string) {
         super(id, type);
         this.displayDetail = {
-            color: "#FFFFFF",
+            color: "#000000",
             value: this.value,
             type: CANVAS_DISPLAY_TYPE.OUT_STR,
             position: this.position,
