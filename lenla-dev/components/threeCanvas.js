@@ -87,7 +87,7 @@ export default function ThreeCanvas(props) {
                             <Button
                                 tmp={tmp}
                                 node={node}
-                                position={[0, 0, 0]}
+                                position={[tmp.position.x, tmp.position.y, 0]}
                             ></Button>
                             // <mesh
                             //     {...props}
@@ -121,7 +121,7 @@ export default function ThreeCanvas(props) {
     });
     return (
         <div style={{ width: width, height: height }}>
-            <Canvas>
+            <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
                 <pointLight position={[-10, -10, -10]} />
