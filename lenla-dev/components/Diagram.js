@@ -94,8 +94,9 @@ const Diagram = (props) => {
     };
 
     const onConnect = (params) => {
-        var incomersIds = elements.filter(function (e) { return isEdge(e) && e.target == params.target; }).map(function (e) { return e.source; });
-        if (incomersIds.length == 0){
+        var connectedIds = elements.filter(function (e) { return isEdge(e) && e.target == params.target; }).map(function (e) { return e.targetHandle; });
+        console.log("target", params.targetHandle)
+        if (!connectedIds.includes(params.targetHandle)){
             if (params.sourceHandle.split[0] == params.targetHandle.split[0]) {
                 // console.log("on connect", getIntFromString(params.targetHandle));
                 setElements((els) =>
