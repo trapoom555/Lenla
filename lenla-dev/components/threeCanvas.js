@@ -42,14 +42,13 @@ export default function ThreeCanvas(props) {
             try {
                 switch (tmp.type) {
                     case CANVAS_DISPLAY_TYPE.OUT_STR:
-                        // console.log("Hey" + tmp.position.x);
+                        console.log("Hey:" + tmp.color);
                         displayObj.push(
                             <Text
                                 scale={[5, 5, 10]}
-                                color="black" // default
+                                color={tmp.color} // default
                                 anchorX={-tmp.position.x / 10}
                                 anchorY={tmp.position.y / 10}
-                                // position={(tmp.position.x, tmp.position.y, 0)}
                                 position={(-1.2, 1, 0)}
                             >
                                 {tmp.value}

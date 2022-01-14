@@ -26,38 +26,29 @@ var System = /** @class */ (function () {
     System.prototype.add_element = function (element, fnc) {
         this.idToIndex[element.id] = this.childNode.length;
         var node;
-        if (element.type == stringConfig_1.BLOCK_TYPE.IN_CONSTANT) {
-            node = new InBlock.Constant(element.id, element.type, element.data.info[0].value);
-        }
-        if (element.type == stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY) {
-            node = new OutBlock.NumberDisplay(element.id, element.type);
-            // console.log("333")
-            if (Block.isDisplayable(node)) {
-                // console.log("444")
-                console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
-                node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
-            }
-        }
-        if (element.type == stringConfig_1.BLOCK_TYPE.OUT_BOOLEAN_DISPLAY) {
-            node = new OutBlock.BoolDisplay(element.id, element.type);
-        }
-        if (element.type == stringConfig_1.BLOCK_TYPE.OP_SUM) {
-            node = new InOutBlock.Sum(element.id, element.type, element.data.port["in"]);
-            // console.log("create sum block")
-        }
-        if (element.type == stringConfig_1.BLOCK_TYPE.IN_SLIDER) {
-            node = new InOutBlock.Slider(element.id, element.type);
-            if (Block.isDisplayable(node)) {
-                node.setDisplayDetail({ position: element.data.info[4].value[0].value, color: element.data.info[4].value[1].value });
-                var tmp = element.data.info;
-                fnc(element.id, tmp[0].value, tmp[1].value, tmp[2].value, tmp[3].value);
-            }
-        }
-        // if (element.type == BLOCK_TYPE.IN_VECTOR_2D) {
-        //     node = new InBlock.Vector2D(element.id, element.data.valOut[0], element.data.valOut[1]);
-        // }
-        if (element.type == stringConfig_1.BLOCK_TYPE.CON_GREATER) {
-            node = new InOutBlock.Greater(element.id, element.type);
+        switch (element.type) {
+            case stringConfig_1.BLOCK_TYPE.IN_CONSTANT:
+                node = new InBlock.Constant(element.id, element.type, element.data.info[0].value);
+                break;
+            case stringConfig_1.BLOCK_TYPE.IN_BASIC_BUTTON:
+                console.log(element.type);
+                node = new InBlock.BasicButton(element.id, element.type);
+                if (Block.isDisplayable(node)) {
+                    node.setDisplayDetail({ position: element.data.info[4].value[0].value, color: element.data.info[4].value[1].value });
+                }
+                break;
+            case stringConfig_1.BLOCK_TYPE.OP_SUM:
+                node = new InOutBlock.Sum(element.id, element.type, element.data.port["in"]);
+                break;
+            case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+                node = new OutBlock.NumberDisplay(element.id, element.type);
+                // console.log("333")
+                if (Block.isDisplayable(node)) {
+                    // console.log("444")
+                    console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
+                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
+                }
+                break;
         }
         if (node)
             this.childNode.push(node);
@@ -182,7 +173,7 @@ function createElementObj(id, type, position, data, name) {
                                 {
                                     index: 1,
                                     name: "letter color",
-                                    value: "#FFFFFF",
+                                    value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
                             ],
@@ -263,6 +254,56 @@ function createElementObj(id, type, position, data, name) {
                         inEnable: []
                     }
                 } });
+        case stringConfig_1.BLOCK_TYPE.IN_BASIC_BUTTON:
+            return __assign(__assign({}, obj), { data: {
+                    // data: data.num,
+                    info: [
+                        {
+                            index: 0,
+                            name: "initial state",
+                            value: 0,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_BOOL
+                        },
+                        {
+                            index: 1,
+                            name: "on color",
+                            value: 100,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
+                        },
+                        {
+                            index: 2,
+                            name: "of color",
+                            value: 50,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
+                        },
+                        {
+                            index: 3,
+                            name: "type",
+                            value: 1,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                        },
+                        {
+                            index: 4,
+                            name: "display properties",
+                            value: [
+                                {
+                                    index: 0,
+                                    name: "position",
+                                    value: { x: 0, y: 0 },
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                            ],
+                            type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
+                        }
+                    ],
+                    port: {
+                        "in": [],
+                        inType: [],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: []
+                    }
+                } });
     }
 }
 exports.createElementObj = createElementObj;
@@ -285,6 +326,11 @@ function blockConfig(type) {
                 choice: []
             };
         case stringConfig_1.BLOCK_TYPE.IN_SLIDER:
+            return {
+                limitIn: [0, 0],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.IN_BASIC_BUTTON:
             return {
                 limitIn: [0, 0],
                 choice: []

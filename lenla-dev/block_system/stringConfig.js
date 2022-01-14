@@ -3,6 +3,7 @@ export const BLOCK_TYPE = {
     IN_CONSTANT: "constant_block",
     IN_SLIDER: "slider bar",
     IN_VECTOR_2D: "vector2d_block",
+    IN_BASIC_BUTTON: "basic button",
     //operator
     OP_SUM: "sum_block",
     OP_LOG: "log_block",
@@ -30,6 +31,7 @@ export const INS_DISPLAY_TYPE = {
     INPUT_NUM: "input(num)",
     IN_NUM: "input/port(num)",
     INPUT_BOOL: "input(bool)",
+    IN_OPTION: "input option(int)",
     OUT_NUM: "output(num)",
     IN_VECTOR_2D: "input/port(vector2d)",
     LAYOUT_GROUP: "group layout",
@@ -40,5 +42,6 @@ export const CANVAS_DISPLAY_TYPE = {
     OUT_STR: "string",
     OUT_IMG: "image",
     IN_SLIDE: "slide bar",
+    IN_BASIC_BUTTON: "basic button",
     // OUT_NUM,
 };

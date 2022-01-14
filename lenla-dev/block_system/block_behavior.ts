@@ -1,6 +1,7 @@
 
 import { Vector2D } from "./Input_block";
 import { BLOCK_TYPE, BLOCK_CATE } from "./stringConfig";
+import { Number, Color, Bool, Signal, Obj, Vector2d } from "./object";
 
 export function isDisplayable(object: any): object is IDisplay {
     return "display" in object
@@ -27,35 +28,9 @@ export class NotiPort {
     }
 
 }
-class Obj {
-    value: any
-}
-class Int extends Obj {
-    value: Int
-}
-export class Bool extends Obj {
-    value: boolean
-}
-export class Number extends Obj {
-    value: number
-    constructor(val: number = null) {
-        super()
-        if (val != null) this.value = val
-    }
 
-}
-export class Vector2d extends Obj {
-    x: number
-    y: number
-    constructor(x, y) {
-        super();
-        this.x = x
-        this.y = y
-    }
-
-}
 export interface ISub extends IBlock {
-    inValPorts: Array<Number>
+    inValPorts: Array<Obj>
     addValPort: (index: number, obj: Obj) => any
     update: () => any
 }

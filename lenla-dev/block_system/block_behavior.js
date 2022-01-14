@@ -26,7 +26,8 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.InOutDisplay = exports.InOutBlock = exports.OutputBlock = exports.InputDisplay = exports.InputBlock = exports.Vector2d = exports.Number = exports.Bool = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
+exports.InOutDisplay = exports.InOutBlock = exports.OutputBlock = exports.InputDisplay = exports.InputBlock = exports.NotiPort = exports.isIPub = exports.isISub = exports.isDisplayable = void 0;
+var object_1 = require("./object");
 function isDisplayable(object) {
     return "display" in object;
 }
@@ -54,49 +55,6 @@ var NotiPort = /** @class */ (function () {
     return NotiPort;
 }());
 exports.NotiPort = NotiPort;
-var Obj = /** @class */ (function () {
-    function Obj() {
-    }
-    return Obj;
-}());
-var Int = /** @class */ (function (_super) {
-    __extends(Int, _super);
-    function Int() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return Int;
-}(Obj));
-var Bool = /** @class */ (function (_super) {
-    __extends(Bool, _super);
-    function Bool() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return Bool;
-}(Obj));
-exports.Bool = Bool;
-var Number = /** @class */ (function (_super) {
-    __extends(Number, _super);
-    function Number(val) {
-        if (val === void 0) { val = null; }
-        var _this = _super.call(this) || this;
-        if (val != null)
-            _this.value = val;
-        return _this;
-    }
-    return Number;
-}(Obj));
-exports.Number = Number;
-var Vector2d = /** @class */ (function (_super) {
-    __extends(Vector2d, _super);
-    function Vector2d(x, y) {
-        var _this = _super.call(this) || this;
-        _this.x = x;
-        _this.y = y;
-        return _this;
-    }
-    return Vector2d;
-}(Obj));
-exports.Vector2d = Vector2d;
 function notifyAllPort(notiPorts) {
     notiPorts.forEach(function (port) {
         if (port)
@@ -124,7 +82,7 @@ exports.InputBlock = InputBlock;
 var InputDisplay = /** @class */ (function () {
     function InputDisplay(id, type) {
         this.notiPorts = [];
-        this.position = new Vector2d(0, 0);
+        this.position = new object_1.Vector2d(0, 0);
         this.displayDetail = {};
         this.id = id;
         this.type = type;
@@ -158,7 +116,7 @@ var InputDisplay = /** @class */ (function () {
 exports.InputDisplay = InputDisplay;
 var OutputBlock = /** @class */ (function () {
     function OutputBlock(id, type) {
-        this.position = new Vector2d(0, 0);
+        this.position = new object_1.Vector2d(0, 0);
         this.displayDetail = {};
         this.id = id;
         this.type = type;
@@ -248,7 +206,7 @@ var InOutDisplay = /** @class */ (function (_super) {
         var _this = _super.call(this, id, type) || this;
         _this.notiPorts = [];
         _this.displayDetail = {};
-        _this.position = new Vector2d(0, 0);
+        _this.position = new object_1.Vector2d(0, 0);
         return _this;
     }
     InOutDisplay.prototype.addValPort = function (index, obj) {

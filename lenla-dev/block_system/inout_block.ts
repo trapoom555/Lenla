@@ -1,4 +1,5 @@
-import { InOutBlock, Number, Bool, Vector2d, InOutDisplay } from "./block_behavior";
+import { InOutBlock, InOutDisplay } from "./block_behavior";
+import { Number, Bool, Vector2d } from "./object";
 import { Vector2D } from "./Input_block";
 import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 import { ThemeProvider } from "styled-components";

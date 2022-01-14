@@ -28,16 +28,17 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
+var object_1 = require("./object");
 var stringConfig_1 = require("./stringConfig");
 var Sum = /** @class */ (function (_super) {
     __extends(Sum, _super);
     function Sum(id, type, ports_symbol) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [];
-        _this.outValPorts = [new block_behavior_1.Number];
+        _this.outValPorts = [new object_1.Number];
         _this.symbols = ports_symbol;
         for (var i = 0; i < _this.symbols.length; i++) {
-            var tmp = new block_behavior_1.Number;
+            var tmp = new object_1.Number;
             tmp.value = 0;
             _this.inValPorts.push(tmp);
         }
@@ -45,7 +46,7 @@ var Sum = /** @class */ (function (_super) {
     }
     Sum.prototype.addValPort = function (index, num) {
         while (this.inValPorts.length <= index) {
-            var tmp = new block_behavior_1.Number;
+            var tmp = new object_1.Number;
             tmp.value = 0;
             this.inValPorts.push(tmp);
         }
@@ -78,8 +79,8 @@ var Slider = /** @class */ (function (_super) {
     // position = new Vector2d(0, 0)
     function Slider(id, type) {
         var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [new block_behavior_1.Number(0), new block_behavior_1.Number(100), new block_behavior_1.Number(50), new block_behavior_1.Number(1)]; //min max default step
-        _this.outValPorts = [new block_behavior_1.Number];
+        _this.inValPorts = [new object_1.Number(0), new object_1.Number(100), new object_1.Number(50), new object_1.Number(1)]; //min max default step
+        _this.outValPorts = [new object_1.Number];
         _this.displayDetail = {
             color: "#FFFFFF",
             value: _this.value,
@@ -118,7 +119,7 @@ var Greater = /** @class */ (function (_super) {
     function Greater(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
-        _this.outValPorts = [new block_behavior_1.Bool];
+        _this.outValPorts = [new object_1.Bool];
         return _this;
     }
     Greater.prototype.updateContent = function () {
@@ -134,7 +135,7 @@ var GreaterOrEqual = /** @class */ (function (_super) {
     function GreaterOrEqual(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
-        _this.outValPorts = [new block_behavior_1.Bool];
+        _this.outValPorts = [new object_1.Bool];
         return _this;
     }
     GreaterOrEqual.prototype.updateContent = function () {
@@ -150,7 +151,7 @@ var AND = /** @class */ (function (_super) {
     function AND(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
-        _this.outValPorts = [new block_behavior_1.Bool];
+        _this.outValPorts = [new object_1.Bool];
         return _this;
     }
     AND.prototype.updateContent = function () {
@@ -166,7 +167,7 @@ var OR = /** @class */ (function (_super) {
     function OR(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
-        _this.outValPorts = [new block_behavior_1.Bool];
+        _this.outValPorts = [new object_1.Bool];
         return _this;
     }
     OR.prototype.updateContent = function () {
@@ -182,7 +183,7 @@ var NOT = /** @class */ (function (_super) {
     function NOT(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
-        _this.outValPorts = [new block_behavior_1.Bool];
+        _this.outValPorts = [new object_1.Bool];
         return _this;
     }
     NOT.prototype.updateContent = function () {
@@ -198,7 +199,7 @@ var Condition = /** @class */ (function (_super) {
     function Condition(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null, null];
-        _this.outValPorts = [new block_behavior_1.Number];
+        _this.outValPorts = [new object_1.Number];
         return _this;
     }
     Condition.prototype.updateContent = function () {
