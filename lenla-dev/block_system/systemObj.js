@@ -88,9 +88,7 @@ var System = /** @class */ (function () {
         }
         console.log("add val port for " + targetId);
         target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex]);
-        var notiPort = new Block.NotiPort;
-        notiPort.addReciver(target);
-        source.addNotiPort(sourcePortIndex, notiPort);
+        source.addPortReciver(sourcePortIndex, target);
     };
     System.prototype.delete_element = function (element_id) {
         this.blankSpace += 1;

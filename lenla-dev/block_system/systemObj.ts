@@ -79,9 +79,7 @@ export class System {
         console.log("add val port for " + targetId)
 
         target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex])
-        let notiPort = new Block.NotiPort
-        notiPort.addReciver(target)
-        source.addNotiPort(sourcePortIndex, notiPort)
+        source.addPortReciver(sourcePortIndex, target)
 
 
     }

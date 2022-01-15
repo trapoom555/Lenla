@@ -67,8 +67,11 @@ var InputBlock = /** @class */ (function () {
         this.id = id;
         this.type = type;
     }
-    InputBlock.prototype.addNotiPort = function (index, port) {
-        this.notiPorts[index] = port;
+    InputBlock.prototype.addPortReciver = function (index, reciver) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort);
+        }
+        this.notiPorts[index].addReciver(reciver);
     };
     InputBlock.prototype.notifyAllPort = function () {
         notifyAllPort(this.notiPorts);
@@ -87,8 +90,11 @@ var InputDisplay = /** @class */ (function () {
         this.id = id;
         this.type = type;
     }
-    InputDisplay.prototype.addNotiPort = function (index, port) {
-        this.notiPorts[index] = port;
+    InputDisplay.prototype.addPortReciver = function (index, reciver) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort);
+        }
+        this.notiPorts[index].addReciver(reciver);
     };
     InputDisplay.prototype.notifyAllPort = function () {
         notifyAllPort(this.notiPorts);
@@ -192,8 +198,11 @@ var InOutBlock = /** @class */ (function () {
             console.log(err);
         }
     };
-    InOutBlock.prototype.addNotiPort = function (index, port) {
-        this.notiPorts[index] = port;
+    InOutBlock.prototype.addPortReciver = function (index, reciver) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort);
+        }
+        this.notiPorts[index].addReciver(reciver);
     };
     InOutBlock.prototype.notifyAllPort = function () {
         notifyAllPort(this.notiPorts);
@@ -216,8 +225,11 @@ var InOutDisplay = /** @class */ (function (_super) {
         }
         this.inValPorts[index] = obj;
     };
-    InOutDisplay.prototype.addNotiPort = function (index, port) {
-        this.notiPorts[index] = port;
+    InOutDisplay.prototype.addPortReciver = function (index, reciver) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort);
+        }
+        this.notiPorts[index].addReciver(reciver);
     };
     InOutDisplay.prototype.setDisplayDetail = function (detail) {
         this.displayDetail = __assign(__assign({}, this.displayDetail), detail);
