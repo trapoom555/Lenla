@@ -60,7 +60,7 @@ function Button(props) {
         <mesh
             {...props}
             onClick={(event) => {
-                if (isRun) {
+                if (isRun == 1) {
                     node.setState(!node.state);
                     callBack();
                 }

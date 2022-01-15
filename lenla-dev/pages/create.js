@@ -124,6 +124,8 @@ export default function Create({ user, setUser }) {
                                     className="stop_button"
                                     onClick={() => {
                                         setAnimeState(0);
+                                        compileAll();
+                                        // setElements([...elements]);
                                     }}
                                 />
                             </div>
