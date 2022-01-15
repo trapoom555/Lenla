@@ -30,8 +30,8 @@ export class BasicButton extends InOutDisplay {
         this.inValPorts[0] = initState
         this.state = initState
         this.displayDetail = {
-            off_color: this.inValPorts[1].hex,
-            on_color: this.inValPorts[2].hex,
+            on_color: this.inValPorts[1].hex,
+            off_color: this.inValPorts[2].hex,
             state: initState,
             init: initState,
             type: CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON,

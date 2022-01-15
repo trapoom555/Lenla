@@ -57,8 +57,8 @@ var BasicButton = /** @class */ (function (_super) {
         _this.inValPorts[0] = initState;
         _this.state = initState;
         _this.displayDetail = {
-            off_color: _this.inValPorts[1].hex,
-            on_color: _this.inValPorts[2].hex,
+            on_color: _this.inValPorts[1].hex,
+            off_color: _this.inValPorts[2].hex,
             state: initState,
             init: initState,
             type: stringConfig_1.CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON,

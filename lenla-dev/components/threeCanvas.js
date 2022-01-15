@@ -51,32 +51,32 @@ function TextDisplay(props) {
     );
 }
 function Button(props) {
-    const { node, tmp, system, setSystem, callBack } = props;
-    const [clicked, click] = useState(!tmp.init);
+    const { node, tmp, isRun, callBack } = props;
+    // if (!isRun) {
+    //     node.setState(tmp.init);
+    //     callBack();
+    // }
     return (
         <mesh
             {...props}
-            // ref={ref}
-            // scale={clicked ? 1.5 : 1}
             onClick={(event) => {
-                click(!clicked);
-                node.setState(clicked);
-                setSystem(system);
-                callBack();
+                if (isRun) {
+                    node.setState(!node.state);
+                    callBack();
+                }
             }}
-            // onPointerOver={(event) => hover(true)}
-            // onPointerOut={(event) => hover(false)}
         >
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
-                color={clicked ? tmp.on_color : tmp.off_color}
+                color={node.state ? tmp.on_color : tmp.off_color}
+                // color={node.state ? "green" : "gray"}
             />
         </mesh>
     );
 }
 
 export default function ThreeCanvas(props) {
-    const { width, height, system, setSystem, callBack } = props;
+    const { width, height, system, isRun, callBack } = props;
     const tmp = [
         <Box position={[-1.2, 0, 0]} />,
         <Box position={[-1.2, 1, 0]} />,
@@ -115,9 +115,8 @@ export default function ThreeCanvas(props) {
                                 tmp={tmp}
                                 node={node}
                                 position={[tmp.position.x, tmp.position.y, 0]}
-                                setSystem={setSystem}
-                                system={system}
                                 callBack={callBack}
+                                isRun={isRun}
                             ></Button>
                             // <mesh
                             //     {...props}
