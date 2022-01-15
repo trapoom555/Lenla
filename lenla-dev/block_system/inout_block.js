@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Signal2Num = exports.Sum = void 0;
+exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Signal2Num = exports.Product = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
 var object_1 = require("./object");
 var stringConfig_1 = require("./stringConfig");
@@ -67,13 +67,55 @@ var Sum = /** @class */ (function (_super) {
                 this.value += parseInt(this.symbols[i]);
             }
         }
-        this.inValPorts[0].value + this.inValPorts[1].value;
         this.outValPorts[0].value = this.value;
         // console.log("sum updated")
     };
     return Sum;
 }(block_behavior_1.InOutBlock));
 exports.Sum = Sum;
+var Product = /** @class */ (function (_super) {
+    __extends(Product, _super);
+    function Product(id, type, ports_symbol) {
+        var _this = _super.call(this, id, type) || this;
+        _this.inValPorts = [];
+        _this.outValPorts = [new object_1.Number];
+        _this.symbols = ports_symbol;
+        for (var i = 0; i < _this.symbols.length; i++) {
+            var tmp = new object_1.Number;
+            tmp.value = 1;
+            _this.inValPorts.push(tmp);
+        }
+        return _this;
+    }
+    Product.prototype.addValPort = function (index, num) {
+        while (this.inValPorts.length <= index) {
+            var tmp = new object_1.Number;
+            tmp.value = 1;
+            this.inValPorts.push(tmp);
+        }
+        this.inValPorts[index] = num;
+    };
+    Product.prototype.updateContent = function () {
+        console.log(this.inValPorts);
+        console.log("sum updated " + this.inValPorts[0].value + "," + this.inValPorts[1].value);
+        this.value = 1;
+        for (var i = 0; i < this.symbols.length; i++) {
+            if (this.symbols[i] == "*") {
+                this.value *= this.inValPorts[i].value;
+            }
+            else if (this.symbols[i] == "/") {
+                this.value /= this.inValPorts[i].value;
+            }
+            else {
+                this.value += parseInt(this.symbols[i]);
+            }
+        }
+        this.outValPorts[0].value = this.value;
+        // console.log("sum updated")
+    };
+    return Product;
+}(block_behavior_1.InOutBlock));
+exports.Product = Product;
 var Signal2Num = /** @class */ (function (_super) {
     __extends(Signal2Num, _super);
     function Signal2Num(id, type) {

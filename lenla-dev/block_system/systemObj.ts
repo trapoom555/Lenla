@@ -31,6 +31,9 @@ export class System {
             case BLOCK_TYPE.OP_SUM:
                 node = new InOutBlock.Sum(element.id, element.type, element.data.port.in)
                 break
+            case BLOCK_TYPE.OP_PRODUCT:
+                node = new InOutBlock.Product(element.id, element.type, element.data.port.in)
+                break
             case BLOCK_TYPE.CON_SIG2NUM:
                 node = new InOutBlock.Signal2Num(element.id, element.type)
                 break
@@ -164,6 +167,24 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     port:
                     {
                         in: ["+", "+"],
+                        inType: ["num", "num"],
+                        out: ["value"],
+                        outType: ["num"],
+                        inEnable: [true, true],
+                    },
+                }
+            }
+        case BLOCK_TYPE.OP_PRODUCT:
+            return {
+                ...obj,
+
+                data:
+                {
+                    info: [],
+                    symbol: ["*", "*"],
+                    port:
+                    {
+                        in: ["*", "*"],
                         inType: ["num", "num"],
                         out: ["value"],
                         outType: ["num"],
@@ -430,6 +451,12 @@ export function blockConfig(type: string) {
             return {
                 limitIn: [2, "inf"],
                 choice: ["+", "-"],
+                choiceType: ["num", "num"]
+            }
+        case BLOCK_TYPE.OP_PRODUCT:
+            return {
+                limitIn: [2, "inf"],
+                choice: ["*", "/"],
                 choiceType: ["num", "num"]
             }
         case BLOCK_TYPE.CON_SIG2NUM:

@@ -395,7 +395,10 @@ function BlockShow(props) {
 
         {
             groupName: "Operations",
-            blocksData: [{ name: "Sum", type: BLOCK_TYPE.OP_SUM }],
+            blocksData: [
+                { name: "Sum", type: BLOCK_TYPE.OP_SUM },
+                { name: "Product", type: BLOCK_TYPE.OP_PRODUCT },
+            ],
         },
         {
             groupName: "Converter",

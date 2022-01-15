@@ -6,6 +6,7 @@ export const BLOCK_TYPE = {
     IN_BASIC_BUTTON: "basic button",
     //operator
     OP_SUM: "sum_block",
+    OP_PRODUCT: "product_block",
     OP_LOG: "log_block",
     OP_ADD: "add_block",
 

@@ -41,6 +41,9 @@ var System = /** @class */ (function () {
             case stringConfig_1.BLOCK_TYPE.OP_SUM:
                 node = new InOutBlock.Sum(element.id, element.type, element.data.port["in"]);
                 break;
+            case stringConfig_1.BLOCK_TYPE.OP_PRODUCT:
+                node = new InOutBlock.Product(element.id, element.type, element.data.port["in"]);
+                break;
             case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
                 node = new InOutBlock.Signal2Num(element.id, element.type);
                 break;
@@ -156,6 +159,18 @@ function createElementObj(id, type, position, data, name) {
                     symbol: ["+", "+"],
                     port: {
                         "in": ["+", "+"],
+                        inType: ["num", "num"],
+                        out: ["value"],
+                        outType: ["num"],
+                        inEnable: [true, true]
+                    }
+                } });
+        case stringConfig_1.BLOCK_TYPE.OP_PRODUCT:
+            return __assign(__assign({}, obj), { data: {
+                    info: [],
+                    symbol: ["*", "*"],
+                    port: {
+                        "in": ["*", "*"],
                         inType: ["num", "num"],
                         out: ["value"],
                         outType: ["num"],
@@ -371,6 +386,12 @@ function blockConfig(type) {
             return {
                 limitIn: [2, "inf"],
                 choice: ["+", "-"],
+                choiceType: ["num", "num"]
+            };
+        case stringConfig_1.BLOCK_TYPE.OP_PRODUCT:
+            return {
+                limitIn: [2, "inf"],
+                choice: ["*", "/"],
                 choiceType: ["num", "num"]
             };
         case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
