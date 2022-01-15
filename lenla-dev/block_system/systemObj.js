@@ -41,6 +41,9 @@ var System = /** @class */ (function () {
             case stringConfig_1.BLOCK_TYPE.OP_SUM:
                 node = new InOutBlock.Sum(element.id, element.type, element.data.port["in"]);
                 break;
+            case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
+                node = new InOutBlock.Signal2Num(element.id, element.type);
+                break;
             case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type);
                 // console.log("333")
@@ -48,6 +51,13 @@ var System = /** @class */ (function () {
                     // console.log("444")
                     console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
                     node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
+                }
+                break;
+            case stringConfig_1.BLOCK_TYPE.OUT_STRING_DISPLAY:
+                node = new OutBlock.StringDisplay(element.id, element.type);
+                // console.log("333")
+                if (Block.isDisplayable(node)) {
+                    node.setDisplayDetail({ position: element.data.info[0].value[0].value, color: element.data.info[0].value[1].value });
                 }
                 break;
         }
@@ -152,6 +162,17 @@ function createElementObj(id, type, position, data, name) {
                         inEnable: [true, true]
                     }
                 } });
+        case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
+            return __assign(__assign({}, obj), { data: {
+                    info: [],
+                    port: {
+                        "in": ["signal"],
+                        inType: ["signal"],
+                        out: ["value"],
+                        outType: ["num"],
+                        inEnable: [true,]
+                    }
+                } });
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
             return __assign(__assign({}, obj), { data: {
                     info: [
@@ -198,6 +219,37 @@ function createElementObj(id, type, position, data, name) {
                     type: "number",
                     valueName: "num",
                     value: 0
+                } });
+        case stringConfig_1.BLOCK_TYPE.OUT_STRING_DISPLAY:
+            return __assign(__assign({}, obj), { data: {
+                    info: [
+                        {
+                            index: 0,
+                            name: "display properties",
+                            value: [
+                                {
+                                    index: 0,
+                                    name: "position",
+                                    value: { x: 0, y: 0 },
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                                {
+                                    index: 1,
+                                    name: "letter color",
+                                    value: "#000000",
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                            ],
+                            type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
+                        }
+                    ],
+                    port: {
+                        "in": ["in"],
+                        inType: ["any"],
+                        out: [],
+                        outType: [],
+                        inEnable: [true]
+                    }
                 } });
         case stringConfig_1.BLOCK_TYPE.IN_SLIDER:
             return __assign(__assign({}, obj), { data: {
@@ -300,8 +352,8 @@ function createElementObj(id, type, position, data, name) {
                     port: {
                         "in": [],
                         inType: [],
-                        out: ["num"],
-                        outType: ["num"],
+                        out: ["signal"],
+                        outType: ["signal"],
                         inEnable: []
                     }
                 } });
@@ -321,7 +373,17 @@ function blockConfig(type) {
                 choice: ["+", "-"],
                 choiceType: ["num", "num"]
             };
+        case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
+            return {
+                limitIn: [1, 1],
+                choice: []
+            };
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+            return {
+                limitIn: [1, 1],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.OUT_STRING_DISPLAY:
             return {
                 limitIn: [1, 1],
                 choice: []

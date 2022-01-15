@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Sum = void 0;
+exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Signal2Num = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
 var object_1 = require("./object");
 var stringConfig_1 = require("./stringConfig");
@@ -74,6 +74,27 @@ var Sum = /** @class */ (function (_super) {
     return Sum;
 }(block_behavior_1.InOutBlock));
 exports.Sum = Sum;
+var Signal2Num = /** @class */ (function (_super) {
+    __extends(Signal2Num, _super);
+    function Signal2Num(id, type) {
+        var _this = _super.call(this, id, type) || this;
+        _this.inValPorts = [new object_1.Signal];
+        _this.outValPorts = [new object_1.Number];
+        return _this;
+    }
+    Signal2Num.prototype.addValPort = function (index, sig) {
+        while (this.inValPorts.length <= index) {
+            this.inValPorts.push(null);
+        }
+        this.inValPorts[index] = sig;
+    };
+    Signal2Num.prototype.updateContent = function () {
+        this.value = this.inValPorts[0].state ? 1 : 0;
+        this.outValPorts[0].value = this.value;
+    };
+    return Signal2Num;
+}(block_behavior_1.InOutBlock));
+exports.Signal2Num = Signal2Num;
 var Slider = /** @class */ (function (_super) {
     __extends(Slider, _super);
     // position = new Vector2d(0, 0)

@@ -31,6 +31,9 @@ export class System {
             case BLOCK_TYPE.OP_SUM:
                 node = new InOutBlock.Sum(element.id, element.type, element.data.port.in)
                 break
+            case BLOCK_TYPE.CON_SIG2NUM:
+                node = new InOutBlock.Signal2Num(element.id, element.type)
+                break
             case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type)
                 // console.log("333")
@@ -38,6 +41,13 @@ export class System {
                     // console.log("444")
                     console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
                     node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                }
+                break
+            case BLOCK_TYPE.OUT_STRING_DISPLAY:
+                node = new OutBlock.StringDisplay(element.id, element.type)
+                // console.log("333")
+                if (Block.isDisplayable(node)) {
+                    node.setDisplayDetail({ position: element.data.info[0].value[0].value, color: element.data.info[0].value[1].value })
                 }
                 break
         }
@@ -64,6 +74,7 @@ export class System {
 
         }
         console.log("add val port for " + targetId)
+
         target.addValPort(targetPortIndex, source.outValPorts[sourcePortIndex])
         let notiPort = new Block.NotiPort
         notiPort.addReciver(target)
@@ -160,6 +171,23 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     },
                 }
             }
+        case BLOCK_TYPE.CON_SIG2NUM:
+            return {
+                ...obj,
+
+                data:
+                {
+                    info: [],
+                    port:
+                    {
+                        in: ["signal"],
+                        inType: ["signal"],
+                        out: ["value"],
+                        outType: ["num"],
+                        inEnable: [true,],
+                    },
+                }
+            }
         case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
             return {
                 ...obj,
@@ -216,6 +244,52 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     valueName: "num",
                     value: 0
                 }
+            }
+        case BLOCK_TYPE.OUT_STRING_DISPLAY:
+            return {
+                ...obj,
+
+                data:
+                {
+                    info: [
+
+                        {
+                            index: 0,
+                            name: "display properties",
+                            value: [
+                                {
+                                    index: 0,
+                                    name: "position",
+                                    value: { x: 0, y: 0 },
+                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                                {
+                                    index: 1,
+                                    name: "letter color",
+                                    value: "#000000",
+                                    type: INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+
+                            ],
+                            type: INS_DISPLAY_TYPE.LAYOUT_GROUP
+
+                        }
+                    ],
+                    port:
+                    {
+                        in: ["in"],
+                        inType: ["any"],
+                        out: [],
+                        outType: [],
+                        inEnable: [true],
+                    },
+                },
+
+                // display: {
+                //     type: "number",
+                //     valueName: "num",
+                //     value: 0
+                // }
             }
         case BLOCK_TYPE.IN_SLIDER:
             return {
@@ -332,8 +406,8 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     {
                         in: [],
                         inType: [],
-                        out: ["num"],
-                        outType: ["num"],
+                        out: ["signal"],
+                        outType: ["signal"],
                         inEnable: [],
                     },
 
@@ -358,7 +432,17 @@ export function blockConfig(type: string) {
                 choice: ["+", "-"],
                 choiceType: ["num", "num"]
             }
+        case BLOCK_TYPE.CON_SIG2NUM:
+            return {
+                limitIn: [1, 1],
+                choice: [],
+            }
         case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+            return {
+                limitIn: [1, 1],
+                choice: []
+            }
+        case BLOCK_TYPE.OUT_STRING_DISPLAY:
             return {
                 limitIn: [1, 1],
                 choice: []

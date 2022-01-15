@@ -1,5 +1,5 @@
 export class Obj {
-
+    value: any
 }
 class Int extends Obj {
     value: Int
@@ -11,12 +11,31 @@ export class Bool extends Obj {
         if (val != null) this.value = val
     }
 }
-export class Number extends Obj {
-    value: number
-    constructor(val: number = null) {
+export class String extends Obj {
+    value: string
+    constructor(val: string = null) {
         super()
         if (val != null) this.value = val
     }
+}
+export class Number extends Obj {
+    value: number
+    constructor(val: any = null) {
+        super()
+        if (val instanceof Bool) {
+            this.value = val.value ? 1 : 0
+        }
+        else if (typeof val == "number") {
+            this.value = val
+        }
+        else {
+            //arise error
+        }
+    }
+    // constructor(val: number = null) {
+    //     super()
+    //     if (val != null) this.value = val
+    // }
 
 }
 export class Color extends Obj {
@@ -28,14 +47,11 @@ export class Color extends Obj {
     getRGB() {
 
     }
-    // constructor(val: number = null) {
-    //     super()
-    //     if (val != null) this.value = val
-    // }
+
 
 }
 export class Signal extends Obj {
-    state: boolean
+    state: boolean = false
     lastState: boolean
     risingCallback: Array<Function> = []
     rNullIndex: Array<number> = []

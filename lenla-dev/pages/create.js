@@ -194,6 +194,9 @@ export default function Create({ user, setUser }) {
                                 }
                                 system={system}
                                 setSystem={setSystem}
+                                callBack={() => {
+                                    setElements([...elements]);
+                                }}
                             />
                         </div>
 

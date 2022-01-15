@@ -27,7 +27,7 @@ export const BasicBlock = (element) => {
     let space = 100 / (n + 1);
     for (i = 0; i < n; i++) {
         inPorts.push({
-            i: i + 1,
+            i: i,
             data: data.port.in[i],
             top: space * (i + 1) - 12,
             top2: space * (i + 1),
@@ -38,7 +38,7 @@ export const BasicBlock = (element) => {
     space = 100 / (n + 1);
     for (i = 0; i < n; i++) {
         outPorts.push({
-            i: i + 1,
+            i: i,
             data: data.port.out[i],
             top: space * (i + 1) - 12,
             top2: space * (i + 1),

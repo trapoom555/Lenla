@@ -1,5 +1,5 @@
 import { InOutBlock, InOutDisplay } from "./block_behavior";
-import { Number, Bool, Vector2d } from "./object";
+import { Number, Bool, Vector2d, Signal } from "./object";
 import { Vector2D } from "./Input_block";
 import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 import { ThemeProvider } from "styled-components";
@@ -52,6 +52,29 @@ export class Sum extends InOutBlock {
 
 }
 
+export class Signal2Num extends InOutBlock {
+    inValPorts: Array<Signal> = [new Signal];
+    outValPorts: Array<Number> = [new Number];
+    value: number
+    symbols: string[]
+    constructor(id: string, type: string) {
+        super(id, type);
+
+    }
+    addValPort(index: number, sig: Signal) {
+
+        while (this.inValPorts.length <= index) {
+            this.inValPorts.push(null)
+        }
+        this.inValPorts[index] = sig
+
+    }
+    updateContent() {
+        this.value = this.inValPorts[0].state ? 1 : 0;
+        this.outValPorts[0].value = this.value
+    }
+
+}
 export class Slider extends InOutDisplay {
     inValPorts: Array<Number> = [new Number(0), new Number(100), new Number(50), new Number(1)];//min max default step
     outValPorts: Array<Number> = [new Number];

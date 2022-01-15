@@ -451,7 +451,7 @@
     "utility-types" "^3.10.0"
     "zustand" "^3.5.13"
 
-"@react-three/fiber@^7.0.24", "@react-three/fiber@>=6.0":
+"@react-three/fiber@^7.0.24", "@react-three/fiber@>=6.0", "@react-three/fiber@>=7.0":
   "integrity" "sha512-CJi1Mex7jqByTEVZoUzg0xZEw63CUjm4bUDx0XIhuAmNUsmFmht7cRt87zUQSSDQvmaDqvoDWW7dD+uFJW/kUQ=="
   "resolved" "https://registry.npmjs.org/@react-three/fiber/-/fiber-7.0.24.tgz"
   "version" "7.0.24"
@@ -466,6 +466,15 @@
     "use-asset" "^1.0.4"
     "utility-types" "^3.10.0"
     "zustand" "^3.5.1"
+
+"@react-three/postprocessing@^2.1.2":
+  "integrity" "sha512-VU0lh0wMXI77cYN/JeV/D7nK8Bztv+pFAilZnr2TnK82/lL5CeDmjHkvfVquCM/2uMh6d58vx5IK8WZTmlR1vQ=="
+  "resolved" "https://registry.npmjs.org/@react-three/postprocessing/-/postprocessing-2.1.2.tgz"
+  "version" "2.1.2"
+  dependencies:
+    "postprocessing" "^6.23.3"
+    "react-merge-refs" "^1.1.0"
+    "three-stdlib" "^2.6.2"
 
 "@rushstack/eslint-patch@^1.0.6":
   "integrity" "sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A=="
@@ -3134,6 +3143,11 @@
     "nanoid" "^3.1.23"
     "source-map" "^0.6.1"
 
+"postprocessing@^6.23.3":
+  "integrity" "sha512-WpzKg6nUbRWVOISCfup/1rzJjYtxj8kCow/YOkzYq+/879mISewWZAUXwfXaRO8Mu3yM6dH+WAWzxWROjrxM7A=="
+  "resolved" "https://registry.npmjs.org/postprocessing/-/postprocessing-6.23.5.tgz"
+  "version" "6.23.5"
+
 "potpack@^1.0.1":
   "integrity" "sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ=="
   "resolved" "https://registry.npmjs.org/potpack/-/potpack-1.0.2.tgz"
@@ -3826,7 +3840,7 @@
   "resolved" "https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.5.3.tgz"
   "version" "0.5.3"
 
-"three-stdlib@^2.6.1":
+"three-stdlib@^2.6.1", "three-stdlib@^2.6.2":
   "integrity" "sha512-vc+/op2LYGnSN4y2QhxyyFm6WvdLQ/M0vpPxT0anB40lpA3t5+B9R9so/X53BOP8SiENG5YKVNQGXhqwTJJHGw=="
   "resolved" "https://registry.npmjs.org/three-stdlib/-/three-stdlib-2.6.4.tgz"
   "version" "2.6.4"
@@ -3843,7 +3857,7 @@
     "potpack" "^1.0.1"
     "zstddec" "^0.0.2"
 
-"three@^0.136.0", "three@>= 0.123.0", "three@>=0.103.0", "three@>=0.126", "three@>=0.128.0", "three@>=0.134":
+"three@^0.136.0", "three@>= 0.102.0 < 0.137.0", "three@>= 0.123.0", "three@>=0.103.0", "three@>=0.126", "three@>=0.128.0", "three@>=0.130.1", "three@>=0.134":
   "integrity" "sha512-+fEMX7nYLz2ZesVP/dyifli5Jf8gR3XPAnFJveQ80aMhibFduzrADnjMbARXh8+W9qLK7rshJCjAIL/6cDxC+A=="
   "resolved" "https://registry.npmjs.org/three/-/three-0.136.0.tgz"
   "version" "0.136.0"

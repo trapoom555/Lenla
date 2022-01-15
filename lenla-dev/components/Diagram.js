@@ -20,9 +20,11 @@ const nodeTypes = {
     [BLOCK_TYPE.Test_OP]: BasicBlock,
     [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,
     [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
-    [BLOCK_TYPE.CON_GREATER]: BasicBlock,
+    [BLOCK_TYPE.LOG_GREATER]: BasicBlock,
     [BLOCK_TYPE.IN_SLIDER]: BasicBlock,
     [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicBlock,
+    [BLOCK_TYPE.OUT_STRING_DISPLAY]: BasicBlock,
+    [BLOCK_TYPE.CON_SIG2NUM]: BasicBlock,
 };
 
 let currentBlockID = 0;

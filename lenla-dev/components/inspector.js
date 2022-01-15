@@ -397,11 +397,16 @@ function BlockShow(props) {
             groupName: "Operations",
             blocksData: [{ name: "Sum", type: BLOCK_TYPE.OP_SUM }],
         },
+        {
+            groupName: "Converter",
+            blocksData: [{ name: "Sig2Num", type: BLOCK_TYPE.CON_SIG2NUM }],
+        },
 
         {
             groupName: "Outputs",
             blocksData: [
                 { name: "Number Display", type: BLOCK_TYPE.OUT_NUMBER_DISPLAY },
+                { name: "String Display", type: BLOCK_TYPE.OUT_STRING_DISPLAY },
             ],
         },
     ];
