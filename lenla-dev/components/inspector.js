@@ -127,8 +127,32 @@ function DiatailInspect(props) {
                         type={CANVAS_DISPLAY_TYPE.OUT_STR}
                         value={tmp}
                         onChange={(inputVal) => {
-                            const val = parseInt(inputVal.target.value);
+                            const val = parseFloat(inputVal.target.value);
                             val = isNaN(val) ? 0 : val;
+                            if (head == -1) {
+                                element.data.info[each.index].value = val;
+                            } else {
+                                element.data.info[head].value[each.index] = val;
+                            }
+                            updateElementById(element.id, element);
+                        }}
+                    ></input>
+                </div>
+            );
+            // compList.push(<input type={"text"}></input>);
+        }
+        if (each.type == INS_DISPLAY_TYPE.IN_STR) {
+            let tmp = each.value;
+            compList.push(
+                <div className="insp_constant_wrapper">
+                    {/* <div>{each.name}</div> */}
+                    <div className="insp_constant_header">{each.name}</div>
+                    <input
+                        className="insp_constant_input"
+                        type={CANVAS_DISPLAY_TYPE.OUT_STR}
+                        value={tmp}
+                        onChange={(inputVal) => {
+                            const val = inputVal.target.value;
                             if (head == -1) {
                                 element.data.info[each.index].value = val;
                             } else {
@@ -155,10 +179,10 @@ function DiatailInspect(props) {
                             if (head != -1) {
                                 element.data.info[head].value[
                                     each.index
-                                ].value.x = parseInt(val);
+                                ].value.x = parseFloat(val);
                             } else
                                 element.data.info[each.index].value.x =
-                                    parseInt(val);
+                                    parseFloat(val);
                             updateElementById(element.id, element);
                         }}
                     ></input>
@@ -172,10 +196,10 @@ function DiatailInspect(props) {
                             if (head != -1) {
                                 element.data.info[head].value[
                                     each.index
-                                ].value.y = parseInt(val);
+                                ].value.y = parseFloat(val);
                             } else
                                 element.data.info[each.index].value.y =
-                                    parseInt(val);
+                                    parseFloat(val);
                             updateElementById(element.id, element);
                         }}
                     ></input>
@@ -388,6 +412,7 @@ function BlockShow(props) {
             groupName: "Inputs",
             blocksData: [
                 { name: "Constant", type: BLOCK_TYPE.IN_CONSTANT },
+                { name: "String", type: BLOCK_TYPE.IN_STRING },
                 { name: "Slider", type: BLOCK_TYPE.IN_SLIDER },
                 { name: "basic button", type: BLOCK_TYPE.IN_BASIC_BUTTON },
             ],

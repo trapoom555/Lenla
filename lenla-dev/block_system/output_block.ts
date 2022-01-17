@@ -1,5 +1,5 @@
 import { OutputBlock } from "./block_behavior";
-import { Signal, Number, Bool, Obj } from "./object";
+import { Signal, Number, Bool, Obj, String } from "./object";
 import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 export class NumberDisplay extends OutputBlock {
     value: number
@@ -61,7 +61,7 @@ export class NumberDisplay extends OutputBlock {
 }
 
 export class StringDisplay extends OutputBlock {
-    value: any
+    value: string
     inValPorts: Array<Obj> = [null];//value
     displayDetail: any;
     // port 0 <Number> : number to display
@@ -80,8 +80,16 @@ export class StringDisplay extends OutputBlock {
     }
     updateContent() {
         if (this.inValPorts[0] instanceof Signal) {
-            this.value = this.inValPorts[0].state
+            this.value = this.inValPorts[0].state ? "true" : "false"
             // console.log("is Signal")
+        }
+        else if (this.inValPorts[0] instanceof Number) {
+            this.value = this.inValPorts[0].value.toString();
+            // console.log("is Signal")
+        }
+        if (this.inValPorts[0] instanceof String) {
+            this.value = this.inValPorts[0].value
+            console.log("is String")
         }
         console.log("value is " + this.value)
         this.displayDetail.value = this.value

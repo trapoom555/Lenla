@@ -1,6 +1,7 @@
 export const BLOCK_TYPE = {
     // input
     IN_CONSTANT: "constant_block",
+    IN_STRING: "string_block",
     IN_SLIDER: "slider bar",
     IN_VECTOR_2D: "vector2d_block",
     IN_BASIC_BUTTON: "basic button",
@@ -33,6 +34,7 @@ export const BLOCK_CATE = {
 export const INS_DISPLAY_TYPE = {
     INPUT_NUM: "input(num)",
     IN_NUM: "input/port(num)",
+    IN_STR: "input/port(string)",
     INPUT_BOOL: "input(bool)",
     IN_OPTION: "input option(int)",
     OUT_NUM: "output(num)",
@@ -42,7 +44,7 @@ export const INS_DISPLAY_TYPE = {
 };
 
 export const CANVAS_DISPLAY_TYPE = {
-    OUT_STR: "string",
+    OUT_STR: "text",
     OUT_IMG: "image",
     IN_SLIDE: "slide bar",
     IN_BASIC_BUTTON: "basic button",

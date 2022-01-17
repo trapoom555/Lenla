@@ -19,6 +19,9 @@ export class System {
             case BLOCK_TYPE.IN_CONSTANT:
                 node = new InBlock.Constant(element.id, element.type, element.data.info[0].value);
                 break
+            case BLOCK_TYPE.IN_STRING:
+                node = new InBlock.StringConstant(element.id, element.type, element.data.info[0].value);
+                break
             case BLOCK_TYPE.IN_BASIC_BUTTON:
                 console.log(element.type)
                 node = new InBlock.BasicButton(element.id, element.type)
@@ -144,6 +147,29 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         inType: [],
                         out: ["num"],
                         outType: ["num"],
+                        inEnable: [],
+                    },
+
+                }
+            }
+        case BLOCK_TYPE.IN_STRING:
+            return {
+                ...obj,
+                data:
+                {
+                    // data: data.num,
+                    info: [{
+                        index: 0,
+                        name: "string",
+                        value: data.value,
+                        type: INS_DISPLAY_TYPE.IN_STR
+                    }],
+                    port:
+                    {
+                        in: [],
+                        inType: [],
+                        out: ["string"],
+                        outType: ["string"],
                         inEnable: [],
                     },
 
@@ -440,6 +466,12 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
 export function blockConfig(type: string) {
     switch (type) {
         case BLOCK_TYPE.IN_CONSTANT:
+            return {
+                limitIn: [0, 0],
+                choice: [],
+
+            }
+        case BLOCK_TYPE.IN_STRING:
             return {
                 limitIn: [0, 0],
                 choice: [],

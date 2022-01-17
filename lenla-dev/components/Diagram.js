@@ -14,6 +14,7 @@ import { BasicBlock } from "../blocks/base_block";
 import * as Block from "../block_system/systemObj";
 const nodeTypes = {
     [BLOCK_TYPE.IN_CONSTANT]: ConstantBlock,
+    [BLOCK_TYPE.IN_STRING]: BasicBlock,
     [BLOCK_TYPE.OP_SUM]: SumBlock,
     [BLOCK_TYPE.OP_PRODUCT]: BasicBlock,
     [BLOCK_TYPE.OUT_NUMBER_DISPLAY]: NumberDisplayBlock,

@@ -91,8 +91,16 @@ var StringDisplay = /** @class */ (function (_super) {
     };
     StringDisplay.prototype.updateContent = function () {
         if (this.inValPorts[0] instanceof object_1.Signal) {
-            this.value = this.inValPorts[0].state;
+            this.value = this.inValPorts[0].state ? "true" : "false";
             // console.log("is Signal")
+        }
+        else if (this.inValPorts[0] instanceof object_1.Number) {
+            this.value = this.inValPorts[0].value.toString();
+            // console.log("is Signal")
+        }
+        if (this.inValPorts[0] instanceof object_1.String) {
+            this.value = this.inValPorts[0].value;
+            console.log("is String");
         }
         console.log("value is " + this.value);
         this.displayDetail.value = this.value;

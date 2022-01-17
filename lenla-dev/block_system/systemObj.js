@@ -30,6 +30,9 @@ var System = /** @class */ (function () {
             case stringConfig_1.BLOCK_TYPE.IN_CONSTANT:
                 node = new InBlock.Constant(element.id, element.type, element.data.info[0].value);
                 break;
+            case stringConfig_1.BLOCK_TYPE.IN_STRING:
+                node = new InBlock.StringConstant(element.id, element.type, element.data.info[0].value);
+                break;
             case stringConfig_1.BLOCK_TYPE.IN_BASIC_BUTTON:
                 console.log(element.type);
                 node = new InBlock.BasicButton(element.id, element.type);
@@ -143,6 +146,23 @@ function createElementObj(id, type, position, data, name) {
                         inType: [],
                         out: ["num"],
                         outType: ["num"],
+                        inEnable: []
+                    }
+                } });
+        case stringConfig_1.BLOCK_TYPE.IN_STRING:
+            return __assign(__assign({}, obj), { data: {
+                    // data: data.num,
+                    info: [{
+                            index: 0,
+                            name: "string",
+                            value: data.value,
+                            type: stringConfig_1.INS_DISPLAY_TYPE.IN_STR
+                        }],
+                    port: {
+                        "in": [],
+                        inType: [],
+                        out: ["string"],
+                        outType: ["string"],
                         inEnable: []
                     }
                 } });
@@ -376,6 +396,11 @@ exports.createElementObj = createElementObj;
 function blockConfig(type) {
     switch (type) {
         case stringConfig_1.BLOCK_TYPE.IN_CONSTANT:
+            return {
+                limitIn: [0, 0],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.IN_STRING:
             return {
                 limitIn: [0, 0],
                 choice: []

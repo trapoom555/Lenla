@@ -26,13 +26,14 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.Vector3D = exports.Vector2D = exports.BasicButton = exports.Constant = void 0;
+exports.Vector3D = exports.Vector2D = exports.BasicButton = exports.StringConstant = exports.Constant = void 0;
 var block_behavior_1 = require("./block_behavior");
 var object_1 = require("./object");
 var stringConfig_1 = require("./stringConfig");
 var Constant = /** @class */ (function (_super) {
     __extends(Constant, _super);
     function Constant(id, type, value) {
+        if (value === void 0) { value = 0; }
         var _this = _super.call(this, id, type) || this;
         _this.outValPorts = [null];
         _this.notiPorts = [];
@@ -45,6 +46,22 @@ var Constant = /** @class */ (function (_super) {
     return Constant;
 }(block_behavior_1.InputBlock));
 exports.Constant = Constant;
+var StringConstant = /** @class */ (function (_super) {
+    __extends(StringConstant, _super);
+    function StringConstant(id, type, value) {
+        if (value === void 0) { value = ""; }
+        var _this = _super.call(this, id, type) || this;
+        _this.outValPorts = [null];
+        _this.notiPorts = [];
+        console.log("cleate Constant block");
+        var str = new object_1.String();
+        str.value = value;
+        _this.outValPorts = [str];
+        return _this;
+    }
+    return StringConstant;
+}(block_behavior_1.InputBlock));
+exports.StringConstant = StringConstant;
 var BasicButton = /** @class */ (function (_super) {
     __extends(BasicButton, _super);
     // position = new Vector2d(0, 0)
