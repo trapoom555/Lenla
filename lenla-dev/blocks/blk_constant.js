@@ -1,5 +1,6 @@
 import React from "react";
 import { Handle } from "react-flow-renderer";
+import BaseBlockWithHeader from "../base_blocks/base_block_with_header";
 
 const ConstantBlockStyle = {
     background: "#f7955c",
@@ -9,51 +10,9 @@ const ConstantBlockStyle = {
     borderRadius: "15px",
 };
 
-const ConstantBlock = (element) => {
-    const { data } = element;
-    // console.log(data)
+const ConstantBlock = ({data}) => {
     return (
-        <div style={ConstantBlockStyle}>
-            <div
-                style={{
-                    borderStyle: "none none solid none",
-                    textAlign: "center",
-                    padding: "10px 0px",
-                }}
-            >
-                Constant
-            </div>
-            <div
-                style={{
-                    width: "100%",
-                    top: "50%",
-                    position: "absolute",
-                    textAlign: "center",
-                    alignItems: "center",
-                    fontSize: 30,
-                }}
-            >
-                {element.data.info[0].value}
-            </div>
-            <div
-                style={{
-                    position: "absolute",
-                    top: "47%",
-                    right: "-35%",
-                    color: "black",
-                    fontSize: 12,
-                }}
-            >
-                {element.data.port.out[0]}
-            </div>
-            <Handle
-                type="source"
-                position="right"
-                id="number_out"
-                isConnectable={true}
-                style={{ top: "65%", borderRadius: 0 }}
-            />
-        </div>
+        <BaseBlockWithHeader data={data} headerLabel={"Constant"} textLabel={data.info[0].value} bgColor={"#f7955c"} blk_height={90}/>
     );
 };
 
