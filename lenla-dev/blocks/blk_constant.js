@@ -1,5 +1,4 @@
 import React from "react";
-import { Handle } from "react-flow-renderer";
 import BaseBlockWithHeader from "../base_blocks/base_block_with_header";
 
 const ConstantBlockStyle = {

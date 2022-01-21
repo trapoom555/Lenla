@@ -4,7 +4,7 @@ import { Text, Html } from "@react-three/drei";
 import { isDisplayable } from "../block_system/block_behavior";
 import { CANVAS_DISPLAY_TYPE } from "../block_system/stringConfig";
 import { Signal } from "../block_system/object";
-import ReactSlider from "react-slider";
+// import ReactSlider from "react-slider";
 function Box(props) {
     // This reference gives us direct access to the THREE.Mesh object
     const ref = useRef();

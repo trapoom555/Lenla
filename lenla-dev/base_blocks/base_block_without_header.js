@@ -21,7 +21,7 @@ import Image from 'next/image'
       }
       if(showInLabel == true) {
         handleInList.push(
-            <div style={{position: "absolute", top: `${((i+0.27) / data.port.in.length)  * 100}%`, left: "10%", color: 'black', fontSize:12}}>
+            <div style={{position: "absolute", top: `${((i+0.27) / data.port.in.length)  * 100}%`, left: "10%", color: 'black', fontSize:15}}>
                 {data.port.in[i]}
             </div>
         )
@@ -41,7 +41,7 @@ import Image from 'next/image'
         )
         if(showOutLabel == true) {
             handleOutList.push(
-                <div style={{position: "absolute", top: `${((i+0.27) / data.port.out.length)  * 100}%`, right: "-10%", color: 'black', fontSize:12}}>
+                <div style={{position: "absolute", top: `${((i+0.27) / data.port.out.length)  * 100}%`, right: "-10%", color: 'black', fontSize:15}}>
                   {data.port.out[i]}
                 </div>
             )
