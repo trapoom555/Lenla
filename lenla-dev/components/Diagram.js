@@ -12,6 +12,7 @@ import { TestBlock } from "../blocks/test_block";
 import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { BasicBlock } from "../blocks/base_block";
 import * as Block from "../block_system/systemObj";
+import BasicButtonBlock from "../blocks/blk_basic_button";
 const nodeTypes = {
     [BLOCK_TYPE.IN_CONSTANT]: ConstantBlock,
     [BLOCK_TYPE.IN_STRING]: BasicBlock,
@@ -23,9 +24,7 @@ const nodeTypes = {
     [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
     [BLOCK_TYPE.LOG_GREATER]: BasicBlock,
     [BLOCK_TYPE.IN_SLIDER]: BasicBlock,
-    [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicBlock,
-    [BLOCK_TYPE.OUT_STRING_DISPLAY]: BasicBlock,
-    [BLOCK_TYPE.CON_SIG2NUM]: BasicBlock,
+    [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicButtonBlock,
 };
 
 let currentBlockID = 0;
