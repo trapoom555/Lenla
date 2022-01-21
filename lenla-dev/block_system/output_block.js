@@ -26,8 +26,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.BoolDisplay = exports.NumberDisplay = void 0;
+exports.StringDisplay = exports.NumberDisplay = void 0;
 var block_behavior_1 = require("./block_behavior");
+var object_1 = require("./object");
 var stringConfig_1 = require("./stringConfig");
 var NumberDisplay = /** @class */ (function (_super) {
     __extends(NumberDisplay, _super);
@@ -71,27 +72,58 @@ var NumberDisplay = /** @class */ (function (_super) {
     return NumberDisplay;
 }(block_behavior_1.OutputBlock));
 exports.NumberDisplay = NumberDisplay;
-var BoolDisplay = /** @class */ (function (_super) {
-    __extends(BoolDisplay, _super);
+var StringDisplay = /** @class */ (function (_super) {
+    __extends(StringDisplay, _super);
     // port 0 <Number> : number to display
-    function BoolDisplay(id, type) {
+    function StringDisplay(id, type) {
         var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [null];
+        _this.inValPorts = [null]; //value
+        _this.displayDetail = {
+            color: "#000000",
+            value: _this.value,
+            type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR,
+            position: _this.position
+        };
         return _this;
     }
-    BoolDisplay.prototype.addValPort = function (index, bool) {
-        this.inValPorts[index] = bool;
+    StringDisplay.prototype.addValPort = function (index, val) {
+        this.inValPorts[index] = val;
     };
-    BoolDisplay.prototype.updateContent = function () {
-        this.value = this.inValPorts[0].value;
-        this.log();
+    StringDisplay.prototype.updateContent = function () {
+        if (this.inValPorts[0] instanceof object_1.Signal) {
+            this.value = this.inValPorts[0].state ? "true" : "false";
+            // console.log("is Signal")
+        }
+        else if (this.inValPorts[0] instanceof object_1.Number) {
+            this.value = this.inValPorts[0].value.toString();
+            // console.log("is Signal")
+        }
+        if (this.inValPorts[0] instanceof object_1.String) {
+            this.value = this.inValPorts[0].value;
+            console.log("is String");
+        }
+        console.log("value is " + this.value);
+        this.displayDetail.value = this.value;
     };
-    BoolDisplay.prototype.log = function () {
+    StringDisplay.prototype.setDisplayDetail = function (detail) {
+        if (this.inValPorts[0] != null && this.inValPorts[0]) {
+            console.log("port is not null");
+            this.updateContent();
+            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { value: this.value }), detail);
+        }
+        else {
+            console.log("port is null");
+            this.displayDetail = __assign({ color: this.displayDetail.color, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
+        }
+        this.position = this.displayDetail.position;
+    };
+    StringDisplay.prototype.log = function () {
         console.log("value is ".concat(this.value.toString()));
     };
-    BoolDisplay.prototype.displayContent = function () {
-        this.log();
+    StringDisplay.prototype.displayContent = function () {
+        // this.setDisplayDetail({});
+        // this.log();
     };
-    return BoolDisplay;
+    return StringDisplay;
 }(block_behavior_1.OutputBlock));
-exports.BoolDisplay = BoolDisplay;
+exports.StringDisplay = StringDisplay;

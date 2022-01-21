@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Vector2d = exports.Signal = exports.Color = exports.Number = exports.Bool = exports.Obj = void 0;
+exports.Vector2d = exports.Signal = exports.Color = exports.Number = exports.String = exports.Bool = exports.Obj = void 0;
 var Obj = /** @class */ (function () {
     function Obj() {
     }
@@ -41,13 +41,32 @@ var Bool = /** @class */ (function (_super) {
     return Bool;
 }(Obj));
 exports.Bool = Bool;
+var String = /** @class */ (function (_super) {
+    __extends(String, _super);
+    function String(val) {
+        if (val === void 0) { val = null; }
+        var _this = _super.call(this) || this;
+        if (val != null)
+            _this.value = val;
+        return _this;
+    }
+    return String;
+}(Obj));
+exports.String = String;
 var Number = /** @class */ (function (_super) {
     __extends(Number, _super);
     function Number(val) {
         if (val === void 0) { val = null; }
         var _this = _super.call(this) || this;
-        if (val != null)
+        if (val instanceof Bool) {
+            _this.value = val.value ? 1 : 0;
+        }
+        else if (typeof val == "number") {
             _this.value = val;
+        }
+        else {
+            //arise error
+        }
         return _this;
     }
     return Number;
@@ -71,6 +90,7 @@ var Signal = /** @class */ (function (_super) {
     __extends(Signal, _super);
     function Signal() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = false;
         _this.risingCallback = [];
         _this.rNullIndex = [];
         _this.fNullIndex = [];

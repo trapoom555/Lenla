@@ -15,13 +15,14 @@ import * as Block from "../block_system/systemObj";
 import BasicButtonBlock from "../blocks/blk_basic_button";
 const nodeTypes = {
     [BLOCK_TYPE.IN_CONSTANT]: ConstantBlock,
+    [BLOCK_TYPE.IN_STRING]: BasicBlock,
     [BLOCK_TYPE.OP_SUM]: SumBlock,
-    [BLOCK_TYPE.OP_ADD]: BasicBlock,
+    [BLOCK_TYPE.OP_PRODUCT]: BasicBlock,
     [BLOCK_TYPE.OUT_NUMBER_DISPLAY]: NumberDisplayBlock,
     [BLOCK_TYPE.Test_OP]: BasicBlock,
     [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,
     [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
-    [BLOCK_TYPE.CON_GREATER]: BasicBlock,
+    [BLOCK_TYPE.LOG_GREATER]: BasicBlock,
     [BLOCK_TYPE.IN_SLIDER]: BasicBlock,
     [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicButtonBlock,
 };
@@ -97,9 +98,15 @@ const Diagram = (props) => {
     };
 
     const onConnect = (params) => {
-        var connectedIds = elements.filter(function (e) { return isEdge(e) && e.target == params.target; }).map(function (e) { return e.targetHandle; });
-        console.log("target", params.targetHandle)
-        if (!connectedIds.includes(params.targetHandle)){
+        var connectedIds = elements
+            .filter(function (e) {
+                return isEdge(e) && e.target == params.target;
+            })
+            .map(function (e) {
+                return e.targetHandle;
+            });
+        console.log("target", params.targetHandle);
+        if (!connectedIds.includes(params.targetHandle)) {
             if (params.sourceHandle.split[0] == params.targetHandle.split[0]) {
                 // console.log("on connect", getIntFromString(params.targetHandle));
                 setElements((els) =>

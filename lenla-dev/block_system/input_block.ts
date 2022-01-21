@@ -1,12 +1,12 @@
 import { InputBlock, InputDisplay, InOutDisplay } from "./block_behavior";
-import { Number, Bool, Color, Signal } from "./object";
+import { Number, Bool, Color, Signal, String } from "./object";
 import { CANVAS_DISPLAY_TYPE } from "./stringConfig";
 export class Constant extends InputBlock {
     outValPorts: Array<Number> = [null];
 
     notiPorts = [];
 
-    constructor(id: string, type: string, value?: number) {
+    constructor(id: string, type: string, value: number = 0) {
         super(id, type);
         console.log("cleate Constant block");
         var num = new Number()
@@ -18,6 +18,22 @@ export class Constant extends InputBlock {
 
 }
 
+export class StringConstant extends InputBlock {
+    outValPorts: Array<String> = [null];
+
+    notiPorts = [];
+
+    constructor(id: string, type: string, value: string = "") {
+        super(id, type);
+        console.log("cleate Constant block");
+        var str = new String()
+        str.value = value
+        this.outValPorts = [str]
+    }
+
+
+
+}
 export class BasicButton extends InOutDisplay {
     inValPorts: Array<any> = [new Bool(false), new Color("#F8DE7E"), new Color("#7E7E7E"), new Number(0)];
     //initial state,on color,off color,button type(0->toggle,1-> hold to on,2->hold to off)
@@ -30,8 +46,8 @@ export class BasicButton extends InOutDisplay {
         this.inValPorts[0] = initState
         this.state = initState
         this.displayDetail = {
-            off_color: this.inValPorts[1].hex,
-            on_color: this.inValPorts[2].hex,
+            on_color: this.inValPorts[1].hex,
+            off_color: this.inValPorts[2].hex,
             state: initState,
             init: initState,
             type: CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON,

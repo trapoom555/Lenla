@@ -38,7 +38,8 @@ export interface ISub extends IBlock {
 export interface IPub extends IBlock {
     outValPorts: Array<Obj>
     notiPorts: NotiPort[];
-    addNotiPort: (index: number, port: NotiPort) => any
+    addPortReciver: (index: number, reciver: ISub) => any
+    // getNotiPort: (index: number, port: NotiPort) => any
     notifyAllPort: () => any
 }
 
@@ -64,8 +65,11 @@ export abstract class InputBlock implements IPub {
         this.id = id
         this.type = type
     }
-    addNotiPort(index: number, port: NotiPort) {
-        this.notiPorts[index] = port
+    addPortReciver(index: number, reciver: ISub) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort)
+        }
+        this.notiPorts[index].addReciver(reciver)
     }
     notifyAllPort() {
         notifyAllPort(this.notiPorts)
@@ -89,8 +93,11 @@ export abstract class InputDisplay implements IPub, IDisplay {
         this.id = id
         this.type = type
     }
-    addNotiPort(index: number, port: NotiPort) {
-        this.notiPorts[index] = port
+    addPortReciver(index: number, reciver: ISub) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort)
+        }
+        this.notiPorts[index].addReciver(reciver)
     }
     notifyAllPort() {
         notifyAllPort(this.notiPorts)
@@ -221,8 +228,11 @@ export abstract class InOutBlock implements ISub, IPub {
     }
 
 
-    addNotiPort(index: number, port: NotiPort) {
-        this.notiPorts[index] = port
+    addPortReciver(index: number, reciver: ISub) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort)
+        }
+        this.notiPorts[index].addReciver(reciver)
     }
     notifyAllPort() {
         notifyAllPort(this.notiPorts)
@@ -248,8 +258,11 @@ export abstract class InOutDisplay extends InOutBlock implements IDisplay {
         this.inValPorts[index] = obj
 
     }
-    addNotiPort(index: number, port: NotiPort) {
-        this.notiPorts[index] = port
+    addPortReciver(index: number, reciver: ISub) {
+        if (index >= this.notiPorts.length) {
+            this.notiPorts.push(new NotiPort)
+        }
+        this.notiPorts[index].addReciver(reciver)
     }
 
     setDisplayDetail(detail: any) {

@@ -1,20 +1,24 @@
 export const BLOCK_TYPE = {
     // input
     IN_CONSTANT: "constant_block",
+    IN_STRING: "string_block",
     IN_SLIDER: "slider bar",
     IN_VECTOR_2D: "vector2d_block",
     IN_BASIC_BUTTON: "basic button",
     //operator
     OP_SUM: "sum_block",
+    OP_PRODUCT: "product_block",
     OP_LOG: "log_block",
     OP_ADD: "add_block",
 
-    CON_GREATER: "greater",
-    CON_GREATER_OR_EQUAL: "greater_or_equal",
+    CON_SIG2NUM: "sig2Num",
+
+    LOG_GREATER: "greater",
+    LOG_GREATER_OR_EQUAL: "greater_or_equal",
     //output
     OUT_NUMBER_DISPLAY: "number_display",
     OUT_BOOLEAN_DISPLAY: "bool_display",
-
+    OUT_STRING_DISPLAY: "string_display",
     Test_OP: "test block",
 };
 
@@ -30,6 +34,7 @@ export const BLOCK_CATE = {
 export const INS_DISPLAY_TYPE = {
     INPUT_NUM: "input(num)",
     IN_NUM: "input/port(num)",
+    IN_STR: "input/port(string)",
     INPUT_BOOL: "input(bool)",
     IN_OPTION: "input option(int)",
     OUT_NUM: "output(num)",
@@ -39,7 +44,7 @@ export const INS_DISPLAY_TYPE = {
 };
 
 export const CANVAS_DISPLAY_TYPE = {
-    OUT_STR: "string",
+    OUT_STR: "text",
     OUT_IMG: "image",
     IN_SLIDE: "slide bar",
     IN_BASIC_BUTTON: "basic button",
