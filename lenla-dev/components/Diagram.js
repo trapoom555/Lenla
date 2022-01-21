@@ -25,6 +25,8 @@ const nodeTypes = {
     [BLOCK_TYPE.LOG_GREATER]: BasicBlock,
     [BLOCK_TYPE.IN_SLIDER]: BasicBlock,
     [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicButtonBlock,
+    [BLOCK_TYPE.CON_SIG2NUM]: BasicBlock,
+    [BLOCK_TYPE.OUT_STRING_DISPLAY]: BasicBlock,
 };
 
 let currentBlockID = 0;
