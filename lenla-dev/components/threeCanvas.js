@@ -1,9 +1,10 @@
 import React, { useRef, useState, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
+import { Text, Html } from "@react-three/drei";
 import { isDisplayable } from "../block_system/block_behavior";
 import { CANVAS_DISPLAY_TYPE } from "../block_system/stringConfig";
 import { Signal } from "../block_system/object";
+import ReactSlider from "react-slider";
 function Box(props) {
     // This reference gives us direct access to the THREE.Mesh object
     const ref = useRef();
@@ -50,6 +51,21 @@ function TextDisplay(props) {
         </mesh>
     );
 }
+function Slider(props) {
+    return (
+        <mesh
+            {...props}
+            ref={ref}
+            scale={clicked ? 1.5 : 1}
+            onClick={(event) => click(!clicked)}
+            onPointerOver={(event) => hover(true)}
+            onPointerOut={(event) => hover(false)}
+        >
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
+        </mesh>
+    );
+}
 function Button(props) {
     const { node, tmp, isRun, callBack } = props;
     // if (!isRun) {
@@ -74,7 +90,20 @@ function Button(props) {
         </mesh>
     );
 }
-
+const Switch = () => {
+    return (
+        <>
+            <input
+                className="react-switch-checkbox"
+                id={`react-switch-new`}
+                type="checkbox"
+            />
+            <label className="react-switch-label" htmlFor={`react-switch-new`}>
+                <span className={`react-switch-button`} />
+            </label>
+        </>
+    );
+};
 export default function ThreeCanvas(props) {
     const { width, height, system, isRun, callBack } = props;
     const tmp = [
@@ -95,11 +124,12 @@ export default function ThreeCanvas(props) {
                 switch (tmp.type) {
                     case CANVAS_DISPLAY_TYPE.OUT_STR:
                         console.log("Hey:" + tmp);
-                        console.log(node.value);
+                        console.log(tmp.color);
                         displayObj.push(
                             <Text
                                 scale={[5, 5, 10]}
-                                color={tmp.color} // default
+                                color={tmp.color}
+                                // color={"#16fa62"}
                                 anchorX={-tmp.position.x / 10}
                                 anchorY={tmp.position.y / 10}
                                 position={(-1.2, 1, 0)}
@@ -155,7 +185,7 @@ export default function ThreeCanvas(props) {
                 {/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
                 <pointLight position={[-10, -10, -10]} /> */}
                 {/* {tmp} */}
-                {displayObj}
+                {displayObj}c
             </Canvas>
         </div>
     );

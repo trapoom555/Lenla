@@ -104,7 +104,14 @@ function PortsEdit(props) {
         </div>
     );
 }
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
 
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
 function DiatailInspect(props) {
     // console.log("drawDetail");
     const elements = props.elements;
@@ -221,14 +228,21 @@ function DiatailInspect(props) {
                     <>{each.name}</>
                     <InputColor
                         initialValue={color}
-                        onChange={(color) => {
+                        onChange={(new_color) => {
                             // setColor(color);
+                            const colorHex = rgbToHex(
+                                new_color.r,
+                                new_color.g,
+                                new_color.b
+                            );
+                            console.log(colorHex);
                             if (head != -1) {
                                 element.data.info[head].value[
                                     each.index
-                                ].value = color.hex;
+                                ].value = colorHex;
                             } else
-                                element.data.info[each.index].value = color.hex;
+                                element.data.info[each.index].value = colorHex;
+
                             updateElementById(element.id, element);
                         }}
                         placement="right"
