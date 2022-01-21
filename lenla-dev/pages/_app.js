@@ -10,7 +10,8 @@ import "../styles/homepage.css";
 import "../styles/signin.css";
 import "../styles/signup.css";
 import "../styles/insp_constant.css";
-import "../styles/insp_sum.css"
+import "../styles/insp_sum.css";
+import "../styles/toggle.css";
 import { useState } from "react";
 function MyApp({ Component, pageProps }) {
     const [user, setUser] = useState({ username: "-" });
