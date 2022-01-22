@@ -88,8 +88,15 @@ var BasicButton = /** @class */ (function (_super) {
         this.outValPorts[0].setState(val);
         this.update();
     };
-    BasicButton.prototype.addValPort = function (index, num) {
-        this.inValPorts[index] = num;
+    BasicButton.prototype.addValPort = function (index, val) {
+        if (typeof (val) == "string") {
+            this.inValPorts[index] = new object_1.Color(val);
+        }
+        else
+            this.inValPorts[index] = val;
+        this.setDisplayDetail({});
+        console.log("add port at " + index + " to be " + val);
+        console.log(this.inValPorts[index]);
     };
     BasicButton.prototype.updateContent = function () {
         // this.value = this.inValPorts[0].value
@@ -100,11 +107,13 @@ var BasicButton = /** @class */ (function (_super) {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
             console.log("port is not null");
             this.updateContent();
-            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { state: this.inValPorts[0].value }), detail);
+            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { on_color: this.inValPorts[1].hex, off_color: this.inValPorts[2].hex, state: this.inValPorts[0].value }), detail);
         }
         else {
             console.log("port is null");
-            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { type: stringConfig_1.CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON, position: this.displayDetail.position }), detail);
+            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { on_color: this.inValPorts[1].hex, off_color: this.inValPorts[2].hex }), detail);
+            console.log(this.displayDetail.off_color);
+            console.log(this.displayDetail.on_color);
         }
         this.position = this.displayDetail.position;
     };

@@ -26,8 +26,16 @@ export class System {
                 console.log(element.type)
                 node = new InBlock.BasicButton(element.id, element.type)
                 // console.log(element.data.info[4].value[0])
+
+                if (Block.isISub(node)) {
+                    node.addValPort(1, element.data.info[1].value)
+                    node.addValPort(2, element.data.info[2].value)
+
+
+                }
                 if (Block.isDisplayable(node)) {
                     node.setDisplayDetail({ position: element.data.info[4].value[0].value })
+                    // console.log("help")
 
                 }
                 break
@@ -258,7 +266,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                 },
                                 {
                                     index: 1,
-                                    name: "letter color",
+                                    name: "color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -421,8 +429,8 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         },
                         {
                             index: 2,
-                            name: "of color",
-                            Evalue: "#7E7E7E",
+                            name: "off color",
+                            value: "#7E7E7E",
                             type: INS_DISPLAY_TYPE.INPUT_COLOR
                         },
                         {

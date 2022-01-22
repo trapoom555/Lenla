@@ -123,8 +123,6 @@ export default function ThreeCanvas(props) {
             try {
                 switch (tmp.type) {
                     case CANVAS_DISPLAY_TYPE.OUT_STR:
-                        console.log("Hey:" + tmp);
-                        console.log(tmp.color);
                         displayObj.push(
                             <Text
                                 scale={[5, 5, 10]}
@@ -140,6 +138,8 @@ export default function ThreeCanvas(props) {
                         break;
 
                     case CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON:
+                        console.log("Hey:" + tmp);
+                        console.log(tmp);
                         displayObj.push(
                             <Button
                                 tmp={tmp}
@@ -148,28 +148,6 @@ export default function ThreeCanvas(props) {
                                 callBack={callBack}
                                 isRun={isRun}
                             ></Button>
-                            // <mesh
-                            //     {...props}
-                            //     // ref={ref}
-                            //     scale={node.state ? 1.5 : 1}
-                            //     onClick={(event) => {
-                            //         node.setState(!node.state);
-                            //         console.log("button click");
-                            //         console.log(node.state);
-                            //         setSystem(system);
-                            //     }}
-                            //     // onPointerOver={(event) => hover(true)}
-                            //     // onPointerOut={(event) => hover(false)}
-                            // >
-                            //     <boxGeometry args={[1, 1, 1]} />
-                            //     <meshStandardMaterial
-                            //         color={
-                            //             node.state
-                            //                 ? tmp.on_color
-                            //                 : tmp.off_color
-                            //         }
-                            //     />
-                            // </mesh>
                         );
                         break;
                 }
