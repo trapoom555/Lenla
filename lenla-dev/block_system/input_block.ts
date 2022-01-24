@@ -59,8 +59,14 @@ export class BasicButton extends InOutDisplay {
         this.outValPorts[0].setState(val)
         this.update()
     }
-    addValPort(index: number, num: Number) {
-        this.inValPorts[index] = num
+    addValPort(index: number, val: any) {
+        if (typeof (val) == "string") {
+            this.inValPorts[index] = new Color(val)
+        }
+        else this.inValPorts[index] = val
+        this.setDisplayDetail({})
+        console.log("add port at " + index + " to be " + val)
+        console.log(this.inValPorts[index])
 
     }
     updateContent() {
@@ -75,6 +81,8 @@ export class BasicButton extends InOutDisplay {
             this.updateContent()
             this.displayDetail = {
                 ...this.displayDetail,
+                on_color: this.inValPorts[1].hex,
+                off_color: this.inValPorts[2].hex,
                 state: this.inValPorts[0].value,
                 ...detail
             }
@@ -84,11 +92,12 @@ export class BasicButton extends InOutDisplay {
             console.log("port is null")
             this.displayDetail = {
                 ...this.displayDetail,
-                type: CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON,
-                position: this.displayDetail.position,
+                on_color: this.inValPorts[1].hex,
+                off_color: this.inValPorts[2].hex,
                 ...detail
             }
-
+            console.log(this.displayDetail.off_color)
+            console.log(this.displayDetail.on_color)
         }
         this.position = this.displayDetail.position
 
