@@ -68,9 +68,10 @@ var BasicButton = /** @class */ (function (_super) {
     function BasicButton(id, type, initState) {
         if (initState === void 0) { initState = false; }
         var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [new object_1.Bool(false), new object_1.Color("#F8DE7E"), new object_1.Color("#7E7E7E"), new object_1.Number(0)];
-        //initial state,on color,off color,button type(0->toggle,1-> hold to on,2->hold to off)
+        _this.inValPorts = [new object_1.Bool(false), new object_1.Color("#F8DE7E"), new object_1.Color("#7E7E7E"), new object_1.Number(0), null];
+        //initial state,on color,off color,button type(0->toggle,1-> hold to on,2->hold to off),trigger Signal
         _this.outValPorts = [new object_1.Signal];
+        _this.triggerIndex = -1;
         _this.inValPorts[0] = initState;
         _this.state = initState;
         _this.displayDetail = {
@@ -88,6 +89,9 @@ var BasicButton = /** @class */ (function (_super) {
         this.outValPorts[0].setState(val);
         this.update();
     };
+    BasicButton.prototype.trigerState = function () {
+        this.setState(!this.state);
+    };
     BasicButton.prototype.addValPort = function (index, val) {
         if (typeof (val) == "string") {
             this.inValPorts[index] = new object_1.Color(val);
@@ -95,8 +99,11 @@ var BasicButton = /** @class */ (function (_super) {
         else
             this.inValPorts[index] = val;
         this.setDisplayDetail({});
-        console.log("add port at " + index + " to be " + val);
-        console.log(this.inValPorts[index]);
+        if (index == 4 && val instanceof object_1.Signal) {
+            this.triggerIndex = val.addRisingCallback(this.trigerState);
+        }
+        // console.log("add port at " + index + " to be " + val)
+        // console.log(this.inValPorts[index])
     };
     BasicButton.prototype.updateContent = function () {
         // this.value = this.inValPorts[0].value

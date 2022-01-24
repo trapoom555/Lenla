@@ -10,6 +10,15 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 exports.__esModule = true;
 exports.blockConfig = exports.createElementObj = exports.System = void 0;
 var stringConfig_1 = require("./stringConfig");
@@ -17,6 +26,7 @@ var InBlock = require("./Input_block");
 var Block = require("./block_behavior");
 var OutBlock = require("./output_block");
 var InOutBlock = require("./inout_block");
+var ConverterBlock = require("./converter_block");
 var System = /** @class */ (function () {
     function System() {
         this.idToIndex = {};
@@ -52,8 +62,14 @@ var System = /** @class */ (function () {
             case stringConfig_1.BLOCK_TYPE.OP_PRODUCT:
                 node = new InOutBlock.Product(element.id, element.type, element.data.port["in"]);
                 break;
+            case stringConfig_1.BLOCK_TYPE.OP_LOG:
+                node = new InOutBlock.Log(element.id, element.type);
+                break;
+            case stringConfig_1.BLOCK_TYPE.OP_POWER:
+                node = new InOutBlock.Power(element.id, element.type);
+                break;
             case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
-                node = new InOutBlock.Signal2Num(element.id, element.type);
+                node = new ConverterBlock.Signal2Num(element.id, element.type);
                 break;
             case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type);
@@ -136,16 +152,27 @@ function createElementObj(id, type, position, data, name) {
         type: type,
         flag: "node"
     };
+    var displaySetting = [
+        {
+            index: 0,
+            name: "position",
+            value: { x: 0, y: 0 },
+            type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
+        },
+    ];
+    var disLen = 1;
     switch (type) {
         case stringConfig_1.BLOCK_TYPE.IN_CONSTANT:
             return __assign(__assign({}, obj), { data: {
                     // data: data.num,
-                    info: [{
+                    info: [
+                        {
                             index: 0,
                             name: "num",
-                            value: data.value,
+                            value: 0,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
-                        }],
+                        }
+                    ],
                     port: {
                         "in": [],
                         inType: [],
@@ -200,6 +227,28 @@ function createElementObj(id, type, position, data, name) {
                         inEnable: [true, true]
                     }
                 } });
+        case stringConfig_1.BLOCK_TYPE.OP_LOG:
+            return __assign(__assign({}, obj), { data: {
+                    info: [],
+                    port: {
+                        "in": ["num", "base"],
+                        inType: ["num", "num"],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: [true, true]
+                    }
+                } });
+        case stringConfig_1.BLOCK_TYPE.OP_POWER:
+            return __assign(__assign({}, obj), { data: {
+                    info: [],
+                    port: {
+                        "in": ["base", "power"],
+                        inType: ["num", "num"],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: [true, true]
+                    }
+                } });
         case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
             return __assign(__assign({}, obj), { data: {
                     info: [],
@@ -223,28 +272,16 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 1,
                             name: "display properties",
-                            value: [
+                            value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
-                                    index: 0,
-                                    name: "position",
-                                    value: { x: 0, y: 0 },
-                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                                {
-                                    index: 1,
+                                    index: disLen + 1,
                                     name: "color",
                                     value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                            ],
+                            ], false),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
-                        }
-                        // , {
-                        //     index: 1,
-                        //     name: "position",
-                        //     value: null,
-                        //     type: INS_DISPLAY_TYPE.IN_VECTOR_2D
-                        // }
+                        },
                     ],
                     port: {
                         "in": ["num"],
@@ -264,20 +301,14 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 0,
                             name: "display properties",
-                            value: [
+                            value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
-                                    index: 0,
-                                    name: "position",
-                                    value: { x: 0, y: 0 },
-                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                                {
-                                    index: 1,
-                                    name: "letter color",
+                                    index: disLen + 1,
+                                    name: "color",
                                     value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                            ],
+                            ], false),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
                         }
                     ],
@@ -376,23 +407,16 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 4,
                             name: "display properties",
-                            value: [
-                                {
-                                    index: 0,
-                                    name: "position",
-                                    value: { x: 0, y: 0 },
-                                    type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                            ],
+                            value: __spreadArray([], displaySetting, true),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
                         }
                     ],
                     port: {
-                        "in": [],
-                        inType: [],
+                        "in": ["bool"],
+                        inType: ["bool"],
                         out: ["signal"],
                         outType: ["signal"],
-                        inEnable: []
+                        inEnable: [false]
                     }
                 } });
     }
@@ -421,6 +445,16 @@ function blockConfig(type) {
                 limitIn: [2, "inf"],
                 choice: ["*", "/"],
                 choiceType: ["num", "num"]
+            };
+        case stringConfig_1.BLOCK_TYPE.OP_LOG:
+            return {
+                limitIn: [2, 2],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.OP_POWER:
+            return {
+                limitIn: [2, 2],
+                choice: []
             };
         case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
             return {

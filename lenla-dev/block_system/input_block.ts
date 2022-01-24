@@ -35,8 +35,8 @@ export class StringConstant extends InputBlock {
 
 }
 export class BasicButton extends InOutDisplay {
-    inValPorts: Array<any> = [new Bool(false), new Color("#F8DE7E"), new Color("#7E7E7E"), new Number(0)];
-    //initial state,on color,off color,button type(0->toggle,1-> hold to on,2->hold to off)
+    inValPorts: Array<any> = [new Bool(false), new Color("#F8DE7E"), new Color("#7E7E7E"), new Number(0), null];
+    //initial state,on color,off color,button type(0->toggle,1-> hold to on,2->hold to off),trigger Signal
     outValPorts: Array<Signal> = [new Signal];
     state: boolean
     displayDetail: any
@@ -59,14 +59,21 @@ export class BasicButton extends InOutDisplay {
         this.outValPorts[0].setState(val)
         this.update()
     }
+    triggerIndex = -1
+    trigerState() {
+        this.setState(!this.state)
+    }
     addValPort(index: number, val: any) {
         if (typeof (val) == "string") {
             this.inValPorts[index] = new Color(val)
         }
         else this.inValPorts[index] = val
         this.setDisplayDetail({})
-        console.log("add port at " + index + " to be " + val)
-        console.log(this.inValPorts[index])
+        if (index == 4 && val instanceof Signal) {
+            this.triggerIndex = val.addRisingCallback(this.trigerState)
+        }
+        // console.log("add port at " + index + " to be " + val)
+        // console.log(this.inValPorts[index])
 
     }
     updateContent() {

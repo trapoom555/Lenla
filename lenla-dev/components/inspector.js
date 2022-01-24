@@ -437,6 +437,8 @@ function BlockShow(props) {
             blocksData: [
                 { name: "Sum", type: BLOCK_TYPE.OP_SUM },
                 { name: "Product", type: BLOCK_TYPE.OP_PRODUCT },
+                { name: "Power", type: BLOCK_TYPE.OP_POWER },
+                { name: "Log", type: BLOCK_TYPE.OP_LOG },
             ],
         },
         {

@@ -9,6 +9,7 @@ export const BLOCK_TYPE = {
     OP_SUM: "sum_block",
     OP_PRODUCT: "product_block",
     OP_LOG: "log_block",
+    OP_POWER: "power_block",
     OP_ADD: "add_block",
 
     CON_SIG2NUM: "sig2Num",
