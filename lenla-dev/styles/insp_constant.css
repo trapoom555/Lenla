@@ -2,7 +2,7 @@
     padding-top: 3vh;
     display: flex;
     flex-direction: column;
-    padding: 3vh 2vw;
+    padding: 3vh 2vw 0vh 2vw;
 }
 
 .insp_constant_header {
