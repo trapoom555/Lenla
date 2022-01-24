@@ -35,6 +35,7 @@ var NumberDisplay = /** @class */ (function (_super) {
     function NumberDisplay(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
+        console.log("create num dis");
         _this.displayDetail = {
             color: "#000000",
             value: _this.value,

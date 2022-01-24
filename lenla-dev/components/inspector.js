@@ -123,6 +123,8 @@ function DiatailInspect(props) {
         setElements(items);
     }
     function pushComplist(each, compList, element, head = -1) {
+        console.log("each " + each.type);
+        console.log(each);
         if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
             let tmp = each.value;
             compList.push(
@@ -249,8 +251,11 @@ function DiatailInspect(props) {
                     />
                 </div>
             );
+            // console.log("Wow:" + each.index);
         }
+        console.log("done each");
     }
+
     if (props.id != -1) {
         try {
             // console.log("section 0");

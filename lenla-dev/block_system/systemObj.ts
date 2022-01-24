@@ -58,9 +58,7 @@ export class System {
                 break
             case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type)
-                // console.log("333")
                 if (Block.isDisplayable(node)) {
-                    // console.log("444")
                     console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
                     node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
                 }
@@ -297,6 +295,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                 }
             }
         case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+            console.log("fuck")
             return {
                 ...obj,
 
@@ -315,17 +314,17 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                             value: [
                                 ...displaySetting,
                                 {
-                                    index: disLen + 1,
+                                    index: disLen,
                                     name: "color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                                // {
-                                //     index: disLen + 2,
-                                //     name: "digit display",
-                                //     value: 2,
-                                //     type: INS_DISPLAY_TYPE.INPUT_NUM
-                                // },
+                                {
+                                    index: disLen + 1,
+                                    name: "digit display",
+                                    value: 2,
+                                    type: INS_DISPLAY_TYPE.INPUT_NUM
+                                },
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -363,12 +362,11 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                             value: [
                                 ...displaySetting,
                                 {
-                                    index: disLen + 1,
+                                    index: disLen,
                                     name: "color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
 

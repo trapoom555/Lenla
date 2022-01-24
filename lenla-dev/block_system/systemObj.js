@@ -73,9 +73,7 @@ var System = /** @class */ (function () {
                 break;
             case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type);
-                // console.log("333")
                 if (Block.isDisplayable(node)) {
-                    // console.log("444")
                     console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
                     node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
                 }
@@ -261,6 +259,7 @@ function createElementObj(id, type, position, data, name) {
                     }
                 } });
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+            console.log("fuck");
             return __assign(__assign({}, obj), { data: {
                     info: [
                         {
@@ -274,10 +273,16 @@ function createElementObj(id, type, position, data, name) {
                             name: "display properties",
                             value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
-                                    index: disLen + 1,
+                                    index: disLen,
                                     name: "color",
                                     value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                                {
+                                    index: disLen + 1,
+                                    name: "digit display",
+                                    value: 2,
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                                 },
                             ], false),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -303,7 +308,7 @@ function createElementObj(id, type, position, data, name) {
                             name: "display properties",
                             value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
-                                    index: disLen + 1,
+                                    index: disLen,
                                     name: "color",
                                     value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
