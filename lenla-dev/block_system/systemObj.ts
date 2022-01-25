@@ -25,7 +25,7 @@ export class System {
                 node = new InBlock.StringConstant(element.id, element.type, element.data.info[0].value);
                 break
             case BLOCK_TYPE.IN_BASIC_BUTTON:
-                console.log(element.type)
+                // console.log(element.type)
                 node = new InBlock.BasicButton(element.id, element.type)
                 // console.log(element.data.info[4].value[0])
 
@@ -59,8 +59,8 @@ export class System {
             case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type)
                 if (Block.isDisplayable(node)) {
-                    console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
-                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                    // console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value, digit: element.data.info[1].value[2].value })
                 }
                 break
             case BLOCK_TYPE.OUT_STRING_DISPLAY:
@@ -112,9 +112,9 @@ export class System {
     }
     compile() {
         // console.log("////////////////////////////////////")
-        console.log(this.childNode)
+        // console.log(this.childNode)
         this.childNode.forEach(element => {
-            console.log(element.type)
+            // console.log(element.type)
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
                 // console.log(element.type + " is notify")

@@ -85,7 +85,7 @@ export default forwardRef((props, ref) => {
                             node.setValue(displayObj[id].val);
                     }
                 } catch (error) {
-                    console.log(error);
+                    //console.log(error);
                 }
             }
         });

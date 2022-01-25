@@ -44,7 +44,7 @@ var System = /** @class */ (function () {
                 node = new InBlock.StringConstant(element.id, element.type, element.data.info[0].value);
                 break;
             case stringConfig_1.BLOCK_TYPE.IN_BASIC_BUTTON:
-                console.log(element.type);
+                // console.log(element.type)
                 node = new InBlock.BasicButton(element.id, element.type);
                 // console.log(element.data.info[4].value[0])
                 if (Block.isISub(node)) {
@@ -74,8 +74,8 @@ var System = /** @class */ (function () {
             case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type);
                 if (Block.isDisplayable(node)) {
-                    console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
-                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
+                    // console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value, digit: element.data.info[1].value[2].value });
                 }
                 break;
             case stringConfig_1.BLOCK_TYPE.OUT_STRING_DISPLAY:
@@ -120,9 +120,9 @@ var System = /** @class */ (function () {
     };
     System.prototype.compile = function () {
         // console.log("////////////////////////////////////")
-        console.log(this.childNode);
+        // console.log(this.childNode)
         this.childNode.forEach(function (element) {
-            console.log(element.type);
+            // console.log(element.type)
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
                 // console.log(element.type + " is notify")
@@ -407,7 +407,12 @@ function createElementObj(id, type, position, data, name) {
                             index: 3,
                             name: "type",
                             value: 1,
-                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
+                            option: [
+                                { name: "toggle", value: 0 },
+                                { name: "push-on", value: 1 },
+                                { name: "push-off", value: 2 }
+                            ],
+                            type: stringConfig_1.INS_DISPLAY_TYPE.IN_DROPDOWN
                         },
                         {
                             index: 4,

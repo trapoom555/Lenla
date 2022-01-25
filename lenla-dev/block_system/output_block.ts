@@ -10,7 +10,7 @@ export class NumberDisplay extends OutputBlock {
         console.log("create num dis")
         this.displayDetail = {
             color: "#000000",
-
+            digit: 2,
             value: this.value,
             type: CANVAS_DISPLAY_TYPE.OUT_STR,
             position: this.position,
@@ -19,13 +19,15 @@ export class NumberDisplay extends OutputBlock {
 
     addValPort(index: number, num: Number) {
         this.inValPorts[index] = num
-
     }
     updateContent() {
+        console.log(this.inValPorts[0])
         this.value = this.inValPorts[0].value
+
         this.displayDetail.value = this.value
     }
     setDisplayDetail(detail: any): void {
+
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
             console.log("port is not null")
             this.updateContent()
@@ -47,6 +49,7 @@ export class NumberDisplay extends OutputBlock {
 
         }
         this.position = this.displayDetail.position
+        console.log("Good")
 
     }
     log() {

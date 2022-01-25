@@ -62,7 +62,7 @@ const Diagram = (props) => {
         const type = event.dataTransfer.getData("application/reactflow");
 
         const currentID = getID();
-        console.log(currentID);
+        // console.log(currentID);
         let data = {};
         if (type == BLOCK_TYPE.IN_CONSTANT) data = { data: 0 };
         const newNode = Block.createElementObj(
@@ -78,19 +78,14 @@ const Diagram = (props) => {
             )
         );
 
-        // TO DO:
-        // create element in p5.js
         setElements(elements.concat(newNode));
-        // system.add_element(newNode);
-        console.log(elements);
-
         console.log("before setup");
         compileAll();
-        console.log(elements);
     };
 
     const onElementClick = (event, element) => {
         console.log("click", element.id);
+        console.log(element);
         setSelectedElement(element.id);
         setInspectorState(1);
         // console.log(element.id);

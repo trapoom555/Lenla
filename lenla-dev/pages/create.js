@@ -46,7 +46,7 @@ export default function Create({ user, setUser }) {
     }
     function compileAll() {
         // let tmp = new Block.System();
-        console.log(elements);
+        // console.log(elements);
         system = new Block.System();
         elements.forEach((element) => {
             if (element.flag == "node") {
@@ -65,7 +65,7 @@ export default function Create({ user, setUser }) {
         setSystem(system);
         // tempSys = tmp;
         // console.log(tmp.childNode);
-        console.log(system.childNode);
+        // console.log(system.childNode);
         system.compile();
         // canvasRef.current.createSliderObj(0, 0, 100, 50, 1);
 

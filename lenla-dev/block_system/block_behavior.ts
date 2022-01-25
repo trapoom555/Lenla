@@ -116,7 +116,7 @@ export abstract class InputDisplay implements IPub, IDisplay {
             this.displayContent();
         }
         catch (err) {
-            console.log(err)
+            //console.log(err)
         }
     }
     getDisplayData() {
@@ -157,7 +157,7 @@ export abstract class OutputBlock implements ISub, IDisplay {
             this.setDisplayDetail({})
         }
         catch (err) {
-            console.log(err)
+            // //console.log(err)
         }
 
     }
@@ -169,7 +169,7 @@ export abstract class OutputBlock implements ISub, IDisplay {
             this.displayContent();
         }
         catch (err) {
-            console.log(err)
+            //console.log(err)
         }
     }
     getDisplayData() {
@@ -222,7 +222,7 @@ export abstract class InOutBlock implements ISub, IPub {
             this.notifyAllPort();
         }
         catch (err) {
-            console.log(err)
+            //console.log(err)
         }
 
     }
@@ -277,7 +277,7 @@ export abstract class InOutDisplay extends InOutBlock implements IDisplay {
             this.displayContent();
         }
         catch (err) {
-            console.log(err)
+            //console.log(err)
         }
     }
     getDisplayData() {
