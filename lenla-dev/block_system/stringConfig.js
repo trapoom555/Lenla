@@ -9,6 +9,7 @@ export const BLOCK_TYPE = {
     OP_SUM: "sum_block",
     OP_PRODUCT: "product_block",
     OP_LOG: "log_block",
+    OP_POWER: "power_block",
     OP_ADD: "add_block",
 
     CON_SIG2NUM: "sig2Num",
@@ -34,6 +35,7 @@ export const BLOCK_CATE = {
 export const INS_DISPLAY_TYPE = {
     INPUT_NUM: "input(num)",
     IN_NUM: "input/port(num)",
+    IN_DROPDOWN: "input dropdown",
     IN_STR: "input/port(string)",
     INPUT_BOOL: "input(bool)",
     IN_OPTION: "input option(int)",

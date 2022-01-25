@@ -7,8 +7,10 @@ export class NumberDisplay extends OutputBlock {
     displayDetail: any;
     constructor(id: string, type: string) {
         super(id, type);
+        console.log("create num dis")
         this.displayDetail = {
             color: "#000000",
+
             value: this.value,
             type: CANVAS_DISPLAY_TYPE.OUT_STR,
             position: this.position,

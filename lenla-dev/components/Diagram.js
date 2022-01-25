@@ -23,6 +23,8 @@ const nodeTypes = {
     [BLOCK_TYPE.IN_STRING]: StringBlock,
     [BLOCK_TYPE.OP_SUM]: SumBlock,
     [BLOCK_TYPE.OP_PRODUCT]: ProductBlock,
+    [BLOCK_TYPE.OP_POWER]: BasicBlock,
+    [BLOCK_TYPE.OP_LOG]: BasicBlock,
     [BLOCK_TYPE.OUT_NUMBER_DISPLAY]: NumberDisplayBlock,
     [BLOCK_TYPE.Test_OP]: BasicBlock,
     [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,

@@ -3,6 +3,8 @@ import * as InBlock from "./Input_block";
 import * as Block from "./block_behavior";
 import * as OutBlock from "./output_block";
 import * as InOutBlock from "./inout_block";
+import * as ConverterBlock from "./converter_block"
+import * as LogicBlock from "./logical_block"
 export class System {
     idToIndex: {}
     childNode: Array<Block.IBlock>
@@ -30,13 +32,10 @@ export class System {
                 if (Block.isISub(node)) {
                     node.addValPort(1, element.data.info[2].value[1].value)
                     node.addValPort(2, element.data.info[2].value[2].value)
-
-
                 }
                 if (Block.isDisplayable(node)) {
                     node.setDisplayDetail({ position: element.data.info[2].value[0].value })
                     // console.log("help")
-
                 }
                 break
             case BLOCK_TYPE.OP_SUM:
@@ -45,14 +44,18 @@ export class System {
             case BLOCK_TYPE.OP_PRODUCT:
                 node = new InOutBlock.Product(element.id, element.type, element.data.port.in)
                 break
+            case BLOCK_TYPE.OP_LOG:
+                node = new InOutBlock.Log(element.id, element.type)
+                break
+            case BLOCK_TYPE.OP_POWER:
+                node = new InOutBlock.Power(element.id, element.type)
+                break
             case BLOCK_TYPE.CON_SIG2NUM:
-                node = new InOutBlock.Signal2Num(element.id, element.type)
+                node = new ConverterBlock.Signal2Num(element.id, element.type)
                 break
             case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type)
-                // console.log("333")
                 if (Block.isDisplayable(node)) {
-                    // console.log("444")
                     console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
                     node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
                 }
@@ -136,6 +139,17 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
         type,
         flag: "node"
     }
+    const displaySetting = [
+        {
+            index: 0,
+            name: "Position",
+            value: { x: 0, y: 0 },
+            type: INS_DISPLAY_TYPE.IN_VECTOR_2D
+        },
+
+
+    ]
+    const disLen = 1
     switch (type) {
         case BLOCK_TYPE.IN_CONSTANT:
             return {
@@ -143,12 +157,14 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                 data:
                 {
                     // data: data.num,
-                    info: [{
-                        index: 0,
-                        name: "Number",
-                        value: data.value,
-                        type: INS_DISPLAY_TYPE.INPUT_NUM
-                    }],
+                    info: [
+                        {
+                            index: 0,
+                            name: "Number",
+                            value: 0,
+                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                        }
+                    ],
                     port:
                     {
                         in: [],
@@ -224,6 +240,40 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     },
                 }
             }
+        case BLOCK_TYPE.OP_LOG:
+            return {
+                ...obj,
+
+                data:
+                {
+                    info: [],
+                    port:
+                    {
+                        in: ["num", "base"],
+                        inType: ["num", "num"],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: [true, true],
+                    },
+                }
+            }
+        case BLOCK_TYPE.OP_POWER:
+            return {
+                ...obj,
+
+                data:
+                {
+                    info: [],
+                    port:
+                    {
+                        in: ["base", "power"],
+                        inType: ["num", "num"],
+                        out: ["num"],
+                        outType: ["num"],
+                        inEnable: [true, true],
+                    },
+                }
+            }
         case BLOCK_TYPE.CON_SIG2NUM:
             return {
                 ...obj,
@@ -242,6 +292,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                 }
             }
         case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
+            console.log("fuck")
             return {
                 ...obj,
 
@@ -258,29 +309,25 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                             index: 1,
                             name: "Display Properties",
                             value: [
+                                ...displaySetting,
                                 {
-                                    index: 0,
-                                    name: "Position",
-                                    value: { x: 0, y: 0 },
-                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                                {
-                                    index: 1,
+                                    index: disLen,
                                     name: "Color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                                {
+                                    index: disLen + 1,
+                                    name: "Decimal Places",
+                                    value: 2,
+                                    type: INS_DISPLAY_TYPE.INPUT_NUM_IN_LAYOUT
                                 },
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
 
-                        }
-                        // , {
-                        //     index: 1,
-                        //     name: "position",
-                        //     value: null,
-                        //     type: INS_DISPLAY_TYPE.IN_VECTOR_2D
-                        // }
+                        },
+
                     ],
                     port:
                     {
@@ -310,19 +357,13 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                             index: 0,
                             name: "Display Properties",
                             value: [
+                                ...displaySetting,
                                 {
-                                    index: 0,
-                                    name: "Position",
-                                    value: { x: 0, y: 0 },
-                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                                {
-                                    index: 1,
+                                    index: disLen,
                                     name: "Color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
 
@@ -379,18 +420,14 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                             index: 4,
                             name: "Display Properties",
                             value: [
+                                ...displaySetting,
                                 {
-                                    index: 0,
-                                    name: "Position",
-                                    value: { x: 0, y: 0 },
-                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                                {
-                                    index: 1,
+                                    index: disLen,
                                     name: "Color",
                                     value: "#FFFFFF",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
+                                
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -424,31 +461,32 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         {
                             index: 1,
                             name: "Type",
-                            value: 1,
-                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                            value: 0,
+                            options: [
+                                { name: "Toggle", value: 0 },
+                                { name: "Push-On", value: 1 },
+                                { name: "Push-Off", value: 2 }]
+                            ,
+                            type: INS_DISPLAY_TYPE.IN_DROPDOWN
                         },
                         {
                             index: 2,
                             name: "Display Properties",
                             value: [
+                                ...displaySetting,
                                 {
-                                    index: 0,
-                                    name: "Position",
-                                    value: { x: 0, y: 0 },
-                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                                {
-                                    index: 1,
+                                    index: disLen,
                                     name: "On Color",
                                     value: '#F8DE7E',
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
                                 {
-                                    index: 2,
+                                    index: disLen + 1,
                                     name: "Off Color",
                                     value: "#7E7E7E",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
+                                
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -457,11 +495,11 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     ],
                     port:
                     {
-                        in: [],
-                        inType: [],
+                        in: ["bool"],
+                        inType: ["bool"],
                         out: ["signal"],
                         outType: ["signal"],
-                        inEnable: [],
+                        inEnable: [false],
                     },
 
                 }
@@ -496,6 +534,16 @@ export function blockConfig(type: string) {
                 limitIn: [2, "inf"],
                 choice: ["*", "/"],
                 choiceType: ["num", "num"]
+            }
+        case BLOCK_TYPE.OP_LOG:
+            return {
+                limitIn: [2, 2],
+                choice: []
+            }
+        case BLOCK_TYPE.OP_POWER:
+            return {
+                limitIn: [2, 2],
+                choice: []
             }
         case BLOCK_TYPE.CON_SIG2NUM:
             return {

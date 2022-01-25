@@ -8,7 +8,7 @@ import {
     INS_DISPLAY_TYPE,
 } from "../block_system/stringConfig";
 import InputColor from "react-input-color";
-import allBlocks from "../block_system/all_block_config"
+import allBlocks from "../block_system/all_block_config";
 
 function PortsEdit(props) {
     const { elements, setElements, element, i } = props;
@@ -123,6 +123,8 @@ function DiatailInspect(props) {
         setElements(items);
     }
     function pushComplist(each, compList, element, head = -1) {
+        console.log("each " + each.type);
+        console.log(each);
         if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
             let tmp = each.value;
             compList.push(
@@ -250,8 +252,11 @@ function DiatailInspect(props) {
                     />
                 </div>
             );
+            // console.log("Wow:" + each.index);
         }
+        console.log("done each");
     }
+
     if (props.id != -1) {
         try {
             // console.log("section 0");
@@ -398,7 +403,6 @@ function DiatailInspect(props) {
                         </div>
                     )}
 
-
                     {/* {showPortOption && <></>} */}
                 </div>
             );
@@ -422,7 +426,7 @@ function DiatailInspect(props) {
 }
 
 function BlockShow(props) {
-    const {allBlocks} = props;
+    const { allBlocks } = props;
 
     let divAllBlocks = [];
 
@@ -542,7 +546,7 @@ export default function Inspector(props) {
                 </div>
 
                 <div style={{ display: inspectorState ? "none" : "" }}>
-                    <BlockShow allBlocks = {allBlocks}/>
+                    <BlockShow allBlocks={allBlocks} />
                 </div>
 
                 {/* <ConstantInspector

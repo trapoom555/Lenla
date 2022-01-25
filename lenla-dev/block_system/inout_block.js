@@ -14,22 +14,10 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 exports.__esModule = true;
-exports.Condition = exports.NOT = exports.OR = exports.AND = exports.GreaterOrEqual = exports.Greater = exports.Slider = exports.Signal2Num = exports.Product = exports.Sum = void 0;
+exports.Power = exports.Log = exports.Product = exports.Sum = void 0;
 var block_behavior_1 = require("./block_behavior");
 var object_1 = require("./object");
-var stringConfig_1 = require("./stringConfig");
 var Sum = /** @class */ (function (_super) {
     __extends(Sum, _super);
     function Sum(id, type, ports_symbol) {
@@ -96,8 +84,6 @@ var Product = /** @class */ (function (_super) {
         this.inValPorts[index] = num;
     };
     Product.prototype.updateContent = function () {
-        console.log(this.inValPorts);
-        console.log("sum updated " + this.inValPorts[0].value + "," + this.inValPorts[1].value);
         this.value = 1;
         for (var i = 0; i < this.symbols.length; i++) {
             if (this.symbols[i] == "*") {
@@ -116,160 +102,39 @@ var Product = /** @class */ (function (_super) {
     return Product;
 }(block_behavior_1.InOutBlock));
 exports.Product = Product;
-var Signal2Num = /** @class */ (function (_super) {
-    __extends(Signal2Num, _super);
-    function Signal2Num(id, type) {
+var Log = /** @class */ (function (_super) {
+    __extends(Log, _super);
+    function Log(id, type) {
         var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [new object_1.Signal];
+        _this.inValPorts = [new object_1.Number, new object_1.Number(Math.E)]; //num,base 
         _this.outValPorts = [new object_1.Number];
         return _this;
     }
-    Signal2Num.prototype.addValPort = function (index, sig) {
-        while (this.inValPorts.length <= index) {
-            this.inValPorts.push(null);
-        }
-        this.inValPorts[index] = sig;
-    };
-    Signal2Num.prototype.updateContent = function () {
-        this.value = this.inValPorts[0].state ? 1 : 0;
-        this.outValPorts[0].value = this.value;
-    };
-    return Signal2Num;
-}(block_behavior_1.InOutBlock));
-exports.Signal2Num = Signal2Num;
-var Slider = /** @class */ (function (_super) {
-    __extends(Slider, _super);
-    // position = new Vector2d(0, 0)
-    function Slider(id, type) {
-        var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [new object_1.Number(0), new object_1.Number(100), new object_1.Number(50), new object_1.Number(1)]; //min max default step
-        _this.outValPorts = [new object_1.Number];
-        _this.displayDetail = {
-            color: "#FFFFFF",
-            value: _this.value,
-            type: stringConfig_1.CANVAS_DISPLAY_TYPE.IN_SLIDE,
-            position: _this.position
-        };
-        return _this;
-    }
-    Slider.prototype.setValue = function (val) {
-        this.value = val;
-    };
-    Slider.prototype.addValPort = function (index, num) {
+    Log.prototype.addValPort = function (index, num) {
         this.inValPorts[index] = num;
     };
-    Slider.prototype.updateContent = function () {
-        // this.value = this.inValPorts[0].value
-        this.displayDetail.value = this.value;
-    };
-    Slider.prototype.setDisplayDetail = function (detail) {
-        if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            console.log("port is not null");
-            this.updateContent();
-            this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { value: this.inValPorts[0].value }), detail);
-        }
-        else {
-            console.log("port is null");
-            this.displayDetail = __assign({ type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
-        }
-        this.position = this.displayDetail.position;
-    };
-    return Slider;
-}(block_behavior_1.InOutDisplay));
-exports.Slider = Slider;
-var Greater = /** @class */ (function (_super) {
-    __extends(Greater, _super);
-    function Greater(id, type) {
-        var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [null, null];
-        _this.outValPorts = [new object_1.Bool];
-        return _this;
-    }
-    Greater.prototype.updateContent = function () {
-        this.value = this.inValPorts[0].value > this.inValPorts[1].value;
+    Log.prototype.updateContent = function () {
+        this.value = Math.log(this.inValPorts[0].value) / Math.log(this.inValPorts[1].value);
         this.outValPorts[0].value = this.value;
-        // console.log("sum updated")
     };
-    return Greater;
+    return Log;
 }(block_behavior_1.InOutBlock));
-exports.Greater = Greater;
-var GreaterOrEqual = /** @class */ (function (_super) {
-    __extends(GreaterOrEqual, _super);
-    function GreaterOrEqual(id, type) {
+exports.Log = Log;
+var Power = /** @class */ (function (_super) {
+    __extends(Power, _super);
+    function Power(id, type) {
         var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [null, null];
-        _this.outValPorts = [new object_1.Bool];
-        return _this;
-    }
-    GreaterOrEqual.prototype.updateContent = function () {
-        this.value = this.inValPorts[0].value >= this.inValPorts[1].value;
-        this.outValPorts[0].value = this.value;
-        // console.log("sum updated")
-    };
-    return GreaterOrEqual;
-}(block_behavior_1.InOutBlock));
-exports.GreaterOrEqual = GreaterOrEqual;
-var AND = /** @class */ (function (_super) {
-    __extends(AND, _super);
-    function AND(id, type) {
-        var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [null, null];
-        _this.outValPorts = [new object_1.Bool];
-        return _this;
-    }
-    AND.prototype.updateContent = function () {
-        this.value = this.inValPorts[0].value && this.inValPorts[1].value;
-        this.outValPorts[0].value = this.value;
-        // console.log("sum updated")
-    };
-    return AND;
-}(block_behavior_1.InOutBlock));
-exports.AND = AND;
-var OR = /** @class */ (function (_super) {
-    __extends(OR, _super);
-    function OR(id, type) {
-        var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [null, null];
-        _this.outValPorts = [new object_1.Bool];
-        return _this;
-    }
-    OR.prototype.updateContent = function () {
-        this.value = this.inValPorts[0].value || this.inValPorts[1].value;
-        this.outValPorts[0].value = this.value;
-        // console.log("sum updated")
-    };
-    return OR;
-}(block_behavior_1.InOutBlock));
-exports.OR = OR;
-var NOT = /** @class */ (function (_super) {
-    __extends(NOT, _super);
-    function NOT(id, type) {
-        var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [null];
-        _this.outValPorts = [new object_1.Bool];
-        return _this;
-    }
-    NOT.prototype.updateContent = function () {
-        this.value = !this.inValPorts[0].value;
-        this.outValPorts[0].value = this.value;
-        // console.log("sum updated")
-    };
-    return NOT;
-}(block_behavior_1.InOutBlock));
-exports.NOT = NOT;
-var Condition = /** @class */ (function (_super) {
-    __extends(Condition, _super);
-    function Condition(id, type) {
-        var _this = _super.call(this, id, type) || this;
-        _this.inValPorts = [null, null];
+        _this.inValPorts = [new object_1.Number, new object_1.Number(Math.E)]; //base,power 
         _this.outValPorts = [new object_1.Number];
         return _this;
     }
-    Condition.prototype.updateContent = function () {
-        this.value = this.inValPorts[0].value + this.inValPorts[1].value;
-        this.outValPorts[0].value = this.value;
-        // console.log("sum updated")
+    Power.prototype.addValPort = function (index, num) {
+        this.inValPorts[index] = num;
     };
-    return Condition;
+    Power.prototype.updateContent = function () {
+        this.value = Math.pow(this.inValPorts[0].value, this.inValPorts[1].value);
+        this.outValPorts[0].value = this.value;
+    };
+    return Power;
 }(block_behavior_1.InOutBlock));
-exports.Condition = Condition;
+exports.Power = Power;
