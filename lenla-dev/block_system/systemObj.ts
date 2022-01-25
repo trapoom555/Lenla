@@ -481,7 +481,12 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                             index: 3,
                             name: "type",
                             value: 1,
-                            type: INS_DISPLAY_TYPE.INPUT_NUM
+                            option: [
+                                { name: "toggle", value: 0 },
+                                { name: "push-on", value: 1 },
+                                { name: "push-off", value: 2 }]
+                            ,
+                            type: INS_DISPLAY_TYPE.IN_DROPDOWN
                         },
                         {
                             index: 4,

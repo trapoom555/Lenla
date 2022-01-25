@@ -35,6 +35,7 @@ export const BLOCK_CATE = {
 export const INS_DISPLAY_TYPE = {
     INPUT_NUM: "input(num)",
     IN_NUM: "input/port(num)",
+    IN_DROPDOWN: "input dropdown",
     IN_STR: "input/port(string)",
     INPUT_BOOL: "input(bool)",
     IN_OPTION: "input option(int)",
