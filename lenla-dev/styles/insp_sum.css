@@ -25,11 +25,28 @@
     border: solid #555 1px;
 }
 
+.insp_sum_header_first {
+    text-align: left;
+    margin-bottom: 2vh;
+    font-weight: bold;
+    /* margin-top: 3vh;
+    margin-left: 2vw; */
+}
+
 .insp_sum_header {
     text-align: left;
     margin-bottom: 2vh;
+    font-weight: bold;
+    margin-top: 2.5vh;
     /* margin-top: 3vh;
     margin-left: 2vw; */
+}
+
+.insp_sum_sub_header {
+    text-align: left;
+    margin-left: 1vw;
+    margin-bottom: 2vh;
+    margin-top: 2.5vh;
 }
 
 .insp_sum_port_enable_wrapper {

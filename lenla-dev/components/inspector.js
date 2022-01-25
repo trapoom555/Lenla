@@ -46,7 +46,7 @@ function PortsEdit(props) {
     }, [portChoice]);
     return (
         <div>
-            <div>Port {i}</div>
+            <div className="insp_sum_sub_header">Port {i}</div>
             <div className="insp_sum_port_enable_wrapper">
                 <input
                     className="insp_sum_port_enable_check"
@@ -149,6 +149,33 @@ function DiatailInspect(props) {
                 </div>
             );
             // compList.push(<input type={"text"}></input>);
+        }
+        if (each.type == INS_DISPLAY_TYPE.IN_DROPDOWN) {
+            compList.push(
+                <div className = "insp_dropdown_wrapper">
+                    <div className="insp_constant_header">{each.name}</div>
+                    <Dropdown
+                        // baseClassName="rdn"
+                        options={each.options.map((x) => x.name)}
+                        onChange={(value) => {
+                            // Do Sth
+                            for(let iter = 0; iter < each.options.length; iter++){
+                                let tmpOption = each.options[iter]
+                                if(value.value == tmpOption.name) {
+                                    console.log("Set Option", value.value);
+                                    each.value = tmpOption.value
+                                }   
+                            }
+                            
+                        }}
+                        // menu="div"
+                        value={"Toggle"}
+                        placeholder="Select an option"
+                        // arrowClosed={<span className="arrow-closed" />}
+                        // arrowOpen={<span className="arrow-open" />}
+                    />
+                </div>
+            )
         }
         if (each.type == INS_DISPLAY_TYPE.IN_STR) {
             let tmp = each.value;
@@ -254,6 +281,30 @@ function DiatailInspect(props) {
             );
             // console.log("Wow:" + each.index);
         }
+
+        if (each.type == INS_DISPLAY_TYPE.INPUT_NUM_IN_LAYOUT) {
+            compList.push(
+                <div className="sub_layout_wapper">
+                    <div className="sub_layout_header">{each.name} </div>
+                    <input
+                        className="vec2d_input"
+                        type={CANVAS_DISPLAY_TYPE.OUT_STR}
+                        value={tmp}
+                        onChange={(inputVal) => {
+                            const val = parseFloat(inputVal.target.value);
+                            val = isNaN(val) ? 0 : val;
+                            if (head == -1) {
+                                element.data.info[each.index].value = val;
+                            } else {
+                                element.data.info[head].value[each.index] = val;
+                            }
+                            updateElementById(element.id, element);
+                        }}
+                    ></input>
+                </div>
+            );
+        }
+
         console.log("done each");
     }
 
@@ -325,7 +376,7 @@ function DiatailInspect(props) {
                     {(config.limitIn[1] > element.data.port.in.length ||
                         config.limitIn[1] == "inf") && (
                         <div>
-                            <div className="insp_sum_header">Add Ports</div>
+                            <div className="insp_sum_header_first">Add Ports</div>
                             <div className="insp_sum_port_enable_wrapper">
                                 <input
                                     className="insp_sum_port_enable_check"
