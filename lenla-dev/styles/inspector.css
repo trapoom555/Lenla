@@ -10,6 +10,12 @@
     flex-direction: column;
 }
 
+.insp_wrapper {
+    padding-top: 3vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
 .inspector_nav {
     display: flex;
     flex-direction: row;

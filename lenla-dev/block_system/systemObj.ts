@@ -28,13 +28,13 @@ export class System {
                 // console.log(element.data.info[4].value[0])
 
                 if (Block.isISub(node)) {
-                    node.addValPort(1, element.data.info[1].value)
-                    node.addValPort(2, element.data.info[2].value)
+                    node.addValPort(1, element.data.info[2].value[1].value)
+                    node.addValPort(2, element.data.info[2].value[2].value)
 
 
                 }
                 if (Block.isDisplayable(node)) {
-                    node.setDisplayDetail({ position: element.data.info[4].value[0].value })
+                    node.setDisplayDetail({ position: element.data.info[2].value[0].value })
                     // console.log("help")
 
                 }
@@ -145,7 +145,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     // data: data.num,
                     info: [{
                         index: 0,
-                        name: "num",
+                        name: "Number",
                         value: data.value,
                         type: INS_DISPLAY_TYPE.INPUT_NUM
                     }],
@@ -168,7 +168,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     // data: data.num,
                     info: [{
                         index: 0,
-                        name: "string",
+                        name: "String",
                         value: data.value,
                         type: INS_DISPLAY_TYPE.IN_STR
                     }],
@@ -250,23 +250,23 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     info: [
                         {
                             index: 0,
-                            name: "num",
+                            name: "Number",
                             value: null,
                             type: INS_DISPLAY_TYPE.OUT_NUM
                         },
                         {
                             index: 1,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: INS_DISPLAY_TYPE.IN_VECTOR_2D
                                 },
                                 {
                                     index: 1,
-                                    name: "color",
+                                    name: "Color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -308,17 +308,17 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
 
                         {
                             index: 0,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: INS_DISPLAY_TYPE.IN_VECTOR_2D
                                 },
                                 {
                                     index: 1,
-                                    name: "letter color",
+                                    name: "Color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -353,41 +353,41 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     info: [
                         {
                             index: 0,
-                            name: "min",
+                            name: "Min",
                             value: 0,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 1,
-                            name: "max",
+                            name: "Max",
                             value: 100,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 2,
-                            name: "default",
+                            name: "Default",
                             value: 50,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 3,
-                            name: "step",
+                            name: "Step",
                             value: 1,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 4,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: INS_DISPLAY_TYPE.IN_VECTOR_2D
                                 },
                                 {
                                     index: 1,
-                                    name: "letter color",
+                                    name: "Color",
                                     value: "#FFFFFF",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -423,31 +423,31 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         },
                         {
                             index: 1,
-                            name: "on color",
-                            value: '#F8DE7E',
-                            type: INS_DISPLAY_TYPE.INPUT_COLOR
-                        },
-                        {
-                            index: 2,
-                            name: "off color",
-                            value: "#7E7E7E",
-                            type: INS_DISPLAY_TYPE.INPUT_COLOR
-                        },
-                        {
-                            index: 3,
-                            name: "type",
+                            name: "Type",
                             value: 1,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
-                            index: 4,
-                            name: "display properties",
+                            index: 2,
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                                {
+                                    index: 1,
+                                    name: "On Color",
+                                    value: '#F8DE7E',
+                                    type: INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                                {
+                                    index: 2,
+                                    name: "Off Color",
+                                    value: "#7E7E7E",
+                                    type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
 
                             ],

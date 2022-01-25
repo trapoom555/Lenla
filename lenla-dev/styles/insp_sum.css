@@ -28,8 +28,8 @@
 .insp_sum_header {
     text-align: left;
     margin-bottom: 2vh;
-    margin-top: 3vh;
-    margin-left: 2vw;
+    /* margin-top: 3vh;
+    margin-left: 2vw; */
 }
 
 .insp_sum_port_enable_wrapper {

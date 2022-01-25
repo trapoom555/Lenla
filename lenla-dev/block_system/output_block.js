@@ -63,7 +63,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         this.position = this.displayDetail.position;
     };
     NumberDisplay.prototype.log = function () {
-        console.log("value is ".concat(this.value.toString()));
+        console.log("value is " + this.value.toString());
     };
     NumberDisplay.prototype.displayContent = function () {
         // this.setDisplayDetail({});
@@ -118,7 +118,7 @@ var StringDisplay = /** @class */ (function (_super) {
         this.position = this.displayDetail.position;
     };
     StringDisplay.prototype.log = function () {
-        console.log("value is ".concat(this.value.toString()));
+        console.log("value is " + this.value.toString());
     };
     StringDisplay.prototype.displayContent = function () {
         // this.setDisplayDetail({});

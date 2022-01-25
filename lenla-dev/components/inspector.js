@@ -174,12 +174,12 @@ function DiatailInspect(props) {
         if (each.type == INS_DISPLAY_TYPE.IN_VECTOR_2D) {
             let tmp = each.value;
             compList.push(
-                <div>
-                    <>{each.name} </>
-                    <br></br>
-                    <>x </>
+                <div className="sub_layout_wapper">
+                    <div className="sub_layout_header">{each.name} </div>
+                    <div className="sub_layout_sub_header">x : </div>
                     <input
                         type="number"
+                        className="vec2d_input"
                         value={tmp.x}
                         onChange={(inputVal) => {
                             const val = inputVal.target.value;
@@ -193,10 +193,10 @@ function DiatailInspect(props) {
                             updateElementById(element.id, element);
                         }}
                     ></input>
-                    <br></br>
-                    <>y </>
+                    <div className="sub_layout_sub_header">y : </div>
                     <input
                         type="number"
+                        className="vec2d_input"
                         value={tmp.y}
                         onChange={(inputVal) => {
                             const val = inputVal.target.value;
@@ -224,9 +224,10 @@ function DiatailInspect(props) {
 
             if (color == null) color = "#FFFFFF";
             compList.push(
-                <div>
-                    <>{each.name}</>
+                <div className="sub_layout_wapper">
+                    <div className="sub_layout_header">{each.name}</div>
                     <InputColor
+                        className="sub_layout_sub_header"
                         initialValue={color}
                         onChange={(new_color) => {
                             // setColor(color);
@@ -281,8 +282,8 @@ function DiatailInspect(props) {
                         pushComplist(subEach, tmp, element, each.index);
                     });
                     compList.push(
-                        <div style={{ border: "1px solid rgb(0, 0, 0)" }}>
-                            <div style={{}}>{each.name}</div>
+                        <div className={compList.length != 0 ? "layout_group" : "layout_group_first"}>
+                            <div className="layout_header">{each.name}</div>
                             {tmp}
                         </div>
                     );
@@ -304,7 +305,7 @@ function DiatailInspect(props) {
             }
             // console.log("section 3");
             return (
-                <div>
+                <div className="insp_wrapper">
                     {/* <p>id: {element.id}</p>
                     <p>type: {element.type}</p>
                     <p>port: {element.type}</p> */}

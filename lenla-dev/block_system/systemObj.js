@@ -38,11 +38,11 @@ var System = /** @class */ (function () {
                 node = new InBlock.BasicButton(element.id, element.type);
                 // console.log(element.data.info[4].value[0])
                 if (Block.isISub(node)) {
-                    node.addValPort(1, element.data.info[1].value);
-                    node.addValPort(2, element.data.info[2].value);
+                    node.addValPort(1, element.data.info[2].value[1].value);
+                    node.addValPort(2, element.data.info[2].value[2].value);
                 }
                 if (Block.isDisplayable(node)) {
-                    node.setDisplayDetail({ position: element.data.info[4].value[0].value });
+                    node.setDisplayDetail({ position: element.data.info[2].value[0].value });
                     // console.log("help")
                 }
                 break;
@@ -142,7 +142,7 @@ function createElementObj(id, type, position, data, name) {
                     // data: data.num,
                     info: [{
                             index: 0,
-                            name: "num",
+                            name: "Number",
                             value: data.value,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                         }],
@@ -159,7 +159,7 @@ function createElementObj(id, type, position, data, name) {
                     // data: data.num,
                     info: [{
                             index: 0,
-                            name: "string",
+                            name: "String",
                             value: data.value,
                             type: stringConfig_1.INS_DISPLAY_TYPE.IN_STR
                         }],
@@ -216,23 +216,23 @@ function createElementObj(id, type, position, data, name) {
                     info: [
                         {
                             index: 0,
-                            name: "num",
+                            name: "Number",
                             value: null,
                             type: stringConfig_1.INS_DISPLAY_TYPE.OUT_NUM
                         },
                         {
                             index: 1,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
                                 },
                                 {
                                     index: 1,
-                                    name: "color",
+                                    name: "Color",
                                     value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -263,17 +263,17 @@ function createElementObj(id, type, position, data, name) {
                     info: [
                         {
                             index: 0,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
                                 },
                                 {
                                     index: 1,
-                                    name: "letter color",
+                                    name: "Color",
                                     value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -295,41 +295,41 @@ function createElementObj(id, type, position, data, name) {
                     info: [
                         {
                             index: 0,
-                            name: "min",
+                            name: "Min",
                             value: 0,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 1,
-                            name: "max",
+                            name: "Max",
                             value: 100,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 2,
-                            name: "default",
+                            name: "Default",
                             value: 50,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 3,
-                            name: "step",
+                            name: "Step",
                             value: 1,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 4,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
                                 },
                                 {
                                     index: 1,
-                                    name: "letter color",
+                                    name: "Color",
                                     value: "#FFFFFF",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -357,31 +357,31 @@ function createElementObj(id, type, position, data, name) {
                         },
                         {
                             index: 1,
-                            name: "on color",
-                            value: '#F8DE7E',
-                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
-                        },
-                        {
-                            index: 2,
-                            name: "off color",
-                            value: "#7E7E7E",
-                            type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
-                        },
-                        {
-                            index: 3,
-                            name: "type",
+                            name: "Type",
                             value: 1,
                             type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
-                            index: 4,
-                            name: "display properties",
+                            index: 2,
+                            name: "Display Properties",
                             value: [
                                 {
                                     index: 0,
-                                    name: "position",
+                                    name: "Position",
                                     value: { x: 0, y: 0 },
                                     type: stringConfig_1.INS_DISPLAY_TYPE.IN_VECTOR_2D
+                                },
+                                {
+                                    index: 1,
+                                    name: "On Color",
+                                    value: '#F8DE7E',
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                                {
+                                    index: 2,
+                                    name: "Off Color",
+                                    value: "#7E7E7E",
+                                    type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
                             ],
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
