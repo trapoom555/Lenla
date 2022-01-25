@@ -6,7 +6,7 @@ let allBlocks = [
             { name: "Constant", type: BLOCK_TYPE.IN_CONSTANT },
             { name: "String", type: BLOCK_TYPE.IN_STRING },
             { name: "Slider", type: BLOCK_TYPE.IN_SLIDER },
-            { name: "Basic Button", type: BLOCK_TYPE.IN_BASIC_BUTTON },
+            { name: "Button", type: BLOCK_TYPE.IN_BASIC_BUTTON },
         ],
     },
 

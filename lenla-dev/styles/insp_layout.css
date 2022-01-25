@@ -1,0 +1,46 @@
+.layout_group {
+    border-top: 2px solid #CCC;
+    padding-top: 2vh;
+    text-align: left;
+}
+
+.layout_group_first {
+    text-align: left;
+}
+
+.layout_header {
+    font-weight: bold;
+    margin-bottom: 1vh;
+}
+
+.vec2d_input {
+    box-sizing: border-box;
+    height: 100%;
+    width: 20%;
+    margin-left: 0.5vw;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #555;
+    font-size: 1vw;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    color: #555;
+    background-color: #ffffff00;
+}
+
+.sub_layout_wapper {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3vh;
+    margin-left: 1vw;
+}
+
+.sub_layout_sub_header {
+    margin-left: 1vw;
+}
+
+.sub_layout_header {
+    color: black;
+    width: 5vw;
+}

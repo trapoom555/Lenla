@@ -30,15 +30,12 @@ export class System {
                 // console.log(element.data.info[4].value[0])
 
                 if (Block.isISub(node)) {
-                    node.addValPort(1, element.data.info[1].value)
-                    node.addValPort(2, element.data.info[2].value)
-
-
+                    node.addValPort(1, element.data.info[2].value[1].value)
+                    node.addValPort(2, element.data.info[2].value[2].value)
                 }
                 if (Block.isDisplayable(node)) {
-                    node.setDisplayDetail({ position: element.data.info[4].value[0].value })
+                    node.setDisplayDetail({ position: element.data.info[2].value[0].value })
                     // console.log("help")
-
                 }
                 break
             case BLOCK_TYPE.OP_SUM:
@@ -145,7 +142,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
     const displaySetting = [
         {
             index: 0,
-            name: "position",
+            name: "Position",
             value: { x: 0, y: 0 },
             type: INS_DISPLAY_TYPE.IN_VECTOR_2D
         },
@@ -163,7 +160,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     info: [
                         {
                             index: 0,
-                            name: "num",
+                            name: "Number",
                             value: 0,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         }
@@ -187,7 +184,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     // data: data.num,
                     info: [{
                         index: 0,
-                        name: "string",
+                        name: "String",
                         value: data.value,
                         type: INS_DISPLAY_TYPE.IN_STR
                     }],
@@ -304,26 +301,26 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     info: [
                         {
                             index: 0,
-                            name: "num",
+                            name: "Number",
                             value: null,
                             type: INS_DISPLAY_TYPE.OUT_NUM
                         },
                         {
                             index: 1,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 ...displaySetting,
                                 {
                                     index: disLen,
-                                    name: "color",
+                                    name: "Color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
                                 {
                                     index: disLen + 1,
-                                    name: "digit display",
+                                    name: "Decimal Places",
                                     value: 2,
-                                    type: INS_DISPLAY_TYPE.INPUT_NUM
+                                    type: INS_DISPLAY_TYPE.INPUT_NUM_IN_LAYOUT
                                 },
 
                             ],
@@ -358,12 +355,12 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
 
                         {
                             index: 0,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
                                 ...displaySetting,
                                 {
                                     index: disLen,
-                                    name: "color",
+                                    name: "Color",
                                     value: "#000000",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
@@ -397,44 +394,40 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     info: [
                         {
                             index: 0,
-                            name: "min",
+                            name: "Min",
                             value: 0,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 1,
-                            name: "max",
+                            name: "Max",
                             value: 100,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 2,
-                            name: "default",
+                            name: "Default",
                             value: 50,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 3,
-                            name: "step",
+                            name: "Step",
                             value: 1,
                             type: INS_DISPLAY_TYPE.INPUT_NUM
                         },
                         {
                             index: 4,
-                            name: "display properties",
+                            name: "Display Properties",
                             value: [
+                                ...displaySetting,
                                 {
-                                    index: 0,
-                                    name: "position",
-                                    value: { x: 0, y: 0 },
-                                    type: INS_DISPLAY_TYPE.IN_VECTOR_2D
-                                },
-                                {
-                                    index: 1,
-                                    name: "letter color",
+                                    index: disLen,
+                                    name: "Color",
                                     value: "#FFFFFF",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
+                                
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -467,32 +460,33 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                         },
                         {
                             index: 1,
-                            name: "on color",
-                            value: '#F8DE7E',
-                            type: INS_DISPLAY_TYPE.INPUT_COLOR
-                        },
-                        {
-                            index: 2,
-                            name: "off color",
-                            value: "#7E7E7E",
-                            type: INS_DISPLAY_TYPE.INPUT_COLOR
-                        },
-                        {
-                            index: 3,
-                            name: "type",
-                            value: 1,
-                            option: [
-                                { name: "toggle", value: 0 },
-                                { name: "push-on", value: 1 },
-                                { name: "push-off", value: 2 }]
+                            name: "Type",
+                            value: 0,
+                            options: [
+                                { name: "Toggle", value: 0 },
+                                { name: "Push-On", value: 1 },
+                                { name: "Push-Off", value: 2 }]
                             ,
                             type: INS_DISPLAY_TYPE.IN_DROPDOWN
                         },
                         {
-                            index: 4,
-                            name: "display properties",
+                            index: 2,
+                            name: "Display Properties",
                             value: [
                                 ...displaySetting,
+                                {
+                                    index: disLen,
+                                    name: "On Color",
+                                    value: '#F8DE7E',
+                                    type: INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                                {
+                                    index: disLen + 1,
+                                    name: "Off Color",
+                                    value: "#7E7E7E",
+                                    type: INS_DISPLAY_TYPE.INPUT_COLOR
+                                },
+                                
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP

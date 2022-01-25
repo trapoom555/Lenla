@@ -1,13 +1,18 @@
 .insp_constant_wrapper {
-    padding-top: 3vh;
     display: flex;
     flex-direction: column;
-    padding: 3vh 2vw 0vh 2vw;
+}
+
+.insp_dropdown_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
 }
 
 .insp_constant_header {
     text-align: left;
     margin-bottom: 2vh;
+    font-weight: bold;
 }
 
 .insp_constant_input {
