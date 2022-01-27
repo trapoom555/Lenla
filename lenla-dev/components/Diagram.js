@@ -21,19 +21,25 @@ import StringDisplayBlock from "../blocks/blk_string_display";
 const nodeTypes = {
     [BLOCK_TYPE.IN_CONSTANT]: ConstantBlock,
     [BLOCK_TYPE.IN_STRING]: StringBlock,
+    [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicButtonBlock,
+
     [BLOCK_TYPE.OP_SUM]: SumBlock,
     [BLOCK_TYPE.OP_PRODUCT]: ProductBlock,
     [BLOCK_TYPE.OP_POWER]: BasicBlock,
     [BLOCK_TYPE.OP_LOG]: BasicBlock,
+
+    [BLOCK_TYPE.CON_SIG2NUM]: Sig2NumBlock,
+    [BLOCK_TYPE.CON_SIG2BOOL]: BasicBlock,
+
     [BLOCK_TYPE.OUT_NUMBER_DISPLAY]: NumberDisplayBlock,
-    [BLOCK_TYPE.Test_OP]: BasicBlock,
-    [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,
+    [BLOCK_TYPE.OUT_STRING_DISPLAY]: StringDisplayBlock,
+
     [BLOCK_TYPE.OUT_BOOLEAN_DISPLAY]: BasicBlock,
     [BLOCK_TYPE.LOG_GREATER]: BasicBlock,
     [BLOCK_TYPE.IN_SLIDER]: SliderBlock,
-    [BLOCK_TYPE.IN_BASIC_BUTTON]: BasicButtonBlock,
-    [BLOCK_TYPE.CON_SIG2NUM]: Sig2NumBlock,
-    [BLOCK_TYPE.OUT_STRING_DISPLAY]: StringDisplayBlock,
+
+    [BLOCK_TYPE.IN_VECTOR_2D]: BasicBlock,
+    [BLOCK_TYPE.Test_OP]: BasicBlock,
 };
 
 let currentBlockID = 0;

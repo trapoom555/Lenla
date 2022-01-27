@@ -35,7 +35,7 @@ var NumberDisplay = /** @class */ (function (_super) {
     function NumberDisplay(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
-        console.log("create num dis");
+        // console.log("create num dis")
         _this.displayDetail = {
             color: "#000000",
             digit: 2,
@@ -104,7 +104,10 @@ var StringDisplay = /** @class */ (function (_super) {
         }
         if (this.inValPorts[0] instanceof object_1.String) {
             this.value = this.inValPorts[0].value;
-            console.log("is String");
+            // console.log("is String")
+        }
+        if (this.inValPorts[0] instanceof object_1.Bool) {
+            this.value = this.inValPorts[0].value ? "true" : "false";
         }
         console.log("value is " + this.value);
         this.displayDetail.value = this.value;

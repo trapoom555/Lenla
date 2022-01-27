@@ -53,6 +53,9 @@ export class System {
             case BLOCK_TYPE.CON_SIG2NUM:
                 node = new ConverterBlock.Signal2Num(element.id, element.type)
                 break
+            case BLOCK_TYPE.CON_SIG2BOOL:
+                node = new ConverterBlock.Signal2Bool(element.id, element.type)
+                break
             case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type)
                 if (Block.isDisplayable(node)) {
@@ -291,6 +294,23 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     },
                 }
             }
+        case BLOCK_TYPE.CON_SIG2BOOL:
+            return {
+                ...obj,
+
+                data:
+                {
+                    info: [],
+                    port:
+                    {
+                        in: ["signal"],
+                        inType: ["signal"],
+                        out: ["value"],
+                        outType: ["bool"],
+                        inEnable: [true,],
+                    },
+                }
+            }
         case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
             console.log("fuck")
             return {
@@ -427,7 +447,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                     value: "#FFFFFF",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                                
+
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -486,7 +506,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                     value: "#7E7E7E",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                                
+
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -546,6 +566,11 @@ export function blockConfig(type: string) {
                 choice: []
             }
         case BLOCK_TYPE.CON_SIG2NUM:
+            return {
+                limitIn: [1, 1],
+                choice: [],
+            }
+        case BLOCK_TYPE.CON_SIG2BOOL:
             return {
                 limitIn: [1, 1],
                 choice: [],

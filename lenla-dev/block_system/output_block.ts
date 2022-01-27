@@ -7,7 +7,7 @@ export class NumberDisplay extends OutputBlock {
     displayDetail: any;
     constructor(id: string, type: string) {
         super(id, type);
-        console.log("create num dis")
+        // console.log("create num dis")
         this.displayDetail = {
             color: "#000000",
             digit: 2,
@@ -94,7 +94,10 @@ export class StringDisplay extends OutputBlock {
         }
         if (this.inValPorts[0] instanceof String) {
             this.value = this.inValPorts[0].value
-            console.log("is String")
+            // console.log("is String")
+        }
+        if (this.inValPorts[0] instanceof Bool) {
+            this.value = this.inValPorts[0].value ? "true" : "false"
         }
         console.log("value is " + this.value)
         this.displayDetail.value = this.value

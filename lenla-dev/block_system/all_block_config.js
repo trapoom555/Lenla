@@ -15,11 +15,16 @@ let allBlocks = [
         blocksData: [
             { name: "Sum", type: BLOCK_TYPE.OP_SUM },
             { name: "Product", type: BLOCK_TYPE.OP_PRODUCT },
+            { name: "Power", type: BLOCK_TYPE.OP_POWER },
+            { name: "Log", type: BLOCK_TYPE.OP_LOG },
         ],
     },
     {
         groupName: "Converter",
-        blocksData: [{ name: "Sig2Num", type: BLOCK_TYPE.CON_SIG2NUM }],
+        blocksData: [
+            { name: "Sig2Num", type: BLOCK_TYPE.CON_SIG2NUM },
+            { name: "Sig2Bool", type: BLOCK_TYPE.CON_SIG2BOOL },
+        ],
     },
 
     {
@@ -30,4 +35,4 @@ let allBlocks = [
         ],
     },
 ];
-export default allBlocks
+export default allBlocks;

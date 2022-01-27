@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.Signal2Num = void 0;
+exports.Signal2Bool = exports.Signal2Num = void 0;
 var block_behavior_1 = require("./block_behavior");
 var object_1 = require("./object");
 var Signal2Num = /** @class */ (function (_super) {
@@ -39,3 +39,24 @@ var Signal2Num = /** @class */ (function (_super) {
     return Signal2Num;
 }(block_behavior_1.InOutBlock));
 exports.Signal2Num = Signal2Num;
+var Signal2Bool = /** @class */ (function (_super) {
+    __extends(Signal2Bool, _super);
+    function Signal2Bool(id, type) {
+        var _this = _super.call(this, id, type) || this;
+        _this.inValPorts = [new object_1.Signal()];
+        _this.outValPorts = [new object_1.Bool()];
+        return _this;
+    }
+    Signal2Bool.prototype.addValPort = function (index, sig) {
+        while (this.inValPorts.length <= index) {
+            this.inValPorts.push(null);
+        }
+        this.inValPorts[index] = sig;
+    };
+    Signal2Bool.prototype.updateContent = function () {
+        this.value = this.inValPorts[0].state;
+        this.outValPorts[0].value = this.value;
+    };
+    return Signal2Bool;
+}(block_behavior_1.InOutBlock));
+exports.Signal2Bool = Signal2Bool;

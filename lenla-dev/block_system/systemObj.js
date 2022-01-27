@@ -71,6 +71,9 @@ var System = /** @class */ (function () {
             case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
                 node = new ConverterBlock.Signal2Num(element.id, element.type);
                 break;
+            case stringConfig_1.BLOCK_TYPE.CON_SIG2BOOL:
+                node = new ConverterBlock.Signal2Bool(element.id, element.type);
+                break;
             case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type);
                 if (Block.isDisplayable(node)) {
@@ -255,6 +258,17 @@ function createElementObj(id, type, position, data, name) {
                         inType: ["signal"],
                         out: ["value"],
                         outType: ["num"],
+                        inEnable: [true,]
+                    }
+                } });
+        case stringConfig_1.BLOCK_TYPE.CON_SIG2BOOL:
+            return __assign(__assign({}, obj), { data: {
+                    info: [],
+                    port: {
+                        "in": ["signal"],
+                        inType: ["signal"],
+                        out: ["value"],
+                        outType: ["bool"],
                         inEnable: [true,]
                     }
                 } });
@@ -462,6 +476,11 @@ function blockConfig(type) {
                 choice: []
             };
         case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
+            return {
+                limitIn: [1, 1],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.CON_SIG2BOOL:
             return {
                 limitIn: [1, 1],
                 choice: []
