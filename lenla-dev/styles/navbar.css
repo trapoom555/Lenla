@@ -6,6 +6,10 @@
     /* justify-content: center; */
 }
 
+.dropdown-menu a{
+    color: black !important;
+}
+
 .nav_bar_list {
     float: right;
     margin: 0;
@@ -40,4 +44,70 @@ li {
     max-width: 200px;
     max-height: 10vh;
     padding: 0px 3vw;
+    height: 100%;
+    width: 100%;
+}
+
+.modal_wrapper {
+    padding: 4vh 4vw;
+}
+.save_diagram_header {
+    padding: 2vh 0;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.save_diagram_input {
+    box-sizing: border-box;
+    height: 5vh;
+    border-radius: 10px;
+    border-style: solid;
+    margin-bottom: 3vh;
+    margin-top: 2vh;
+    border-color: #555;
+    font-size: 1.5vw;
+    padding: 3vh 0.5vw;
+    color: #555;
+    width: 80%;
+    background-color: #ffffff00;
+
+}
+
+.save_diagram_button {
+    background-color: #5C7EF5;
+    border-style: none;
+    border-radius: 10px;
+    color: white;
+    width: 7vw;
+    height: 6.5vh;
+    font-size: 1.25vw;
+    margin-left: 1vw;
+}
+
+.all_diagram_wrapper {
+    border: black solid 2px;
+    border-radius: 10px;
+    overflow: auto;
+    height: 20vh;
+    padding: 2vh 1vw;
+    margin-bottom: 2vh;
+}
+
+.load_diagram_button {
+    background-color: #5C7EF5;
+    border-style: none;
+    border-radius: 10px;
+    color: white;
+    width: 7vw;
+    height: 6.5vh;
+    font-size: 1.25vw;
+}
+
+.load_diagram_items {
+    width: 100%;
+    border: hidden;
+    border-radius: 5px;
+    background-color: white;
+    padding: 2vh 1vw;
+    text-align: left;
 }
