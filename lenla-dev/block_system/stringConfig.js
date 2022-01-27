@@ -8,11 +8,12 @@ export const BLOCK_TYPE = {
     //operator
     OP_SUM: "sum_block",
     OP_PRODUCT: "product_block",
-    OP_LOG: "log_block",
-    OP_POWER: "power_block",
+    OP_LOG: "log",
+    OP_POWER: "power",
     OP_ADD: "add_block",
 
     CON_SIG2NUM: "sig2Num",
+    CON_SIG2BOOL: "sig2bool",
 
     LOG_GREATER: "greater",
     LOG_GREATER_OR_EQUAL: "greater_or_equal",

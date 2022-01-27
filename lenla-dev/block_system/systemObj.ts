@@ -25,7 +25,7 @@ export class System {
                 node = new InBlock.StringConstant(element.id, element.type, element.data.info[0].value);
                 break
             case BLOCK_TYPE.IN_BASIC_BUTTON:
-                console.log(element.type)
+                // console.log(element.type)
                 node = new InBlock.BasicButton(element.id, element.type)
                 // console.log(element.data.info[4].value[0])
 
@@ -53,11 +53,14 @@ export class System {
             case BLOCK_TYPE.CON_SIG2NUM:
                 node = new ConverterBlock.Signal2Num(element.id, element.type)
                 break
+            case BLOCK_TYPE.CON_SIG2BOOL:
+                node = new ConverterBlock.Signal2Bool(element.id, element.type)
+                break
             case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type)
                 if (Block.isDisplayable(node)) {
-                    console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
-                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                    // console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value, digit: element.data.info[1].value[2].value })
                 }
                 break
             case BLOCK_TYPE.OUT_STRING_DISPLAY:
@@ -109,9 +112,9 @@ export class System {
     }
     compile() {
         // console.log("////////////////////////////////////")
-        console.log(this.childNode)
+        // console.log(this.childNode)
         this.childNode.forEach(element => {
-            console.log(element.type)
+            // console.log(element.type)
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
                 // console.log(element.type + " is notify")
@@ -291,6 +294,23 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                     },
                 }
             }
+        case BLOCK_TYPE.CON_SIG2BOOL:
+            return {
+                ...obj,
+
+                data:
+                {
+                    info: [],
+                    port:
+                    {
+                        in: ["signal"],
+                        inType: ["signal"],
+                        out: ["value"],
+                        outType: ["bool"],
+                        inEnable: [true,],
+                    },
+                }
+            }
         case BLOCK_TYPE.OUT_NUMBER_DISPLAY:
             console.log("fuck")
             return {
@@ -427,7 +447,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                     value: "#FFFFFF",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                                
+
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -486,7 +506,7 @@ export function createElementObj(id: string, type: string, position = { x: 100, 
                                     value: "#7E7E7E",
                                     type: INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                                
+
 
                             ],
                             type: INS_DISPLAY_TYPE.LAYOUT_GROUP
@@ -546,6 +566,11 @@ export function blockConfig(type: string) {
                 choice: []
             }
         case BLOCK_TYPE.CON_SIG2NUM:
+            return {
+                limitIn: [1, 1],
+                choice: [],
+            }
+        case BLOCK_TYPE.CON_SIG2BOOL:
             return {
                 limitIn: [1, 1],
                 choice: [],

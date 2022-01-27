@@ -69,7 +69,7 @@ export default function Signup({ user, setUser }) {
             const data = await res.json();
             console.log(data);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
 
         // return res;
@@ -141,12 +141,12 @@ export default function Signup({ user, setUser }) {
                     }
                 } catch (error) {
                     // console.log(res);
-                    console.log(error);
+                    //console.log(error);
                 }
             }
         } catch (error) {
             // console.log(res);
-            console.log(error);
+            //console.log(error);
         }
     }
 

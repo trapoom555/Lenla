@@ -10,10 +10,14 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
 exports.blockConfig = exports.createElementObj = exports.System = void 0;
@@ -40,7 +44,7 @@ var System = /** @class */ (function () {
                 node = new InBlock.StringConstant(element.id, element.type, element.data.info[0].value);
                 break;
             case stringConfig_1.BLOCK_TYPE.IN_BASIC_BUTTON:
-                console.log(element.type);
+                // console.log(element.type)
                 node = new InBlock.BasicButton(element.id, element.type);
                 // console.log(element.data.info[4].value[0])
                 if (Block.isISub(node)) {
@@ -67,11 +71,14 @@ var System = /** @class */ (function () {
             case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
                 node = new ConverterBlock.Signal2Num(element.id, element.type);
                 break;
+            case stringConfig_1.BLOCK_TYPE.CON_SIG2BOOL:
+                node = new ConverterBlock.Signal2Bool(element.id, element.type);
+                break;
             case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
                 node = new OutBlock.NumberDisplay(element.id, element.type);
                 if (Block.isDisplayable(node)) {
-                    console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
-                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value });
+                    // console.log({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value })
+                    node.setDisplayDetail({ position: element.data.info[1].value[0].value, color: element.data.info[1].value[1].value, digit: element.data.info[1].value[2].value });
                 }
                 break;
             case stringConfig_1.BLOCK_TYPE.OUT_STRING_DISPLAY:
@@ -116,9 +123,9 @@ var System = /** @class */ (function () {
     };
     System.prototype.compile = function () {
         // console.log("////////////////////////////////////")
-        console.log(this.childNode);
+        // console.log(this.childNode)
         this.childNode.forEach(function (element) {
-            console.log(element.type);
+            // console.log(element.type)
             if (Block.isIPub(element)) {
                 element.notifyAllPort();
                 // console.log(element.type + " is notify")
@@ -254,6 +261,17 @@ function createElementObj(id, type, position, data, name) {
                         inEnable: [true,]
                     }
                 } });
+        case stringConfig_1.BLOCK_TYPE.CON_SIG2BOOL:
+            return __assign(__assign({}, obj), { data: {
+                    info: [],
+                    port: {
+                        "in": ["signal"],
+                        inType: ["signal"],
+                        out: ["value"],
+                        outType: ["bool"],
+                        inEnable: [true,]
+                    }
+                } });
         case stringConfig_1.BLOCK_TYPE.OUT_NUMBER_DISPLAY:
             console.log("fuck");
             return __assign(__assign({}, obj), { data: {
@@ -267,7 +285,7 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 1,
                             name: "Display Properties",
-                            value: __spreadArray(__spreadArray([], displaySetting), [
+                            value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
                                     index: disLen,
                                     name: "Color",
@@ -280,7 +298,7 @@ function createElementObj(id, type, position, data, name) {
                                     value: 2,
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_NUM_IN_LAYOUT
                                 },
-                            ]),
+                            ], false),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
                         },
                     ],
@@ -302,14 +320,14 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 0,
                             name: "Display Properties",
-                            value: __spreadArray(__spreadArray([], displaySetting), [
+                            value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
                                     index: disLen,
                                     name: "Color",
                                     value: "#000000",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                            ]),
+                            ], false),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
                         }
                     ],
@@ -352,14 +370,14 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 4,
                             name: "Display Properties",
-                            value: __spreadArray(__spreadArray([], displaySetting), [
+                            value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
                                     index: disLen,
                                     name: "Color",
                                     value: "#FFFFFF",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                            ]),
+                            ], false),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
                         }
                     ],
@@ -395,7 +413,7 @@ function createElementObj(id, type, position, data, name) {
                         {
                             index: 2,
                             name: "Display Properties",
-                            value: __spreadArray(__spreadArray([], displaySetting), [
+                            value: __spreadArray(__spreadArray([], displaySetting, true), [
                                 {
                                     index: disLen,
                                     name: "On Color",
@@ -408,7 +426,7 @@ function createElementObj(id, type, position, data, name) {
                                     value: "#7E7E7E",
                                     type: stringConfig_1.INS_DISPLAY_TYPE.INPUT_COLOR
                                 },
-                            ]),
+                            ], false),
                             type: stringConfig_1.INS_DISPLAY_TYPE.LAYOUT_GROUP
                         }
                     ],
@@ -458,6 +476,11 @@ function blockConfig(type) {
                 choice: []
             };
         case stringConfig_1.BLOCK_TYPE.CON_SIG2NUM:
+            return {
+                limitIn: [1, 1],
+                choice: []
+            };
+        case stringConfig_1.BLOCK_TYPE.CON_SIG2BOOL:
             return {
                 limitIn: [1, 1],
                 choice: []

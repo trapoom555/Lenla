@@ -112,7 +112,7 @@ var InputDisplay = /** @class */ (function () {
             this.displayContent();
         }
         catch (err) {
-            console.log(err);
+            //console.log(err)
         }
     };
     InputDisplay.prototype.getDisplayData = function () {
@@ -146,7 +146,7 @@ var OutputBlock = /** @class */ (function () {
             this.setDisplayDetail({});
         }
         catch (err) {
-            console.log(err);
+            // //console.log(err)
         }
     };
     OutputBlock.prototype.displayContent = function () {
@@ -156,7 +156,7 @@ var OutputBlock = /** @class */ (function () {
             this.displayContent();
         }
         catch (err) {
-            console.log(err);
+            //console.log(err)
         }
     };
     OutputBlock.prototype.getDisplayData = function () {
@@ -195,7 +195,7 @@ var InOutBlock = /** @class */ (function () {
             this.notifyAllPort();
         }
         catch (err) {
-            console.log(err);
+            //console.log(err)
         }
     };
     InOutBlock.prototype.addPortReciver = function (index, reciver) {
@@ -241,7 +241,7 @@ var InOutDisplay = /** @class */ (function (_super) {
             this.displayContent();
         }
         catch (err) {
-            console.log(err);
+            //console.log(err)
         }
     };
     InOutDisplay.prototype.getDisplayData = function () {

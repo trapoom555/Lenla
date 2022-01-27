@@ -35,9 +35,10 @@ var NumberDisplay = /** @class */ (function (_super) {
     function NumberDisplay(id, type) {
         var _this = _super.call(this, id, type) || this;
         _this.inValPorts = [null];
-        console.log("create num dis");
+        // console.log("create num dis")
         _this.displayDetail = {
             color: "#000000",
+            digit: 2,
             value: _this.value,
             type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR,
             position: _this.position
@@ -48,6 +49,7 @@ var NumberDisplay = /** @class */ (function (_super) {
         this.inValPorts[index] = num;
     };
     NumberDisplay.prototype.updateContent = function () {
+        console.log(this.inValPorts[0]);
         this.value = this.inValPorts[0].value;
         this.displayDetail.value = this.value;
     };
@@ -62,9 +64,10 @@ var NumberDisplay = /** @class */ (function (_super) {
             this.displayDetail = __assign({ color: this.displayDetail.color, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
         }
         this.position = this.displayDetail.position;
+        console.log("Good");
     };
     NumberDisplay.prototype.log = function () {
-        console.log("value is " + this.value.toString());
+        console.log("value is ".concat(this.value.toString()));
     };
     NumberDisplay.prototype.displayContent = function () {
         // this.setDisplayDetail({});
@@ -101,7 +104,10 @@ var StringDisplay = /** @class */ (function (_super) {
         }
         if (this.inValPorts[0] instanceof object_1.String) {
             this.value = this.inValPorts[0].value;
-            console.log("is String");
+            // console.log("is String")
+        }
+        if (this.inValPorts[0] instanceof object_1.Bool) {
+            this.value = this.inValPorts[0].value ? "true" : "false";
         }
         console.log("value is " + this.value);
         this.displayDetail.value = this.value;
@@ -119,7 +125,7 @@ var StringDisplay = /** @class */ (function (_super) {
         this.position = this.displayDetail.position;
     };
     StringDisplay.prototype.log = function () {
-        console.log("value is " + this.value.toString());
+        console.log("value is ".concat(this.value.toString()));
     };
     StringDisplay.prototype.displayContent = function () {
         // this.setDisplayDetail({});

@@ -72,6 +72,7 @@ function Button(props) {
     //     node.setState(tmp.init);
     //     callBack();
     // }
+
     return (
         <mesh
             {...props}
@@ -123,6 +124,11 @@ export default function ThreeCanvas(props) {
             try {
                 switch (tmp.type) {
                     case CANVAS_DISPLAY_TYPE.OUT_STR:
+                        console.log(tmp);
+                        let val = node.value;
+                        if (tmp.digit) {
+                            val = val.toFixed(tmp.digit);
+                        }
                         displayObj.push(
                             <Text
                                 scale={[5, 5, 10]}
@@ -132,7 +138,7 @@ export default function ThreeCanvas(props) {
                                 anchorY={tmp.position.y / 10}
                                 position={(-1.2, 1, 0)}
                             >
-                                {node.value.toString()}
+                                {val.toString()}
                             </Text>
                         );
                         break;
@@ -152,7 +158,7 @@ export default function ThreeCanvas(props) {
                         break;
                 }
             } catch (error) {
-                console.log(error);
+                //console.log(error);
             }
         }
     });

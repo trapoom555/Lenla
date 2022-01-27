@@ -63,7 +63,7 @@ export default function Signin({ user, setUser }) {
             console.log("get profileImg done");
         } catch (error) {
             // console.log(res);
-            console.log(error);
+            //console.log(error);
         }
     }
     return (

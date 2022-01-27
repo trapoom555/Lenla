@@ -123,8 +123,8 @@ function DiatailInspect(props) {
         setElements(items);
     }
     function pushComplist(each, compList, element, head = -1) {
-        console.log("each " + each.type);
-        console.log(each);
+        // console.log("each " + each.type);
+        // console.log(each);
         if (each.type == INS_DISPLAY_TYPE.INPUT_NUM) {
             let tmp = each.value;
             compList.push(
@@ -137,11 +137,15 @@ function DiatailInspect(props) {
                         value={tmp}
                         onChange={(inputVal) => {
                             const val = parseFloat(inputVal.target.value);
+                            console.log("weee" + head);
+                            console.log(element);
                             val = isNaN(val) ? 0 : val;
                             if (head == -1) {
                                 element.data.info[each.index].value = val;
                             } else {
-                                element.data.info[head].value[each.index] = val;
+                                element.data.info[head].value[
+                                    each.index
+                                ].value = val;
                             }
                             updateElementById(element.id, element);
                         }}
@@ -458,7 +462,7 @@ function DiatailInspect(props) {
                 </div>
             );
         } catch (err) {
-            console.log(err);
+            //console.log(err);
             // [Ignore] Error from non Sync life cycle
         }
     }
