@@ -51,8 +51,6 @@ export default function Navbar() {
               <button className="load_diagram_button">Load</button>
             </div>
           </Popup>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Trapoom</a>
         </div>
       </li>
 
