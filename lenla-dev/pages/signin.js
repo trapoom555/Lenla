@@ -2,8 +2,9 @@ import Link from "next/link";
 import DynamicBackground from "../components/dynamicBackground";
 import { useState } from "react";
 import { useRouter } from "next/router";
-const Domain = "http://localhost:3000";
-import fetch from "isomorphic-unfetch";
+import { login } from "../components/API";
+const Domain = "http://localhost:3001";
+// import fetch from "isomorphic-unfetch";
 export default function Signin({ user, setUser }) {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
@@ -16,56 +17,7 @@ export default function Signin({ user, setUser }) {
         setpassword(pass.target.value);
         // console.log(name);
     }
-    async function login(email, password) {
-        try {
-            const res = await fetch(Domain + "/auth/login", {
-                // mode: "no-cors",
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
-            //
-            if (res.status == 201) {
-                [console.log("success")];
-                router.push("/create");
-            }
-            const data = await res.json();
-            // console.log(data.access_token);
-            const profile_res = await fetch(Domain + "/profile", {
-                // mode: "no-cors",
-                // method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + data.access_token,
-                },
-                // body: JSON.stringify({ email, password }),
-            });
-            const profile_data = await profile_res.json();
-            setUser(profile_data);
-            console.log("get profile done");
-            const img_res = await fetch(Domain + "/profileImg", {
-                // mode: "no-cors",
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-                // body: JSON.stringify({ email, password }),
-            });
-            const img_data = await img_res.json();
-            setUser({ ...data, profileImage: img_data.profileImg });
-            console.log(user);
-            console.log("get profileImg done");
-        } catch (error) {
-            // console.log(res);
-            //console.log(error);
-        }
-    }
+    
     return (
         <>
             <div className="homepage_background noselect"></div>
@@ -100,8 +52,8 @@ export default function Signin({ user, setUser }) {
                             className="signin_button"
                             onClick={async () => {
                                 // fetch(Domain + "/");
-                                console.log(password);
-                                await login(email, password);
+                                
+                                login(email,password,setUser)
                             }}
                         >
                             {/* <Link href="/create"> */}

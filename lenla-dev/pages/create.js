@@ -77,7 +77,7 @@ export default function Create({ user, setUser }) {
             <>
                 <div className="flexPage">
                     <div className="flexNav">
-                        <Navbar />
+                        <Navbar user={user} elements={elements} setElements={setElements}/>
                         <ShareButton />
                         <div className="preview_wrapper">
                             <button

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-const Domain = "http://localhost:3000";
+const Domain = "http://localhost:3001";
 import fetch from "isomorphic-unfetch";
 export default function Signup({ user, setUser }) {
     const router = useRouter();
@@ -78,7 +78,7 @@ export default function Signup({ user, setUser }) {
         // x
         console.log("////////////");
         try {
-            const signup_res = await fetch(Domain + "/sign-in", {
+            const signup_res = await fetch(Domain + "/register", {
                 // mode: "no-cors",
                 method: "POST",
                 headers: {

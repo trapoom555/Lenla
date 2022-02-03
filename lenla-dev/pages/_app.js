@@ -16,6 +16,7 @@ import "../styles/toggle.css";
 import "../styles/insp_layout.css";
 import { useState } from "react";
 import Head from "next/head"
+// import { AppStateProvider } from './my-context'
 function MyApp({ Component, pageProps }) {
     const [user, setUser] = useState({ username: "-" });
     return (
