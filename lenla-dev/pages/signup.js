@@ -170,12 +170,13 @@ export default function Signup({ user, setUser }) {
                                 className="signup_profile_image"
                                 src={info.profileImage}
                             />
+                            <label for="file-upload" className="signup_upload_profile_button white_char">Upload Profile Picture</label>
                             <input
+                                id="file-upload"
                                 accept="image/*"
                                 type="file"
-                                className="signup_upload_profile_button white_char"
-                                onChange={setImg}
-                            ></input>
+                                style={{display: 'none'}}
+                                onChange={setImg}/>
                             <div className="signup_content">Display Name</div>
                             <input
                                 className="signup_input"
