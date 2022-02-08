@@ -44,7 +44,7 @@ export async function login(email,password,setUser){
         }
     
 }
-export async function saveDiagram(email,password,name,elements){
+export async function saveDiagram(email,password,name,elements,publicVal){
     const res = await fetch(Domain + "/diagram/save/", {
         // mode: "no-cors",
         method: "POST",
@@ -52,7 +52,7 @@ export async function saveDiagram(email,password,name,elements){
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password,name,elements }),
+        body: JSON.stringify({ email, password,name,elements,public:publicVal }),
     });
     //
     if (res.status == 201) {

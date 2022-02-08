@@ -3,10 +3,11 @@ import Popup from 'reactjs-popup';
 import { loadDiagram, loadDiagramName, saveDiagram, test } from './API';
 export default function Navbar({ user, elements,setElements }) {
   let diagramName = ["tes","fuck"];
+  let loadIndex = 0;
   // load from Database
   let diagramList = []
   for (let i = 0; i < diagramName.length; i++) {
-    diagramList.push(<button className="load_diagram_items" onClick={() => setLoadItemIdx(i)}>{diagramName[i]}</button>)
+    diagramList.push(<button className="load_diagram_items" >{diagramName[i]}</button>)
   }
   async function setDiagramNameList() {
     diagramList = []
@@ -14,14 +15,18 @@ export default function Navbar({ user, elements,setElements }) {
     console.log(diagramName)
     for (let i = 0; i < diagramName.length; i++) {
       diagramList.push(<button className="load_diagram_items" onClick={
-        () => {setLoadItemIdx(i)}}>{diagramName[i]}</button>)
+        () => {
+          // setLoadItemIdx(i)
+          loadIndex = i;
+          console.log("done select")
+        }}>{diagramName[i]}</button>)
     }
     console.log("load done")
   }
   setDiagramNameList();
   
   const [saveName, setSaveName] = useState('');
-  const [loadItemIdx, setLoadItemIdx] = useState(0);
+  // const [loadItemIdx, setLoadItemIdx] = useState(0);
 
   
 
@@ -56,11 +61,9 @@ export default function Navbar({ user, elements,setElements }) {
                   <input className="save_diagram_input" value={saveName} placeholder='Name' onChange={e => { setSaveName(e.currentTarget.value); }} />
                   <button className="save_diagram_button" onClick={
                     () => {
-                      // saveDiagram()
                       console.log(user);
-                      saveDiagram(user.email, user.password, saveName, elements)
+                      saveDiagram(user.email, user.password, saveName, elements,true)//change public value
                       setDiagramNameList()
-                      // test()
                     }
                   }>Save</button>
                 </div>
@@ -81,7 +84,7 @@ export default function Navbar({ user, elements,setElements }) {
                   <button className="load_diagram_button" onClick={
                     async() => {
                       // console.log()
-                      const tmp = await loadDiagram(user.email,user.password,diagramName[loadItemIdx])
+                      const tmp = await loadDiagram(user.email,user.password,diagramName[loadIndex])
                       
                       setElements(tmp.elements)
                     }
