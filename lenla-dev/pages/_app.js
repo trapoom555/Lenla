@@ -14,6 +14,8 @@ import "../styles/insp_constant.css";
 import "../styles/insp_sum.css";
 import "../styles/toggle.css";
 import "../styles/insp_layout.css";
+import "../styles/blogedit.css";
+import 'react-quill/dist/quill.snow.css';
 import { useState } from "react";
 import Head from "next/head"
 // import { AppStateProvider } from './my-context'

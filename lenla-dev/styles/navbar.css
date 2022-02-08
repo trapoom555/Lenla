@@ -41,7 +41,7 @@ li {
     content:url("../public/logo.png");
     object-fit: contain;
     width: 10vw;
-    max-width: 200px;
+    max-width: 300px;
     max-height: 10vh;
     padding: 0px 3vw;
     height: 100%;

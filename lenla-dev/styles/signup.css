@@ -103,6 +103,11 @@
     margin-top: 3vh;
 }
 
+.role_selector_selected {
+    background-color: white;
+    color: #00ca99;
+}
+
 .role_selector:hover {
     background-color: white;
     color: #00ca99;
