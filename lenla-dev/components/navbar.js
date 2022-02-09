@@ -1,7 +1,14 @@
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import { loadDiagram, loadDiagramName, saveDiagram, test } from "./API";
-export default function Navbar({ user, elements, setElements }) {
+export default function Navbar({
+    user,
+    elements,
+    setElements,
+    setDiagramName,
+    setDiagramId,
+    diagramId,
+}) {
     let diagramName = ["tes", "fuck"];
     let loadIndex = 0;
     // load from Database
@@ -89,6 +96,7 @@ export default function Navbar({ user, elements, setElements }) {
                                 position="right center"
                                 modal={true}
                             >
+                                {/* if diagramId != "" save else create */}
                                 <div className="modal_wrapper">
                                     <div className="save_diagram_header">
                                         Save Diagram
@@ -113,6 +121,7 @@ export default function Navbar({ user, elements, setElements }) {
                                                 true
                                             ); //change public value
                                             setDiagramNameList();
+                                            setDiagramName(saveName);
                                         }}
                                     >
                                         Save
@@ -150,14 +159,25 @@ export default function Navbar({ user, elements, setElements }) {
                                                 user.password,
                                                 diagramName[loadIndex].id
                                             );
+                                            setDiagramId(
+                                                diagramName[loadIndex].id
+                                            );
                                             console.log(tmp);
                                             setElements(tmp.elements);
+                                            setDiagramName(tmp.name);
                                         }}
                                     >
                                         Load
                                     </button>
                                 </div>
                             </Popup>
+                            <button
+                                class="dropdown-item"
+                                href="#"
+                                onClick={console.log("lll")}
+                            >
+                                New
+                            </button>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">
                                 Trapoom

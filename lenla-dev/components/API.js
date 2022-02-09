@@ -41,7 +41,14 @@ export async function login(email, password, setUser) {
         console.log(error);
     }
 }
-export async function saveDiagram(email, password, name, elements, publicVal) {
+export async function saveDiagram(
+    email,
+    password,
+    id,
+    name,
+    elements,
+    publicVal
+) {
     const res = await fetch(Domain + "/diagram/save/", {
         // mode: "no-cors",
         method: "POST",
@@ -52,6 +59,7 @@ export async function saveDiagram(email, password, name, elements, publicVal) {
         body: JSON.stringify({
             email,
             password,
+            _id: id,
             name,
             elements,
             public: publicVal,
@@ -144,4 +152,70 @@ export async function loadDiagram(email, password, id) {
 
     // console.log(data);
     // console.log("fuck2");
+}
+export async function createBlog(
+    email,
+    password,
+    name,
+    pages,
+    publicVal,
+    public_date
+) {
+    const res = await fetch(Domain + "/blog/create/", {
+        // mode: "no-cors",
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email,
+            password,
+            name,
+            pages,
+            public: publicVal,
+            public_date,
+        }),
+    });
+    //
+    if (res.status == 201) {
+        [console.log("success")];
+    } else {
+        console.log(res.status);
+    }
+    // const profile_data = await res.json();
+}
+export async function saveBlog(
+    email,
+    password,
+    _id,
+    name,
+    pages,
+    publicVal,
+    public_date
+) {
+    const res = await fetch(Domain + "/blog/save/", {
+        // mode: "no-cors",
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email,
+            password,
+            _id,
+            name,
+            pages,
+            public: publicVal,
+            public_date,
+        }),
+    });
+    //
+    if (res.status == 201) {
+        [console.log("success")];
+    } else {
+        console.log(res.status);
+    }
+    // const profile_data = await res.json();
 }

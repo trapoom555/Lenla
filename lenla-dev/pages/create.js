@@ -27,7 +27,9 @@ export default function Create({ user, setUser }) {
     const [selectedElementId, setSelectedElementId] = useState("-1");
     const [system, setSystem] = useState(tempSys);
     const [animeState, setAnimeState] = useState(0); // 0 : Stop, 1 : Play, 2 : Pause
-    const [systemReady, setsystemReady] = useState(false);
+    // const [systemReady, setsystemReady] = useState(false);
+    const [diagramName, setDiagramName] = useState("untitle");
+    const [diagramId, setDiagramId] = useState("");
 
     const { height, width } = useWindowDimensions();
     const canvasRef = useRef(null);
@@ -77,8 +79,16 @@ export default function Create({ user, setUser }) {
             <>
                 <div className="flexPage">
                     <div className="flexNav">
-                        <Navbar user={user} elements={elements} setElements={setElements}/>
+                        <Navbar
+                            user={user}
+                            elements={elements}
+                            setElements={setElements}
+                            setDiagramName={setDiagramName}
+                            setDiagramId={setDiagramId}
+                            diagramId={diagramId}
+                        />
                         <ShareButton />
+
                         <div className="preview_wrapper">
                             <button
                                 className="preview_button"
@@ -135,6 +145,7 @@ export default function Create({ user, setUser }) {
 
                     <div className="flexContent">
                         <div>
+                            diagram name: {diagramName}
                             <Diagram
                                 elements={elements}
                                 setElements={setElements}
@@ -152,7 +163,6 @@ export default function Create({ user, setUser }) {
                                         : 0
                                 }
                             />
-
                             {/* <CanvasTest
                                 systemObj={system}
                                 width={Math.floor(0.7 * width)}
@@ -165,7 +175,6 @@ export default function Create({ user, setUser }) {
                                 }
                                 animeState={animeState}
                             /> */}
-
                             <ThreeCanvas
                                 width={Math.floor(0.7 * width)}
                                 height={
