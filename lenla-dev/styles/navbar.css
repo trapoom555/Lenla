@@ -145,3 +145,10 @@ li {
     margin-bottom: 1.5vh;
 }
 
+.nav-item {
+    z-index: 5;
+}
+.dropdown {
+    z-index: 5;
+}
+
