@@ -143,6 +143,7 @@ export async function loadDiagram(email, password, id) {
     if (res.status == 201) {
         [console.log("success")];
         const data = await res.json();
+        console.log("data: " + data);
         return data;
     } else {
         console.log(res.status);

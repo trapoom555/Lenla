@@ -42,16 +42,13 @@ const nodeTypes = {
     [BLOCK_TYPE.Test_OP]: BasicBlock,
 };
 
-let currentBlockID = 0;
-const getID = () => `${currentBlockID++}`;
-
 const Diagram = (props) => {
     const { width, height, compileAll } = props;
     const { elements, setElements, setSelectedElement, setInspectorState } =
         props;
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
-
+    const getID = () => `${elements.length}`;
     const onDragOver = (event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = "move";

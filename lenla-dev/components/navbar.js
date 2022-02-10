@@ -1,7 +1,12 @@
 import { useState } from "react";
 import Popup from "reactjs-popup";
-import { loadDiagram, loadDiagramName, saveDiagram, test } from "./API";
-
+import {
+    loadDiagram,
+    loadDiagramName,
+    saveDiagram,
+    test,
+    createDiagram,
+} from "./API";
 export default function Navbar({
     user,
     elements,
@@ -10,45 +15,42 @@ export default function Navbar({
     setDiagramId,
     diagramId,
 }) {
-    let diagramName = ["tes", "fuck"];
-    let loadIndex = 0;
-    // load from Database
-    let diagramList = [];
-    for (let i = 0; i < diagramName.length; i++) {
-        diagramList.push(
-            <button className="load_diagram_items">
-                {diagramName[i].name}
-            </button>
-        );
-    }
+    // let loadIndex = 0;
+    const [diagramCompList, setDiagramCompList] = useState([]);
+    const [saveName, setSaveName] = useState("");
+    const [isPublic, setIsPublic] = useState(true);
+    const [diagramList, setDiagramList] = useState([]);
+    const [loadIndex, setLoadIndex] = useState(-1);
     async function setDiagramNameList() {
-        diagramList = [];
-        diagramName = await loadDiagramName(user.email, user.password);
-        console.log(diagramName);
-        for (let i = 0; i < diagramName.length; i++) {
-            diagramList.push(
+        diagramCompList = [];
+        const diagramList = await loadDiagramName(user.email, user.password);
+        // setDiagramName();
+        console.log(diagramList);
+        for (let i = 0; i < diagramList.length; i++) {
+            diagramCompList.push(
                 <button
                     className="load_diagram_items"
                     onClick={() => {
                         // setLoadItemIdx(i)
-                        loadIndex = i;
-                        console.log("done select");
+                        setLoadIndex(i);
+                        console.log("done select " + i);
                     }}
                 >
-                    {diagramName[i].name}
+                    {diagramList[i].name}
                 </button>
             );
         }
-        console.log("load done");
+        setDiagramCompList(diagramCompList);
+        setDiagramList(diagramList);
+        // console.log(diagramList);
+        // console.log("load done");
     }
-    setDiagramNameList();
+    // setDiagramNameList();
 
-    const [saveName, setSaveName] = useState("");
-    const [isPublic, setIsPublic] = useState(true);
     // const [loadItemIdx, setLoadItemIdx] = useState(0);
 
     function handleIsPublic() {
-        setIsPublic((prevState) => !prevState)
+        setIsPublic((prevState) => !prevState);
     }
 
     return (
@@ -109,12 +111,8 @@ export default function Navbar({
                                 }
                                 position="right center"
                                 modal={true}
-                                onClick={() => {
-                                    console.log("fuck");
-                                    diagramList = loadDiagramName(
-                                        user.email,
-                                        user.password
-                                    );
+                                onOpen={async () => {
+                                    await setDiagramNameList();
                                 }}
                             >
                                 <div className="modal_wrapper">
@@ -122,21 +120,25 @@ export default function Navbar({
                                         Load Diagram
                                     </div>
                                     <div className="all_diagram_wrapper">
-                                        {diagramList}
+                                        {diagramCompList}
                                     </div>
                                     <button
                                         className="load_diagram_button"
                                         onClick={async () => {
-                                            // console.log()
+                                            console.log(
+                                                diagramList[loadIndex].id +
+                                                    " " +
+                                                    loadIndex
+                                            );
                                             const tmp = await loadDiagram(
                                                 user.email,
                                                 user.password,
-                                                diagramName[loadIndex].id
-                                            );
-                                            setDiagramId(
-                                                diagramName[loadIndex].id
+                                                diagramList[loadIndex].id
                                             );
                                             console.log(tmp);
+                                            setDiagramId(
+                                                diagramList[loadIndex].id
+                                            );
                                             setElements(tmp.elements);
                                             setDiagramName(tmp.name);
                                         }}
@@ -170,24 +172,37 @@ export default function Navbar({
                                             setSaveName(e.currentTarget.value);
                                         }}
                                     />
-                                    <div className="is_public_wrapper"><input className="is_public_checkbox" type="checkbox"/> <div className="is_public_text">Public</div></div>
-                                    <div className="description_wrapper">
-                                        <div className="description_header"> Description </div>
-                                        <textarea placeholder="Description" className="description_input" />
+                                    <div className="is_public_wrapper">
+                                        <input
+                                            className="is_public_checkbox"
+                                            type="checkbox"
+                                        />{" "}
+                                        <div className="is_public_text">
+                                            Public
+                                        </div>
                                     </div>
-                                    
+                                    <div className="description_wrapper">
+                                        <div className="description_header">
+                                            {" "}
+                                            Description{" "}
+                                        </div>
+                                        <textarea
+                                            placeholder="Description"
+                                            className="description_input"
+                                        />
+                                    </div>
+
                                     <button
                                         className="save_diagram_button"
                                         onClick={() => {
                                             console.log(user);
-                                            createDiagramcreateDiagram(
+                                            createDiagram(
                                                 user.email,
                                                 user.password,
                                                 saveName,
                                                 elements,
                                                 true
                                             ); //change public value
-                                            setDiagramNameList();
                                             setDiagramName(saveName);
                                         }}
                                     >
@@ -198,7 +213,10 @@ export default function Navbar({
 
                             <Popup
                                 trigger={
-                                    <button class="dropdown-item"> Save As</button>
+                                    <button class="dropdown-item">
+                                        {" "}
+                                        Save As
+                                    </button>
                                 }
                                 position="right center"
                                 modal={true}
@@ -217,24 +235,37 @@ export default function Navbar({
                                             setSaveName(e.currentTarget.value);
                                         }}
                                     />
-                                    <div className="is_public_wrapper"><input className="is_public_checkbox" type="checkbox"/> <div className="is_public_text">Public</div></div>
-                                    <div className="description_wrapper">
-                                        <div className="description_header"> Description </div>
-                                        <textarea placeholder="Description" className="description_input" />
+                                    <div className="is_public_wrapper">
+                                        <input
+                                            className="is_public_checkbox"
+                                            type="checkbox"
+                                        />{" "}
+                                        <div className="is_public_text">
+                                            Public
+                                        </div>
                                     </div>
-                                    
+                                    <div className="description_wrapper">
+                                        <div className="description_header">
+                                            {" "}
+                                            Description{" "}
+                                        </div>
+                                        <textarea
+                                            placeholder="Description"
+                                            className="description_input"
+                                        />
+                                    </div>
+
                                     <button
                                         className="save_diagram_button"
                                         onClick={() => {
                                             console.log(user);
-                                            createDiagramcreateDiagram(
+                                            createDiagram(
                                                 user.email,
                                                 user.password,
                                                 saveName,
                                                 elements,
                                                 true
                                             ); //change public value
-                                            setDiagramNameList();
                                             setDiagramName(saveName);
                                         }}
                                     >
@@ -261,7 +292,7 @@ export default function Navbar({
                             class="dropdown-menu"
                             aria-labelledby="navbarDropdown"
                         >
-                        <Popup
+                            <Popup
                                 trigger={
                                     <button class="dropdown-item"> Edit</button>
                                 }
@@ -282,24 +313,38 @@ export default function Navbar({
                                             setSaveName(e.currentTarget.value);
                                         }}
                                     />
-                                    <div className="is_public_wrapper"><input className="is_public_checkbox" type="checkbox"/> <div className="is_public_text">Public</div></div>
-                                    <div className="description_wrapper">
-                                        <div className="description_header"> Description </div>
-                                        <textarea placeholder="Description" className="description_input" />
+                                    <div className="is_public_wrapper">
+                                        <input
+                                            className="is_public_checkbox"
+                                            type="checkbox"
+                                        />{" "}
+                                        <div className="is_public_text">
+                                            Public
+                                        </div>
                                     </div>
-                                    
+                                    <div className="description_wrapper">
+                                        <div className="description_header">
+                                            {" "}
+                                            Description{" "}
+                                        </div>
+                                        <textarea
+                                            placeholder="Description"
+                                            className="description_input"
+                                        />
+                                    </div>
+
                                     <button
                                         className="save_diagram_button"
                                         onClick={() => {
                                             console.log(user);
-                                            createDiagramcreateDiagram(
+                                            createDiagram(
                                                 user.email,
                                                 user.password,
                                                 saveName,
                                                 elements,
                                                 true
                                             ); //change public value
-                                            setDiagramNameList();
+
                                             setDiagramName(saveName);
                                         }}
                                     >
