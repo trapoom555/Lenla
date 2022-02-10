@@ -95,6 +95,7 @@ export default function Navbar({
                                 }
                                 position="right center"
                                 modal={true}
+                                disabled={false} //ใส่ condition ตรงนี้
                             >
                                 {/* if diagramId != "" save else create */}
                                 <div className="modal_wrapper">
@@ -174,7 +175,7 @@ export default function Navbar({
                             <button
                                 class="dropdown-item"
                                 href="#"
-                                onClick={console.log("lll")}
+                                onClick={() => console.log("lll")}
                             >
                                 New
                             </button>
