@@ -42,15 +42,14 @@ export default function Navbar({
         }
         setDiagramCompList(diagramCompList);
         setDiagramList(diagramList);
-        // console.log(diagramList);
-        // console.log("load done");
     }
     // setDiagramNameList();
 
     // const [loadItemIdx, setLoadItemIdx] = useState(0);
 
-    function handleIsPublic() {
-        setIsPublic((prevState) => !prevState);
+    function handleIsPublic(event) {
+        // console.log(event.target.value);
+        setIsPublic((prev) => !prev);
     }
 
     return (
@@ -100,7 +99,11 @@ export default function Navbar({
                             <button
                                 class="dropdown-item"
                                 href="#"
-                                onClick={() => console.log("lll")}
+                                onClick={() => {
+                                    setElements([]);
+                                    setDiagramId("");
+                                    setDiagramName("untitle");
+                                }}
                             >
                                 New
                             </button>
@@ -139,6 +142,11 @@ export default function Navbar({
                                             setDiagramId(
                                                 diagramList[loadIndex].id
                                             );
+                                            console.log(
+                                                "set diagram id " + diagramId
+                                            );
+                                            console.log(diagramId);
+                                            console.log(diagramList);
                                             setElements(tmp.elements);
                                             setDiagramName(tmp.name);
                                         }}
@@ -158,6 +166,12 @@ export default function Navbar({
                                 position="right center"
                                 modal={true}
                                 disabled={false} //ใส่ condition ตรงนี้
+                                onOpen={() => {
+                                    console.log("save");
+                                }}
+                                onClick={() => {
+                                    console.log("why can't");
+                                }}
                             >
                                 {/* if diagramId != "" save else create */}
                                 <div className="modal_wrapper">
@@ -176,6 +190,9 @@ export default function Navbar({
                                         <input
                                             className="is_public_checkbox"
                                             type="checkbox"
+                                            // value={isPublic}
+                                            checked={isPublic}
+                                            onChange={handleIsPublic}
                                         />{" "}
                                         <div className="is_public_text">
                                             Public
@@ -204,6 +221,8 @@ export default function Navbar({
                                                 true
                                             ); //change public value
                                             setDiagramName(saveName);
+                                            close();
+                                            console.log("close");
                                         }}
                                     >
                                         Save
@@ -317,6 +336,9 @@ export default function Navbar({
                                         <input
                                             className="is_public_checkbox"
                                             type="checkbox"
+                                            checked={isPublic}
+                                            // value={isPublic}
+                                            onClick={handleIsPublic}
                                         />{" "}
                                         <div className="is_public_text">
                                             Public
@@ -336,13 +358,14 @@ export default function Navbar({
                                     <button
                                         className="save_diagram_button"
                                         onClick={() => {
-                                            console.log(user);
-                                            createDiagram(
+                                            console.log(isPublic);
+                                            saveDiagram(
                                                 user.email,
                                                 user.password,
+                                                diagramId,
                                                 saveName,
                                                 elements,
-                                                true
+                                                isPublic
                                             ); //change public value
 
                                             setDiagramName(saveName);
