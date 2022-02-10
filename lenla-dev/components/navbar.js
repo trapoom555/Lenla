@@ -95,6 +95,60 @@ export default function Navbar({
                             class="dropdown-menu"
                             aria-labelledby="navbarDropdown"
                         >
+                            <button
+                                class="dropdown-item"
+                                href="#"
+                                onClick={() => console.log("lll")}
+                            >
+                                New
+                            </button>
+
+                            <Popup
+                                trigger={
+                                    <button class="dropdown-item"> Load</button>
+                                }
+                                position="right center"
+                                modal={true}
+                                onClick={() => {
+                                    console.log("fuck");
+                                    diagramList = loadDiagramName(
+                                        user.email,
+                                        user.password
+                                    );
+                                }}
+                            >
+                                <div className="modal_wrapper">
+                                    <div className="save_diagram_header">
+                                        Load Diagram
+                                    </div>
+                                    <div className="all_diagram_wrapper">
+                                        {diagramList}
+                                    </div>
+                                    <button
+                                        className="load_diagram_button"
+                                        onClick={async () => {
+                                            // console.log()
+                                            const tmp = await loadDiagram(
+                                                user.email,
+                                                user.password,
+                                                diagramName[loadIndex].id
+                                            );
+                                            setDiagramId(
+                                                diagramName[loadIndex].id
+                                            );
+                                            console.log(tmp);
+                                            setElements(tmp.elements);
+                                            setDiagramName(tmp.name);
+                                        }}
+                                    >
+                                        Load
+                                    </button>
+                                </div>
+                            </Popup>
+                            {/* <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                Trapoom
+                            </a> */}
                             <Popup
                                 trigger={
                                     <button class="dropdown-item"> Save</button>
@@ -144,57 +198,50 @@ export default function Navbar({
 
                             <Popup
                                 trigger={
-                                    <button class="dropdown-item"> Load</button>
+                                    <button class="dropdown-item"> Save As</button>
                                 }
                                 position="right center"
                                 modal={true}
-                                onClick={() => {
-                                    console.log("fuck");
-                                    diagramList = loadDiagramName(
-                                        user.email,
-                                        user.password
-                                    );
-                                }}
+                                disabled={false} //ใส่ condition ตรงนี้
                             >
+                                {/* if diagramId != "" save else create */}
                                 <div className="modal_wrapper">
                                     <div className="save_diagram_header">
-                                        Load Diagram
+                                        Save Diagram As
                                     </div>
-                                    <div className="all_diagram_wrapper">
-                                        {diagramList}
+                                    <input
+                                        className="save_diagram_input"
+                                        value={saveName}
+                                        placeholder="Name"
+                                        onChange={(e) => {
+                                            setSaveName(e.currentTarget.value);
+                                        }}
+                                    />
+                                    <div className="is_public_wrapper"><input className="is_public_checkbox" type="checkbox"/> <div className="is_public_text">Public</div></div>
+                                    <div className="description_wrapper">
+                                        <div className="description_header"> Description </div>
+                                        <textarea placeholder="Description" className="description_input" />
                                     </div>
+                                    
                                     <button
-                                        className="load_diagram_button"
-                                        onClick={async () => {
-                                            // console.log()
-                                            const tmp = await loadDiagram(
+                                        className="save_diagram_button"
+                                        onClick={() => {
+                                            console.log(user);
+                                            createDiagramcreateDiagram(
                                                 user.email,
                                                 user.password,
-                                                diagramName[loadIndex].id
-                                            );
-                                            setDiagramId(
-                                                diagramName[loadIndex].id
-                                            );
-                                            console.log(tmp);
-                                            setElements(tmp.elements);
-                                            setDiagramName(tmp.name);
+                                                saveName,
+                                                elements,
+                                                true
+                                            ); //change public value
+                                            setDiagramNameList();
+                                            setDiagramName(saveName);
                                         }}
                                     >
-                                        Load
+                                        Save As
                                     </button>
                                 </div>
                             </Popup>
-                            <button
-                                class="dropdown-item"
-                                href="#"
-                                onClick={() => console.log("lll")}
-                            >
-                                New
-                            </button>
-                            {/* <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                Trapoom
-                            </a> */}
                         </div>
                     </li>
 
@@ -210,6 +257,57 @@ export default function Navbar({
                         >
                             Edit
                         </a>
+                        <div
+                            class="dropdown-menu"
+                            aria-labelledby="navbarDropdown"
+                        >
+                        <Popup
+                                trigger={
+                                    <button class="dropdown-item"> Edit</button>
+                                }
+                                position="right center"
+                                modal={true}
+                                disabled={false} //ใส่ condition ตรงนี้
+                            >
+                                {/* if diagramId != "" save else create */}
+                                <div className="modal_wrapper">
+                                    <div className="save_diagram_header">
+                                        Edit Diagram
+                                    </div>
+                                    <input
+                                        className="save_diagram_input"
+                                        value={saveName}
+                                        placeholder="Name"
+                                        onChange={(e) => {
+                                            setSaveName(e.currentTarget.value);
+                                        }}
+                                    />
+                                    <div className="is_public_wrapper"><input className="is_public_checkbox" type="checkbox"/> <div className="is_public_text">Public</div></div>
+                                    <div className="description_wrapper">
+                                        <div className="description_header"> Description </div>
+                                        <textarea placeholder="Description" className="description_input" />
+                                    </div>
+                                    
+                                    <button
+                                        className="save_diagram_button"
+                                        onClick={() => {
+                                            console.log(user);
+                                            createDiagramcreateDiagram(
+                                                user.email,
+                                                user.password,
+                                                saveName,
+                                                elements,
+                                                true
+                                            ); //change public value
+                                            setDiagramNameList();
+                                            setDiagramName(saveName);
+                                        }}
+                                    >
+                                        Edit
+                                    </button>
+                                </div>
+                            </Popup>
+                        </div>
                     </li>
 
                     <li class="nav-item dropdown">
