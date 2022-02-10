@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import { loadDiagram, loadDiagramName, saveDiagram, test } from "./API";
+
 export default function Navbar({
     user,
     elements,
@@ -43,7 +44,12 @@ export default function Navbar({
     setDiagramNameList();
 
     const [saveName, setSaveName] = useState("");
+    const [isPublic, setIsPublic] = useState(true);
     // const [loadItemIdx, setLoadItemIdx] = useState(0);
+
+    function handleIsPublic() {
+        setIsPublic((prevState) => !prevState)
+    }
 
     return (
         // <div className = "nav_bar">
@@ -110,6 +116,12 @@ export default function Navbar({
                                             setSaveName(e.currentTarget.value);
                                         }}
                                     />
+                                    <div className="is_public_wrapper"><input className="is_public_checkbox" type="checkbox"/> <div className="is_public_text">Public</div></div>
+                                    <div className="description_wrapper">
+                                        <div className="description_header"> Description </div>
+                                        <textarea placeholder="Description" className="description_input" />
+                                    </div>
+                                    
                                     <button
                                         className="save_diagram_button"
                                         onClick={() => {
@@ -179,10 +191,10 @@ export default function Navbar({
                             >
                                 New
                             </button>
-                            <div class="dropdown-divider"></div>
+                            {/* <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">
                                 Trapoom
-                            </a>
+                            </a> */}
                         </div>
                     </li>
 

@@ -81,7 +81,6 @@ li {
     width: 7vw;
     height: 6.5vh;
     font-size: 1.25vw;
-    margin-left: 1vw;
 }
 
 .all_diagram_wrapper {
@@ -111,3 +110,38 @@ li {
     padding: 2vh 1vw;
     text-align: left;
 }
+
+.is_public_wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5vh;
+}
+
+.is_public_checkbox {
+    margin-right: 1vw;
+}
+
+.is_public_text {
+    font-weight: bold;
+}
+
+.description_input {
+    width: 100%;
+    height: 15vh;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #555;
+    font-size: 1vw;
+    padding: 1vh 0.5vw;
+    color: #555;
+}
+
+.description_header {
+    margin-bottom: 1vh;
+    font-weight: bold;
+}
+
+.description_wrapper {
+    margin-bottom: 1.5vh;
+}
+
