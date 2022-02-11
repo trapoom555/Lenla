@@ -1,0 +1,108 @@
+.home_nav_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1vh;
+}
+
+.rotate {
+    -ms-writing-mode: tb-rl;
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+}
+
+.home_body_wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+}
+
+.home_wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.home_create_button {
+    margin-left: 40vw;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.home_my_list {
+    margin-top: 25vh;
+    font-size: 25px;
+    margin-bottom: 4vh;
+    margin-right: 6vw;
+    padding-right: 1.5vw;
+    padding-left: 1vw;
+    background-color: #00CA99;
+    color: white;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    border-radius: 6px 0px 0px 6px;
+    cursor: pointer;
+}
+
+.home_discover {
+    font-size: 25px;
+    padding-right: 1.5vw;
+    padding-left: 1vw;
+    background-color: #5C7EF5;
+    color: white;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    border-radius: 6px 0px 0px 6px;
+    cursor: pointer;
+    margin-right: 6vw;
+}
+
+.home_welcome_text {
+    font-size: 30px;
+    margin-top: 8vh;
+}
+
+.home_my_blog {
+    font-size: 20px;
+    margin-top: 4vh;
+    margin-right: 6vw;
+}
+
+.home_my_interactive {
+    font-size: 20px;
+    margin-top: 3vh;
+}
+
+.home_list_wrapper {
+    margin-top: 1vh;
+    overflow: scroll;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    width: 85vw;
+    
+}
+
+.home_create_interactive_btn {
+    background-color: #ffffff00;
+    border: none;
+    font-size: 20px;
+    margin-right: 4vw;
+    cursor: pointer;
+}
+
+.home_create_blog_btn {
+    background-color: #ffffff00;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.black_char {
+    padding-right: 2.5vw;
+}
+
+.home_sidebar_wrapper {
+    width: 15vw;
+}
