@@ -167,9 +167,6 @@ export default function Navbar({
                                 onOpen={() => {
                                     console.log("save");
                                 }}
-                                onClick={() => {
-                                    console.log("why can't");
-                                }}
                             >
                                 {/* if diagramId != "" save else create */}
                                 <div className="modal_wrapper">

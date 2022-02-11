@@ -10,6 +10,10 @@
     color: black !important;
 }
 
+.diagram_name {
+    width: 50vw;
+
+}
 .nav_bar_list {
     float: right;
     margin: 0;
