@@ -145,8 +145,6 @@ export default function Navbar({
                                             console.log(
                                                 "set diagram id " + diagramId
                                             );
-                                            console.log(diagramId);
-                                            console.log(diagramList);
                                             setElements(tmp.elements);
                                             setDiagramName(tmp.name);
                                         }}

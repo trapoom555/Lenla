@@ -1,5 +1,5 @@
-import React, { useRef, useState, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { useRef, useState, useMemo, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Text, Html } from "@react-three/drei";
 import { isDisplayable } from "../block_system/block_behavior";
 import { CANVAS_DISPLAY_TYPE } from "../block_system/stringConfig";
@@ -13,7 +13,7 @@ function Box(props) {
     const [clicked, click] = useState(false);
     // Subscribe this component to the render-loop, rotate the mesh every frame
     useFrame((state, delta) => (ref.current.rotation.x += 0.01));
-    // Return the view, these are regular Threejs elements expressed in JSX
+
     return (
         <mesh
             {...props}
@@ -36,19 +36,17 @@ function TextDisplay(props) {
     const [clicked, click] = useState(false);
     // Subscribe this component to the render-loop, rotate the mesh every frame
     useFrame((state, delta) => (ref.current.rotation.x += 0.01));
-    // Return the view, these are regular Threejs elements expressed in JSX
     return (
-        <mesh
-            {...props}
-            ref={ref}
-            scale={clicked ? 1.5 : 1}
-            onClick={(event) => click(!clicked)}
-            onPointerOver={(event) => hover(true)}
-            onPointerOut={(event) => hover(false)}
+        <Text
+            scale={[5, 5, 10]}
+            color={tmp.color}
+            // color={"#16fa62"}
+            anchorX={-tmp.position.x / 10}
+            anchorY={tmp.position.y / 10}
+            position={(-1.2, 1, 0)}
         >
-            <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-        </mesh>
+            {val.toString()}
+        </Text>
     );
 }
 function Slider(props) {
@@ -67,25 +65,24 @@ function Slider(props) {
     );
 }
 function Button(props) {
-    const { node, tmp, isRun, callBack } = props;
-    // if (!isRun) {
-    //     node.setState(tmp.init);
-    //     callBack();
-    // }
-
+    const { node, tmp, isRun, setCount, count } = props;
+    const [state, setState] = useState(node.state);
     return (
         <mesh
             {...props}
             onClick={(event) => {
                 if (isRun == 1) {
+                    // console.log("JJJ");
                     node.setState(!node.state);
-                    callBack();
+                    setState(node.state);
+                    console.log(node.state);
+                    setCount(count + 1);
                 }
             }}
         >
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
-                color={node.state ? tmp.on_color : tmp.off_color}
+                color={state ? tmp.on_color : tmp.off_color}
                 // color={node.state ? "green" : "gray"}
             />
         </mesh>
@@ -106,62 +103,80 @@ const Switch = () => {
     );
 };
 export default function ThreeCanvas(props) {
-    const { width, height, system, isRun, callBack } = props;
+    const { width, height, system, isRun, callBack, setSystem } = props;
     const tmp = [
         <Box position={[-1.2, 0, 0]} />,
         <Box position={[-1.2, 1, 0]} />,
     ];
+    const [re, setRe] = useState(0);
     // for (let i = 0; i < 100; i++) {
     //     tmp.push(<Box position={[0, i / 20, 0]} />);
     // }
     let displayObj = [];
-    // useFrame((state, delta) => (ref.current.rotation.x += 0.01));
-    system.childNode.forEach((node) => {
-        if (isDisplayable(node)) {
-            // node.update();
-            const tmp = node.getDisplayData();
-            // const [state, setstate] = useState(initialState);
-            try {
-                switch (tmp.type) {
-                    case CANVAS_DISPLAY_TYPE.OUT_STR:
-                        console.log(tmp);
-                        let val = node.value;
-                        if (tmp.digit) {
-                            val = val.toFixed(tmp.digit);
-                        }
-                        displayObj.push(
-                            <Text
-                                scale={[5, 5, 10]}
-                                color={tmp.color}
-                                // color={"#16fa62"}
-                                anchorX={-tmp.position.x / 10}
-                                anchorY={tmp.position.y / 10}
-                                position={(-1.2, 1, 0)}
-                            >
-                                {val.toString()}
-                            </Text>
-                        );
-                        break;
+    // useFrame((state, delta) => {
+    //     let x = 4;
+    // });
+    // useFrame((state, delta) =>
+    useEffect(() => {
+        console.log("fuck");
+    }),
+        [system];
+    function createObj() {
+        system.childNode.forEach((node) => {
+            console.log("system update");
+            if (isDisplayable(node)) {
+                // node.update();
+                const tmp = node.getDisplayData();
+                // const [state, setstate] = useState(initialState);
+                try {
+                    switch (tmp.type) {
+                        case CANVAS_DISPLAY_TYPE.OUT_STR:
+                            console.log(tmp);
+                            let val = node.value;
+                            if (tmp.digit) {
+                                val = val.toFixed(tmp.digit);
+                            }
+                            displayObj.push(
+                                <Text
+                                    scale={[5, 5, 10]}
+                                    color={tmp.color}
+                                    // color={"#16fa62"}
+                                    anchorX={-tmp.position.x / 10}
+                                    anchorY={tmp.position.y / 10}
+                                    position={(-1.2, 1, 0)}
+                                >
+                                    {val.toString()}
+                                </Text>
+                            );
+                            break;
 
-                    case CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON:
-                        console.log("Hey:" + tmp);
-                        console.log(tmp);
-                        displayObj.push(
-                            <Button
-                                tmp={tmp}
-                                node={node}
-                                position={[tmp.position.x, tmp.position.y, 0]}
-                                callBack={callBack}
-                                isRun={isRun}
-                            ></Button>
-                        );
-                        break;
+                        case CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON:
+                            console.log("Hey:" + tmp);
+                            console.log(tmp);
+                            displayObj.push(
+                                <Button
+                                    tmp={tmp}
+                                    node={node}
+                                    position={[
+                                        tmp.position.x,
+                                        tmp.position.y,
+                                        0,
+                                    ]}
+                                    setCount={setRe}
+                                    count={re}
+                                    isRun={isRun}
+                                ></Button>
+                            );
+                            break;
+                    }
+                } catch (error) {
+                    //console.log(error);
                 }
-            } catch (error) {
-                //console.log(error);
             }
-        }
-    });
+        });
+    }
+    createObj();
+
     return (
         <div style={{ width: width, height: height }}>
             <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
@@ -169,7 +184,7 @@ export default function ThreeCanvas(props) {
                 {/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
                 <pointLight position={[-10, -10, -10]} /> */}
                 {/* {tmp} */}
-                {displayObj}c
+                {displayObj}
             </Canvas>
         </div>
     );
