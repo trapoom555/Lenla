@@ -1,6 +1,7 @@
 const Domain = "http://localhost:3001";
 import fetch from "isomorphic-unfetch";
 import router from "next/router";
+// let user = {};
 export async function login(email, password, setUser) {
     try {
         const res = await fetch(Domain + "/log-in", {
@@ -14,7 +15,7 @@ export async function login(email, password, setUser) {
         });
         //
         if (res.status == 200) {
-            [console.log("success")];
+            [console.log("success login")];
             router.push("/create");
         } else {
             console.log(res.status);
@@ -22,20 +23,10 @@ export async function login(email, password, setUser) {
         const profile_data = await res.json();
         setUser({ ...profile_data, password });
         console.log("get profile done");
-        // const img_res = await fetch(Domain + "/profileImg", {
-        //     // mode: "no-cors",
-        //     method: "POST",
-        //     headers: {
-        //         Accept: "application/json",
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({ email, password }),
-        //     // body: JSON.stringify({ email, password }),
-        // });
-        // const img_data = await img_res.json();
-        // setUser({ ...profile_data, profileImage: img_data.profileImg,password });
-        // console.log(user);
-        // console.log("get profileImg done");
+        window.localStorage.setItem(
+            "user",
+            JSON.stringify({ ...profile_data, password })
+        );
     } catch (error) {
         // console.log(res);
         console.log(error);
@@ -219,4 +210,9 @@ export async function saveBlog(
         console.log(res.status);
     }
     // const profile_data = await res.json();
+}
+export async function getUserBySet(setUser) {
+    const data = JSON.parse(window.localStorage.getItem("user"));
+    // console.log(data);
+    setUser(data);
 }

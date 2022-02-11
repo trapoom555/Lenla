@@ -15,12 +15,17 @@ import { BLOCK_TYPE } from "../block_system/stringConfig";
 import { ReactFlowProvider } from "react-flow-renderer";
 import { isDisplayable } from "../block_system/block_behavior";
 import ThreeCanvas from "../components/threeCanvas";
+import { getUserBySet } from "../components/API";
 
 // import { HexColorPicker, HexColorInput } from "react-colorful";
 let tempSys = new Block.System();
-
 export default function Create({ user, setUser }) {
     // State
+    // test(setUser);
+    if (!user._id) {
+        getUserBySet(setUser);
+    }
+
     const [displayState, setDisplayState] = useState(0);
     const [inspectorState, setInspectorState] = useState(0);
     const [elements, setElements] = useState([]);
@@ -47,8 +52,6 @@ export default function Create({ user, setUser }) {
         return Number(str.slice(run + 1, n));
     }
     function compileAll() {
-        // let tmp = new Block.System();
-        // console.log(elements);
         system = new Block.System();
         elements.forEach((element) => {
             if (element.flag == "node") {
@@ -65,13 +68,7 @@ export default function Create({ user, setUser }) {
         });
 
         setSystem(system);
-        // tempSys = tmp;
-        // console.log(tmp.childNode);
-        // console.log(system.childNode);
         system.compile();
-        // canvasRef.current.createSliderObj(0, 0, 100, 50, 1);
-
-        // system.add_elements(elements);
     }
 
     if (typeof window !== "undefined") {
@@ -186,9 +183,6 @@ export default function Create({ user, setUser }) {
                                 }
                                 system={system}
                                 setSystem={setSystem}
-                                callBack={() => {
-                                    setElements([...elements]);
-                                }}
                                 isRun={animeState}
                             />
                         </div>
