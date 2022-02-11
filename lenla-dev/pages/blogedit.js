@@ -4,7 +4,13 @@ import Popup from "reactjs-popup";
 import Profile from "../components/profile";
 import useWindowDimensions from "../hook/useWindowDimensions";
 import ThreeCanvas from "../components/threeCanvas";
-import { getUserBySet, loadDiagram, loadDiagramName } from "../components/API";
+import {
+    createBlog,
+    getUserBySet,
+    loadDiagram,
+    loadDiagramName,
+    saveBlog,
+} from "../components/API";
 import * as Block from "../block_system/systemObj";
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
     ssr: false,
@@ -89,6 +95,7 @@ function BlogComponent(props) {
     const [loadIndex, setLoadIndex] = useState(-1);
     const [elements, setElements] = useState([]);
     const [system, setSystem] = useState(null);
+    const [page, setPage] = useState([]);
     async function setDiagramNameList(user) {
         diagramCompList = [];
         console.log(user);
@@ -125,6 +132,7 @@ function BlogComponent(props) {
         console.log(tmp.elements);
         system = compileAll(elements);
         setSystem(system);
+        setPage([...page, { type: "elements", value: elements }]);
         setSectionList((prevSectionList) => [
             ...prevSectionList,
             <ThreeCanvas
@@ -189,19 +197,54 @@ function BlogComponent(props) {
 
 export default function BlogEdit({ user, setUser }) {
     const [sectionList, setSectionList] = useState([]);
+
     const { height, width } = useWindowDimensions();
+    const [blogName, setBlogName] = useState("untitle");
+    const [blogId, setBlogId] = useState("");
     console.log(user);
     if (!user._id) {
-        console.log("userrrrrrrrrrrrrrrr");
-
         getUserBySet(setUser);
     }
     return (
         <div className="blog_edit_wrapper">
             <div className="nav_bar_blog_edit">
                 <img className="img_logo" />
-                <input className="blog_edit_name" placeholder="My Blog Name" />
-                <button className="blog_edit_button">Save</button>
+                <input
+                    className="blog_edit_name"
+                    placeholder="My Blog Name"
+                    value={blogName}
+                    onChange={(event) => {
+                        setBlogName(event.target.value);
+                    }}
+                />
+                <button
+                    className="blog_edit_button"
+                    onClick={async () => {
+                        if (blogId == "") {
+                            const id = await createBlog(
+                                user.email,
+                                user.password,
+                                blogName,
+                                [sectionList],
+                                true, //add public
+                                "11/02/2022" //add date
+                            );
+                            setBlogId(id);
+                        } else {
+                            saveBlog(
+                                user.email,
+                                user.password,
+                                blogId,
+                                blogName,
+                                [sectionList],
+                                true, //add public
+                                "11/02/2022"
+                            );
+                        }
+                    }}
+                >
+                    Save
+                </button>
                 <Profile name={user.username} url={user.profileImage} />
             </div>
 

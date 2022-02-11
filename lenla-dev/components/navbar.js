@@ -206,9 +206,9 @@ export default function Navbar({
 
                                     <button
                                         className="save_diagram_button"
-                                        onClick={() => {
+                                        onClick={async () => {
                                             console.log(user);
-                                            createDiagram(
+                                            const id = await createDiagram(
                                                 user.email,
                                                 user.password,
                                                 saveName,
@@ -216,7 +216,9 @@ export default function Navbar({
                                                 true
                                             ); //change public value
                                             setDiagramName(saveName);
-                                            close();
+                                            setDiagramId(id);
+                                            console.log(id);
+
                                             console.log("close");
                                         }}
                                     >
@@ -271,9 +273,8 @@ export default function Navbar({
 
                                     <button
                                         className="save_diagram_button"
-                                        onClick={() => {
-                                            console.log(user);
-                                            createDiagram(
+                                        onClick={async () => {
+                                            const id = await createDiagram(
                                                 user.email,
                                                 user.password,
                                                 saveName,
@@ -281,6 +282,7 @@ export default function Navbar({
                                                 true
                                             ); //change public value
                                             setDiagramName(saveName);
+                                            setDiagramId(id);
                                         }}
                                     >
                                         Save As

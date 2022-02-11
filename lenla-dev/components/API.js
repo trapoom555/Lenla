@@ -89,6 +89,9 @@ export async function createDiagram(
     //
     if (res.status == 201) {
         [console.log("success")];
+        const data = await res.json();
+        console.log(data);
+        return data._id;
     } else {
         console.log(res.status);
     }
@@ -172,6 +175,8 @@ export async function createBlog(
     //
     if (res.status == 201) {
         [console.log("success")];
+        const data = await res.json();
+        return data._id;
     } else {
         console.log(res.status);
     }
@@ -186,6 +191,7 @@ export async function saveBlog(
     publicVal,
     public_date
 ) {
+    console.log(_id);
     const res = await fetch(Domain + "/blog/save/", {
         // mode: "no-cors",
         method: "POST",
