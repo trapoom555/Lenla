@@ -103,7 +103,7 @@ const Switch = () => {
     );
 };
 export default function ThreeCanvas(props) {
-    const { width, height, system, isRun, callBack, setSystem } = props;
+    const { width, height, system, isRun, callBack } = props;
     const tmp = [
         <Box position={[-1.2, 0, 0]} />,
         <Box position={[-1.2, 1, 0]} />,
@@ -117,10 +117,6 @@ export default function ThreeCanvas(props) {
     //     let x = 4;
     // });
     // useFrame((state, delta) =>
-    useEffect(() => {
-        console.log("fuck");
-    }),
-        [system];
     function createObj() {
         system.childNode.forEach((node) => {
             console.log("system update");

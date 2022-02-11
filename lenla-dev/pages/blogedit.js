@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import Profile from "../components/profile";
 import useWindowDimensions from "../hook/useWindowDimensions";
@@ -87,15 +87,39 @@ function compileAll(elements) {
     system.compile();
     return system;
 }
-function BlogComponent(props) {
-    const [quillContent, setQuillContent] = useState("");
+
+function editSection() {}
+
+function QillObj(props) {
+    // const [quillContent, setQuillContent] = useState("");
+    const { page, setPage, id } = props;
+
+    return (
+        <>
+            {" "}
+            <QuillNoSSRWrapper
+                modules={modules}
+                formats={formats}
+                value={page[id].value}
+                onChange={(p) => {
+                    console.log(page);
+                    page[id].value = p;
+                    setPage(page);
+                }}
+                theme="snow"
+            />
+        </>
+    );
+}
+export default function BlogEdit({ user, setUser }) {
+    const [sectionList, setSectionList] = useState([]);
     const [diagramCompList, setDiagramCompList] = useState([]);
     const [diagramList, setDiagramList] = useState([]);
-    const { sectionList, setSectionList, width, user } = props;
-    const [loadIndex, setLoadIndex] = useState(-1);
-    const [elements, setElements] = useState([]);
-    const [system, setSystem] = useState(null);
     const [page, setPage] = useState([]);
+    const [loadIndex, setLoadIndex] = useState(-1);
+    const { height, width } = useWindowDimensions();
+    const [blogName, setBlogName] = useState("untitle");
+    const [blogId, setBlogId] = useState("");
     async function setDiagramNameList(user) {
         diagramCompList = [];
         console.log(user);
@@ -120,52 +144,99 @@ function BlogComponent(props) {
         setDiagramCompList(diagramCompList);
         setDiagramList(diagramList);
     }
+    if (!user._id) {
+        getUserBySet(setUser);
+    }
+    async function insertQill() {
+        // setPage([...page, { type: "qill", value: quillContent }]);
+        page = [...page, { type: "qill", value: {} }];
+        setPage(page);
+        // console.log([...page, { type: "qill", value: {} }]);
+        console.log(page);
+        setSectionList((prevSectionList) => [
+            ...prevSectionList,
+            <QillObj id={page.length - 1} setPage={setPage} page={page} />,
+        ]);
+    }
     async function insertComponent() {
         const tmp = await loadDiagram(
             user.email,
             user.password,
             diagramList[loadIndex].id
         );
-        elements = tmp.elements;
-        setElements(tmp.elements);
-        console.log("ele");
-        console.log(tmp.elements);
-        system = compileAll(elements);
-        setSystem(system);
-        setPage([...page, { type: "elements", value: elements }]);
+        // elements = tmp.elements;
+        const system = compileAll(tmp.elements);
+        setPage([
+            ...page,
+            { type: "elements", value: diagramList[loadIndex].id },
+        ]);
         setSectionList((prevSectionList) => [
             ...prevSectionList,
             <ThreeCanvas
                 width={Math.floor(0.5 * width)}
                 height={0.5 * width}
-                system={system} // ต้อง Define
-                setSystem={setSystem} // ต้อง Define
+                system={system}
                 isRun={1}
             />,
-            <BlogComponent
-                sectionList={sectionList}
-                setSectionList={setSectionList}
-                user={user}
-                width={width}
-            />,
         ]);
-        console.log("sectionList");
-        console.log(sectionList);
     }
-
+    // useEffect(() => {
+    //     console.log("wawa");
+    //     let tmp = [];
+    //     page.forEach((obj) => {
+    //         if (obj.type == "qill") {
+    //             tmp.push(<QillObj></QillObj>);
+    //         }
+    //     });
+    //     setSectionList(tmp);
+    // }),
+    //     [page];
     return (
-        <>
-            <QuillNoSSRWrapper
-                modules={modules}
-                formats={formats}
-                value={quillContent}
-                onChange={(p) => {
-                    console.log(p);
-                    setQuillContent(p);
-                }}
-                theme="snow"
-            />
+        <div className="blog_edit_wrapper">
+            <div className="nav_bar_blog_edit">
+                <img className="img_logo" />
+                <input
+                    className="blog_edit_name"
+                    placeholder="My Blog Name"
+                    value={blogName}
+                    onChange={(event) => {
+                        setBlogName(event.target.value);
+                    }}
+                />
+                <button
+                    className="blog_edit_button"
+                    onClick={async () => {
+                        if (blogId == "") {
+                            console.log("create");
+                            const id = await createBlog(
+                                user.email,
+                                user.password,
+                                blogName,
+                                [page],
+                                true, //add public
+                                "11/02/2022" //add date
+                            );
+                            setBlogId(id);
+                        } else {
+                            console.log("save");
+                            saveBlog(
+                                user.email,
+                                user.password,
+                                blogId,
+                                blogName,
+                                [page],
+                                true, //add public
+                                "11/02/2022"
+                            );
+                        }
+                    }}
+                >
+                    Save
+                </button>
+                <Profile name={user.username} url={user.profileImage} />
+            </div>
 
+            {sectionList}
             <Popup
                 trigger={
                     <div className="blog_edit_section_break">
@@ -191,77 +262,11 @@ function BlogComponent(props) {
                     </button>
                 </div>
             </Popup>
-        </>
-    );
-}
-
-export default function BlogEdit({ user, setUser }) {
-    const [sectionList, setSectionList] = useState([]);
-
-    const { height, width } = useWindowDimensions();
-    const [blogName, setBlogName] = useState("untitle");
-    const [blogId, setBlogId] = useState("");
-    console.log(user);
-    if (!user._id) {
-        getUserBySet(setUser);
-    }
-    return (
-        <div className="blog_edit_wrapper">
-            <div className="nav_bar_blog_edit">
-                <img className="img_logo" />
-                <input
-                    className="blog_edit_name"
-                    placeholder="My Blog Name"
-                    value={blogName}
-                    onChange={(event) => {
-                        setBlogName(event.target.value);
-                    }}
-                />
-                <button
-                    className="blog_edit_button"
-                    onClick={async () => {
-                        if (blogId == "") {
-                            const id = await createBlog(
-                                user.email,
-                                user.password,
-                                blogName,
-                                [sectionList],
-                                true, //add public
-                                "11/02/2022" //add date
-                            );
-                            setBlogId(id);
-                        } else {
-                            saveBlog(
-                                user.email,
-                                user.password,
-                                blogId,
-                                blogName,
-                                [sectionList],
-                                true, //add public
-                                "11/02/2022"
-                            );
-                        }
-                    }}
-                >
-                    Save
+            <div className="blog_edit_section_break">
+                <button className="blog_edit_insert_btn" onClick={insertQill}>
+                    + Text Editor
                 </button>
-                <Profile name={user.username} url={user.profileImage} />
             </div>
-
-            {/* <QuillNoSSRWrapper
-                modules={{"toolbar": false}}
-                value={quillContent}
-                readOnly={true}
-                theme={"snow"}
-            /> */}
-            {/* {sectionList} */}
-            <BlogComponent
-                sectionList={sectionList}
-                setSectionList={setSectionList}
-                width={width}
-                user={user}
-            />
-            {sectionList}
         </div>
     );
 }
