@@ -87,8 +87,8 @@ export default function Create({ user, setUser }) {
                             setDiagramId={setDiagramId}
                             diagramId={diagramId}
                         />
+                        <div className="diagram_name">Diagram : {diagramName}</div>
                         <ShareButton />
-
                         <div className="preview_wrapper">
                             <button
                                 className="preview_button"
@@ -145,7 +145,6 @@ export default function Create({ user, setUser }) {
 
                     <div className="flexContent">
                         <div>
-                            diagram name: {diagramName}
                             <Diagram
                                 elements={elements}
                                 setElements={setElements}
@@ -205,7 +204,9 @@ export default function Create({ user, setUser }) {
                     <Selector
                         displayState={displayState}
                         setDisplayState={setDisplayState}
+                        diagramName={diagramName}
                     />
+                    
                 </div>
             </>
         );
