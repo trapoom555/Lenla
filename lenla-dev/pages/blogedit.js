@@ -171,6 +171,11 @@ export default function BlogEdit({ user, setUser }) {
                         setBlogName(event.target.value);
                     }}
                 />
+                <label for="file-upload" className="custom-file-upload">
+                    <img className="ic_img_upload" />
+                    Blog Cover
+                </label>
+                <input id="file-upload" style={{display:"none"}} type="file" accept="image/*"/>
                 <button
                     className="blog_edit_button"
                     onClick={async () => {

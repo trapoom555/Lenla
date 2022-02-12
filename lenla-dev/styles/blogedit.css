@@ -29,7 +29,7 @@
     width: 7vw;
     height: 6vh;
     font-size: 1.25vw;
-    margin-left: 30vw;
+    margin-left: 15vw;
 }
 
 .blog_edit_section_break {
@@ -38,6 +38,10 @@
     flex-direction: row;
     margin-top: 2vh;
     margin-bottom: 2vh;
+}
+
+.cover_img_upload {
+    margin-left:1vw;
 }
 
 .blog_edit_section_break:before,
@@ -63,4 +67,22 @@
     margin-right: 1vw;
     border-radius: 5px;
     background-color: white;
+}
+
+.ic_img_upload {
+    content: url("../public/ic_upload_img.png");
+    object-fit: contain;
+    width: 1.5vw;
+    height: 1.5vw;
+    margin-right: 0.5vw;
+}
+
+.custom-file-upload {
+    border: solid;
+    border-radius: 5px;
+    border-color: #aaa;
+    padding: 0.5vh 1vw;
+    border-width: 1px;
+    margin-left: 2vw;
+    margin-top: 0.5vh;
 }
