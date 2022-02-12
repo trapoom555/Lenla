@@ -172,7 +172,8 @@ export async function createBlog(
     name,
     pages,
     publicVal,
-    public_date
+    public_date,
+    cover_img
 ) {
     const res = await fetch(Domain + "/blog/create/", {
         // mode: "no-cors",
@@ -188,6 +189,7 @@ export async function createBlog(
             pages,
             public: publicVal,
             public_date,
+            cover_img,
         }),
     });
     //
@@ -207,7 +209,8 @@ export async function saveBlog(
     name,
     pages,
     publicVal,
-    public_date
+    public_date,
+    cover_img
 ) {
     console.log(_id);
     const res = await fetch(Domain + "/blog/save/", {
@@ -225,6 +228,7 @@ export async function saveBlog(
             pages,
             public: publicVal,
             public_date,
+            cover_img,
         }),
     });
     //

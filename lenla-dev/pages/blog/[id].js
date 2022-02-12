@@ -19,6 +19,7 @@ export async function getServerSideProps({ query }) {
     // Fetch data from external API
     // const res = await fetch(`https://.../data`);
     const data = await loadBlog(query.id);
+    // console.log(data.pages[0]);
     return { props: { data } };
 }
 
@@ -40,8 +41,9 @@ function shit(data, width) {
             case "elements":
                 // const elements = await loadDiagram_public(element.value)
                 //     .elements;
-                const system = compileAll(element.value);
                 console.log(element.value);
+                const system = compileAll(element.value);
+                console.log(555);
                 // setCompList((pre) => [
                 //     ...pre,
                 //     <ThreeCanvas
