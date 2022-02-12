@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
     getAllBlog,
+    getAllDiagram,
     getUser,
     getUserBySet,
     loadBlog,
@@ -48,6 +49,7 @@ export default function Home({ user, setUser }) {
     const [myBlogs, setMyBlogs] = useState([]);
     const [myInteractives, setMyInteractives] = useState([]);
     const [publicBlogs, setPublicBlogs] = useState([]);
+    const [publicInteractive, setPublicInteractive] = useState([]);
     // let myBlogList = [];
     let InteractiveList = [];
     useEffect(async () => {
@@ -58,30 +60,12 @@ export default function Home({ user, setUser }) {
                     await loadDiagramName(user.email, user.password)
                 );
                 setPublicBlogs(await getAllBlog());
+                setPublicInteractive(await getAllDiagram());
             }
         }
 
         //   }
     }, [user]);
-
-    let contentList = [
-        {
-            course: "killing Cats",
-            author: "Meowman",
-        },
-        {
-            course: "Petting Cats",
-            author: "Meowman",
-        },
-        {
-            course: "Petting Cats",
-            author: "Meowman",
-        },
-        {
-            course: "Petting Cats",
-            author: "Meowman",
-        },
-    ];
 
     return (
         <div class="home_wrapper">
@@ -99,7 +83,7 @@ export default function Home({ user, setUser }) {
                         </button>
                     </Link>
                 </div>
-                <Profile />
+                <Profile name={user.username} url={user.profileImage} />
             </div>
             <div class="home_body_wrapper">
                 <div class="home_sidebar_wrapper">
@@ -141,12 +125,12 @@ export default function Home({ user, setUser }) {
                     <ContentWrapper
                         isDisplay={!isDisplayMyList}
                         title="Public Blog"
-                        contentList={contentList}
+                        contentList={publicBlogs}
                     />
                     <ContentWrapper
                         isDisplay={!isDisplayMyList}
                         title="Public Interactive"
-                        contentList={contentList}
+                        contentList={publicInteractive}
                     />
                 </div>
             </div>
