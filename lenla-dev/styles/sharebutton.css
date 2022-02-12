@@ -2,6 +2,7 @@
     content:url("../public/ic_share.png");
     object-fit: contain;
     width: 2vw;
-    margin: 0px 40px;
+    margin-left: 1vw;
+    margin-right: 3vw;
 
 }

@@ -84,7 +84,7 @@ export default function Create({ user, setUser }) {
                             setDiagramId={setDiagramId}
                             diagramId={diagramId}
                         />
-                        <div className="diagram_name">Diagram : {diagramName}</div>
+                        <div className="diagram_name">{diagramName}</div>
                         <ShareButton />
                         <div className="preview_wrapper">
                             <button
