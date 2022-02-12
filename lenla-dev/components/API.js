@@ -107,12 +107,6 @@ export async function loadDiagramName(email, password) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-        // body: JSON.stringify({
-        //     name,
-        //     elements:[],
-        //         email,
-        //     password
-        // }),
     });
     //
     if (res.status == 201) {
@@ -262,8 +256,57 @@ export async function loadBlog(id) {
     }
     // const profile_data = await res.json();
 }
+export async function getAllBlog() {
+    const res = await fetch(Domain + "/blog/getAll", {
+        // mode: "no-cors",
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    //
+    if (res.status == 200) {
+        [console.log("success")];
+        const data = await res.json();
+        return data;
+    } else {
+        console.log(res.status);
+    }
+    // const profile_data = await res.json();
+}
+export async function loadMyBlogs(email, password) {
+    const res = await fetch(Domain + "/blog/findByUser/", {
+        // mode: "no-cors",
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+    });
+    //
+    if (res.status == 201) {
+        [console.log("success")];
+        const data = await res.json();
+
+        return data;
+    } else {
+        console.log(res.status);
+    }
+    // const profile_data = await res.json();
+}
 export async function getUserBySet(setUser) {
     const data = JSON.parse(window.localStorage.getItem("user"));
     // console.log(data);
     setUser(data);
+}
+export async function getUser() {
+    try {
+        const data = await JSON.parse(window.localStorage.getItem("user"));
+        console.log("data");
+        return data;
+    } catch (err) {
+        console.log("Oops, `window` is not defined");
+    }
 }

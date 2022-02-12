@@ -1,5 +1,5 @@
 export default function CourseOverviewWrapper(props) {
-    const {courseData} = props;
+    const { courseData } = props;
     // Data
     // {
     //     courseName: "",
@@ -9,14 +9,11 @@ export default function CourseOverviewWrapper(props) {
         <div className="course_overview_wrapper">
             <img className="course_overview_img" />
             <div className="course_overview_description">
-                <div className="course_overview_name">
-                    {courseData.courseName}
-                </div>
+                <div className="course_overview_name">{courseData.name}</div>
                 <div className="course_overview_author">
                     {courseData.author}
                 </div>
-
             </div>
         </div>
-    )
+    );
 }
