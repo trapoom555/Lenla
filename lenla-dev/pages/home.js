@@ -45,7 +45,7 @@ export default function Home({ user, setUser }) {
     }
 
     const [isDisplayMyList, setIsDisplayMyList] = useState(true);
-    let username = user.first;
+    let username = user.username;
     const [myBlogs, setMyBlogs] = useState([]);
     const [myInteractives, setMyInteractives] = useState([]);
     const [publicBlogs, setPublicBlogs] = useState([]);

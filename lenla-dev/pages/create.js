@@ -60,7 +60,7 @@ export default function Create({ user, setUser }) {
                             <button
                                 className="preview_button"
                                 onClick={() => {
-                                    Block.compileAll(elements);
+                                    setSystem(Block.compileAll(elements));
                                     setAnimeState(1);
                                 }}
                                 style={{
@@ -101,7 +101,7 @@ export default function Create({ user, setUser }) {
                                     className="stop_button"
                                     onClick={() => {
                                         setAnimeState(0);
-                                        Block.compileAll(elements)();
+                                        setSystem(Block.compileAll(elements));
                                         // setElements([...elements]);
                                     }}
                                 />
@@ -116,7 +116,7 @@ export default function Create({ user, setUser }) {
                                 elements={elements}
                                 setElements={setElements}
                                 compileAll={() => {
-                                    Block.compileAll(elements);
+                                    setSystem(Block.compileAll(elements));
                                 }}
                                 setSelectedElement={(x) => {
                                     setSelectedElementId(x);

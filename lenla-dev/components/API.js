@@ -271,6 +271,7 @@ export async function getAllBlog() {
     if (res.status == 200) {
         [console.log("success")];
         const data = await res.json();
+        console.log(data);
         return data;
     } else {
         console.log(res.status);
