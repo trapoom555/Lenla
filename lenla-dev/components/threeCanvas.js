@@ -72,10 +72,9 @@ function Button(props) {
             {...props}
             onClick={(event) => {
                 if (isRun == 1) {
-                    // console.log("JJJ");
                     node.setState(!node.state);
                     setState(node.state);
-                    console.log(node.state);
+                    //console.log(node.state);
                     setCount(count + 1);
                 }
             }}
@@ -119,7 +118,7 @@ export default function ThreeCanvas(props) {
     // useFrame((state, delta) =>
     function createObj() {
         system.childNode.forEach((node) => {
-            console.log("system update");
+            //console.log("system update");
             if (isDisplayable(node)) {
                 // node.update();
                 const tmp = node.getDisplayData();
@@ -127,7 +126,7 @@ export default function ThreeCanvas(props) {
                 try {
                     switch (tmp.type) {
                         case CANVAS_DISPLAY_TYPE.OUT_STR:
-                            console.log(tmp);
+                            //console.log(tmp);
                             let val = node.value;
                             if (tmp.digit) {
                                 val = val.toFixed(tmp.digit);
@@ -147,8 +146,8 @@ export default function ThreeCanvas(props) {
                             break;
 
                         case CANVAS_DISPLAY_TYPE.IN_BASIC_BUTTON:
-                            console.log("Hey:" + tmp);
-                            console.log(tmp);
+                            //console.log("Hey:" + tmp);
+                            //console.log(tmp);
                             displayObj.push(
                                 <Button
                                     tmp={tmp}
@@ -166,7 +165,7 @@ export default function ThreeCanvas(props) {
                             break;
                     }
                 } catch (error) {
-                    //console.log(error);
+                    ////console.log(error);
                 }
             }
         });

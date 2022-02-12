@@ -20,7 +20,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.blockConfig = exports.createElementObj = exports.System = void 0;
+exports.compileAll = exports.blockConfig = exports.createElementObj = exports.System = void 0;
 var stringConfig_1 = require("./stringConfig");
 var InBlock = require("./Input_block");
 var Block = require("./block_behavior");
@@ -33,7 +33,7 @@ var System = /** @class */ (function () {
         this.childNode = [];
         this.blankSpace = 0;
     }
-    System.prototype.add_element = function (element, fnc) {
+    System.prototype.add_element = function (element) {
         this.idToIndex[element.id] = this.childNode.length;
         var node;
         switch (element.type) {
@@ -508,3 +508,30 @@ function blockConfig(type) {
     }
 }
 exports.blockConfig = blockConfig;
+function getIntFromString(str) {
+    var n = str.length;
+    var run = n - 1;
+    var val = Number(str.slice(run, n));
+    if (!val)
+        return 0;
+    while (val) {
+        run -= 1;
+        val = Number(str.slice(run, n));
+    }
+    return Number(str.slice(run + 1, n));
+}
+function compileAll(elements) {
+    var system = new System();
+    elements.forEach(function (element) {
+        if (element.flag == "node") {
+            system.add_element(element);
+        }
+        if (element.flag == "line") {
+            system.set_port(element.source, element.target, getIntFromString(element.sourceHandle), getIntFromString(element.targetHandle));
+        }
+    });
+    // setSystem(system);
+    system.compile();
+    return system;
+}
+exports.compileAll = compileAll;

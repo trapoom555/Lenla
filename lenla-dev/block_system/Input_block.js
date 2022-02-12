@@ -37,7 +37,7 @@ var Constant = /** @class */ (function (_super) {
         var _this = _super.call(this, id, type) || this;
         _this.outValPorts = [null];
         _this.notiPorts = [];
-        console.log("cleate Constant block");
+        // console.log("cleate Constant block");
         var num = new object_1.Number();
         num.value = value;
         _this.outValPorts = [num];
@@ -53,7 +53,7 @@ var StringConstant = /** @class */ (function (_super) {
         var _this = _super.call(this, id, type) || this;
         _this.outValPorts = [null];
         _this.notiPorts = [];
-        console.log("cleate Constant block");
+        // console.log("cleate Constant block");
         var str = new object_1.String();
         str.value = value;
         _this.outValPorts = [str];
@@ -112,15 +112,13 @@ var BasicButton = /** @class */ (function (_super) {
     };
     BasicButton.prototype.setDisplayDetail = function (detail) {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            console.log("port is not null");
+            // console.log("port is not null")
             this.updateContent();
             this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { on_color: this.inValPorts[1].hex, off_color: this.inValPorts[2].hex, state: this.inValPorts[0].value }), detail);
         }
         else {
-            console.log("port is null");
+            // console.log("port is null")
             this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { on_color: this.inValPorts[1].hex, off_color: this.inValPorts[2].hex }), detail);
-            console.log(this.displayDetail.off_color);
-            console.log(this.displayDetail.on_color);
         }
         this.position = this.displayDetail.position;
     };
@@ -155,8 +153,8 @@ var Vector2D = /** @class */ (function (_super) {
         _this.outValPorts = [new object_1.Number, new object_1.Number];
         _this.outValPorts[0].value = x;
         _this.outValPorts[1].value = y;
-        console.log("cleate 2d vector block");
         return _this;
+        // console.log("cleate 2d vector block");
     }
     Vector2D.prototype.deletePort = function () {
         this.notiPorts = [null, null];

@@ -29,7 +29,7 @@ export class NumberDisplay extends OutputBlock {
     setDisplayDetail(detail: any): void {
 
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            console.log("port is not null")
+            // console.log("port is not null")
             this.updateContent()
             this.displayDetail = {
                 ...this.displayDetail,
@@ -39,7 +39,7 @@ export class NumberDisplay extends OutputBlock {
         }
         else {
 
-            console.log("port is null")
+            // console.log("port is null")
             this.displayDetail = {
                 color: this.displayDetail.color,
                 type: CANVAS_DISPLAY_TYPE.OUT_STR,
@@ -49,7 +49,7 @@ export class NumberDisplay extends OutputBlock {
 
         }
         this.position = this.displayDetail.position
-        console.log("Good")
+        // console.log("Good")
 
     }
     log() {
@@ -104,7 +104,7 @@ export class StringDisplay extends OutputBlock {
     }
     setDisplayDetail(detail: any): void {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            console.log("port is not null")
+            // console.log("port is not null")
             this.updateContent()
             this.displayDetail = {
                 ...this.displayDetail,
@@ -114,7 +114,7 @@ export class StringDisplay extends OutputBlock {
         }
         else {
 
-            console.log("port is null")
+            // console.log("port is null")
             this.displayDetail = {
                 color: this.displayDetail.color,
                 type: CANVAS_DISPLAY_TYPE.OUT_STR,

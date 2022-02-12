@@ -8,7 +8,7 @@ export class Constant extends InputBlock {
 
     constructor(id: string, type: string, value: number = 0) {
         super(id, type);
-        console.log("cleate Constant block");
+        // console.log("cleate Constant block");
         var num = new Number()
         num.value = value
         this.outValPorts = [num]
@@ -25,7 +25,7 @@ export class StringConstant extends InputBlock {
 
     constructor(id: string, type: string, value: string = "") {
         super(id, type);
-        console.log("cleate Constant block");
+        // console.log("cleate Constant block");
         var str = new String()
         str.value = value
         this.outValPorts = [str]
@@ -84,7 +84,7 @@ export class BasicButton extends InOutDisplay {
     setDisplayDetail(detail: any): void {
 
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            console.log("port is not null")
+            // console.log("port is not null")
             this.updateContent()
             this.displayDetail = {
                 ...this.displayDetail,
@@ -96,15 +96,13 @@ export class BasicButton extends InOutDisplay {
         }
         else {
 
-            console.log("port is null")
+            // console.log("port is null")
             this.displayDetail = {
                 ...this.displayDetail,
                 on_color: this.inValPorts[1].hex,
                 off_color: this.inValPorts[2].hex,
                 ...detail
             }
-            console.log(this.displayDetail.off_color)
-            console.log(this.displayDetail.on_color)
         }
         this.position = this.displayDetail.position
 
@@ -142,7 +140,7 @@ export class Vector2D extends InputBlock {
         this.outValPorts = [new Number, new Number]
         this.outValPorts[0].value = x
         this.outValPorts[1].value = y
-        console.log("cleate 2d vector block");
+        // console.log("cleate 2d vector block");
     }
     deletePort() {
         this.notiPorts = [null, null]

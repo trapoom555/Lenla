@@ -11,7 +11,6 @@ import {
     loadDiagramName,
     saveBlog,
 } from "../components/API";
-import * as Block from "../block_system/systemObj";
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
     ssr: false,
     loading: () => <p>Loading ...</p>,
@@ -56,37 +55,6 @@ const formats = [
     "video",
     "color",
 ];
-function getIntFromString(str) {
-    let n = str.length;
-    let run = n - 1;
-    let val = Number(str.slice(run, n));
-    if (!val) return 0;
-    while (val) {
-        run -= 1;
-        val = Number(str.slice(run, n));
-    }
-    return Number(str.slice(run + 1, n));
-}
-function compileAll(elements) {
-    let system = new Block.System();
-    elements.forEach((element) => {
-        if (element.flag == "node") {
-            system.add_element(element);
-        }
-        if (element.flag == "line") {
-            system.set_port(
-                element.source,
-                element.target,
-                getIntFromString(element.sourceHandle),
-                getIntFromString(element.targetHandle)
-            );
-        }
-    });
-
-    // setSystem(system);
-    system.compile();
-    return system;
-}
 
 function editSection() {}
 

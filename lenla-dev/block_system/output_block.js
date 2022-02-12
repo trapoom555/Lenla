@@ -55,16 +55,16 @@ var NumberDisplay = /** @class */ (function (_super) {
     };
     NumberDisplay.prototype.setDisplayDetail = function (detail) {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            console.log("port is not null");
+            // console.log("port is not null")
             this.updateContent();
             this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { value: this.inValPorts[0].value }), detail);
         }
         else {
-            console.log("port is null");
+            // console.log("port is null")
             this.displayDetail = __assign({ color: this.displayDetail.color, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
         }
         this.position = this.displayDetail.position;
-        console.log("Good");
+        // console.log("Good")
     };
     NumberDisplay.prototype.log = function () {
         console.log("value is ".concat(this.value.toString()));
@@ -114,12 +114,12 @@ var StringDisplay = /** @class */ (function (_super) {
     };
     StringDisplay.prototype.setDisplayDetail = function (detail) {
         if (this.inValPorts[0] != null && this.inValPorts[0]) {
-            console.log("port is not null");
+            // console.log("port is not null")
             this.updateContent();
             this.displayDetail = __assign(__assign(__assign({}, this.displayDetail), { value: this.value }), detail);
         }
         else {
-            console.log("port is null");
+            // console.log("port is null")
             this.displayDetail = __assign({ color: this.displayDetail.color, type: stringConfig_1.CANVAS_DISPLAY_TYPE.OUT_STR, position: this.displayDetail.position }, detail);
         }
         this.position = this.displayDetail.position;

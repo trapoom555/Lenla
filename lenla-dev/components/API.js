@@ -148,6 +148,30 @@ export async function loadDiagram(email, password, id) {
     // console.log(data);
     // console.log("fuck2");
 }
+export async function loadDiagram_public(id) {
+    const res = await fetch(Domain + "/diagram/findById:public/" + id, {
+        // mode: "no-cors",
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    //
+    if (res.status == 200) {
+        [console.log("success")];
+        const data = await res.json();
+        console.log("data: " + data);
+        return data;
+    } else {
+        console.log(res.status);
+    }
+    // console.log(res);
+    // // console.log("fuck1");
+
+    // console.log(data);
+    // console.log("fuck2");
+}
 export async function createBlog(
     email,
     password,
@@ -212,6 +236,27 @@ export async function saveBlog(
     //
     if (res.status == 201) {
         [console.log("success")];
+    } else {
+        console.log(res.status);
+    }
+    // const profile_data = await res.json();
+}
+export async function loadBlog(id) {
+    const res = await fetch(Domain + "/blog/findById:public/" + id, {
+        // mode: "no-cors",
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    //
+    if (res.status == 200) {
+        [console.log("success")];
+        const data = await res.json();
+        console.log(data);
+        console.log("-----------------");
+        return data;
     } else {
         console.log(res.status);
     }
