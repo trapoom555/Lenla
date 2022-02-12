@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, createRef } from "react";
 import Navbar from "../components/navbar";
 import PreviewButton from "../components/previewButton";
 import ShareButton from "../components/shareButton";
@@ -16,7 +16,7 @@ import { ReactFlowProvider } from "react-flow-renderer";
 import { isDisplayable } from "../block_system/block_behavior";
 import ThreeCanvas from "../components/threeCanvas";
 import { getUserBySet } from "../components/API";
-
+import { useScreenshot } from "use-react-screenshot";
 // import { HexColorPicker, HexColorInput } from "react-colorful";
 let tempSys = new Block.System();
 export default function Create({ user, setUser }) {
@@ -37,39 +37,9 @@ export default function Create({ user, setUser }) {
     const [diagramId, setDiagramId] = useState("");
 
     const { height, width } = useWindowDimensions();
-    const canvasRef = useRef(null);
+    // const canvasRef = useRef(null);
 
     // const system = new Block.System();
-    function getIntFromString(str) {
-        let n = str.length;
-        let run = n - 1;
-        let val = Number(str.slice(run, n));
-        if (!val) return 0;
-        while (val) {
-            run -= 1;
-            val = Number(str.slice(run, n));
-        }
-        return Number(str.slice(run + 1, n));
-    }
-    function compileAll() {
-        system = new Block.System();
-        elements.forEach((element) => {
-            if (element.flag == "node") {
-                system.add_element(element);
-            }
-            if (element.flag == "line") {
-                system.set_port(
-                    element.source,
-                    element.target,
-                    getIntFromString(element.sourceHandle),
-                    getIntFromString(element.targetHandle)
-                );
-            }
-        });
-
-        setSystem(system);
-        system.compile();
-    }
 
     if (typeof window !== "undefined") {
         return (
@@ -90,7 +60,7 @@ export default function Create({ user, setUser }) {
                             <button
                                 className="preview_button"
                                 onClick={() => {
-                                    compileAll();
+                                    Block.compileAll(elements);
                                     setAnimeState(1);
                                 }}
                                 style={{
@@ -131,7 +101,7 @@ export default function Create({ user, setUser }) {
                                     className="stop_button"
                                     onClick={() => {
                                         setAnimeState(0);
-                                        compileAll();
+                                        Block.compileAll(elements)();
                                         // setElements([...elements]);
                                     }}
                                 />
@@ -145,7 +115,9 @@ export default function Create({ user, setUser }) {
                             <Diagram
                                 elements={elements}
                                 setElements={setElements}
-                                compileAll={compileAll}
+                                compileAll={() => {
+                                    Block.compileAll(elements);
+                                }}
                                 setSelectedElement={(x) => {
                                     setSelectedElementId(x);
                                 }}
@@ -200,7 +172,6 @@ export default function Create({ user, setUser }) {
                         setDisplayState={setDisplayState}
                         diagramName={diagramName}
                     />
-                    
                 </div>
             </>
         );

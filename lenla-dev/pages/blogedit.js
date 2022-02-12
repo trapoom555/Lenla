@@ -11,6 +11,7 @@ import {
     loadDiagramName,
     saveBlog,
 } from "../components/API";
+import { compileAll } from "../block_system/systemObj";
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
     ssr: false,
     loading: () => <p>Loading ...</p>,
@@ -208,9 +209,9 @@ export default function BlogEdit({ user, setUser }) {
             <div className="blog_edit_section_break">
                 <Popup
                     trigger={
-                            <button className="blog_edit_insert_btn">
-                                + Interactive Media
-                            </button>
+                        <button className="blog_edit_insert_btn">
+                            + Interactive Media
+                        </button>
                     }
                     position="right center"
                     modal={true}
@@ -220,7 +221,9 @@ export default function BlogEdit({ user, setUser }) {
                 >
                     <div className="modal_wrapper">
                         <div className="save_diagram_header">Load Diagram</div>
-                        <div className="all_diagram_wrapper">{diagramCompList}</div>
+                        <div className="all_diagram_wrapper">
+                            {diagramCompList}
+                        </div>
                         <button
                             className="load_diagram_button"
                             onClick={insertComponent}
@@ -233,7 +236,7 @@ export default function BlogEdit({ user, setUser }) {
                     + Text Editor
                 </button>
             </div>
-            
+
             {/* <div className="blog_edit_section_break">
                 
             </div> */}

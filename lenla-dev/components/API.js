@@ -248,8 +248,6 @@ export async function loadBlog(id) {
     if (res.status == 200) {
         [console.log("success")];
         const data = await res.json();
-        console.log(data);
-        console.log("-----------------");
         return data;
     } else {
         console.log(res.status);
@@ -274,6 +272,24 @@ export async function getAllBlog() {
         console.log(res.status);
     }
     // const profile_data = await res.json();
+}
+export async function getAllDiagram() {
+    const res = await fetch(Domain + "/diagram/getAll", {
+        // mode: "no-cors",
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    //
+    if (res.status == 200) {
+        [console.log("success")];
+        const data = await res.json();
+        return data;
+    } else {
+        console.log(res.status);
+    }
 }
 export async function loadMyBlogs(email, password) {
     const res = await fetch(Domain + "/blog/findByUser/", {
