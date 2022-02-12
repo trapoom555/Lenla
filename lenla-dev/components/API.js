@@ -16,7 +16,7 @@ export async function login(email, password, setUser) {
         //
         if (res.status == 200) {
             [console.log("success login")];
-            router.push("/create");
+            router.push("/home");
         } else {
             console.log(res.status);
         }
