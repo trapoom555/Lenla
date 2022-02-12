@@ -55,3 +55,12 @@
     border-radius: 5px;
     background-color: white;
 }
+
+.blog_edit_insert_btn_2 {
+    border: 1px solid #555;
+    padding: 0vh 1vw;
+    margin-left: 0.5vw;
+    margin-right: 1vw;
+    border-radius: 5px;
+    background-color: white;
+}

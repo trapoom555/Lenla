@@ -205,36 +205,38 @@ export default function BlogEdit({ user, setUser }) {
             </div>
 
             {sectionList}
-            <Popup
-                trigger={
-                    <div className="blog_edit_section_break">
-                        <button className="blog_edit_insert_btn">
-                            + Interactive Media
+            <div className="blog_edit_section_break">
+                <Popup
+                    trigger={
+                            <button className="blog_edit_insert_btn">
+                                + Interactive Media
+                            </button>
+                    }
+                    position="right center"
+                    modal={true}
+                    onOpen={() => {
+                        setDiagramNameList(user);
+                    }}
+                >
+                    <div className="modal_wrapper">
+                        <div className="save_diagram_header">Load Diagram</div>
+                        <div className="all_diagram_wrapper">{diagramCompList}</div>
+                        <button
+                            className="load_diagram_button"
+                            onClick={insertComponent}
+                        >
+                            Load
                         </button>
                     </div>
-                }
-                position="right center"
-                modal={true}
-                onOpen={() => {
-                    setDiagramNameList(user);
-                }}
-            >
-                <div className="modal_wrapper">
-                    <div className="save_diagram_header">Load Diagram</div>
-                    <div className="all_diagram_wrapper">{diagramCompList}</div>
-                    <button
-                        className="load_diagram_button"
-                        onClick={insertComponent}
-                    >
-                        Load
-                    </button>
-                </div>
-            </Popup>
-            <div className="blog_edit_section_break">
-                <button className="blog_edit_insert_btn" onClick={insertQill}>
+                </Popup>
+                <button className="blog_edit_insert_btn_2" onClick={insertQill}>
                     + Text Editor
                 </button>
             </div>
+            
+            {/* <div className="blog_edit_section_break">
+                
+            </div> */}
         </div>
     );
 }
