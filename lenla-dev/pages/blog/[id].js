@@ -88,8 +88,6 @@ export default function BlogShow(props) {
         getUserBySet(setUser)
     }
     // let user = {username:"trapoomlormak", profileImage:"3333"}
-    let blogName = "Pet Cats";
-    let bg = require("../../public/blog_cover.jpg")
     return( 
     <div className="blog_edit_wrapper">
         <div className="nav_bar_blog_edit">
@@ -99,7 +97,7 @@ export default function BlogShow(props) {
             </div>
         </div>
         <div className="blog_body_wrapper">
-            <div className="blog_cover_wrapper"> <img className="blog_cover" src={data.cover_img} /> <div className="blog_name">{blogName}</div> </div>
+            <div className="blog_cover_wrapper"> <img className="blog_cover" src={data.cover_img} /> <div className="blog_name">{data.name}</div> <div className="blog_author_name">{data.autor.name}</div> </div>
             {compList}
         </div>
         
