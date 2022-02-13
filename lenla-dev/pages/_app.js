@@ -17,6 +17,7 @@ import "../styles/insp_layout.css";
 import "../styles/blogedit.css";
 import 'react-quill/dist/quill.snow.css';
 import "../styles/home.css";
+import "../styles/blog.css";
 import "../styles/courseOverviewWrapper.css";
 import { useState } from "react";
 import Head from "next/head"

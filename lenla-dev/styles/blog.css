@@ -1,0 +1,17 @@
+.blog_cover {
+    /* background-image: url("../public/blog_cover.jpg"); */
+    background-size: cover;
+    width: 100%;
+    /* filter: brightness(60%); */
+    height: 60vh;
+}
+
+.blog_name {
+    font-size: 10vw;
+    color: white;
+    font-weight: 6px;
+}
+
+.blog_profile_wrapper {
+    margin-left: 60vw;
+}
