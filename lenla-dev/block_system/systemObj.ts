@@ -612,6 +612,7 @@ function getIntFromString(str) {
     return Number(str.slice(run + 1, n));
 }
 export function compileAll(elements) {
+    console.log(elements)
     let system = new System();
     elements.forEach((element) => {
         if (element.flag == "node") {

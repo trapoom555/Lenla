@@ -15,7 +15,7 @@ export default function CourseOverviewWrapper(props) {
                 router.push("/blog/" + courseData._id);
             }}
         >
-            <img className="course_overview_img" />
+            <img className="course_overview_img" src={courseData.cover_img} />
             <div className="course_overview_description">
                 <div className="course_overview_name">{courseData.name}</div>
                 <div className="course_overview_author">
