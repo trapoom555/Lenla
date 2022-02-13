@@ -7,10 +7,19 @@
     border-color: #656565;
     border-width: 2px;
     margin-right: 1vw;
+    overflow: hidden;
+}
+
+.overview_image_wrapper {
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .course_overview_img {
-    height: 100px;
+    width: 200px;
+    object-fit: cover;
+
 }
 
 .course_overview_description {

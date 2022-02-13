@@ -1,9 +1,15 @@
-.blog_cover {
-    /* background-image: url("../public/blog_cover.jpg"); */
+.blog_cover_wrapper {
     background-size: cover;
     width: 100%;
     /* filter: brightness(60%); */
     height: 60vh;
+}
+
+.blog_cover {
+    width: 100%;
+    height: 100%;
+    filter: brightness(60%);
+    object-fit: cover;
 }
 
 .blog_name {
@@ -14,4 +20,14 @@
 
 .blog_profile_wrapper {
     margin-left: 60vw;
+}
+
+.blog_body_wrapper {
+    padding: 0vh 20vw;
+}
+
+.blog_three_wrapper {
+    border: solid;
+    border-width: 1px;
+    border-color: #aaa;
 }

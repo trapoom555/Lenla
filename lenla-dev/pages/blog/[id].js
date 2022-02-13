@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Profile from "../../components/profile";
 import { useRouter } from "next/router";
 import {
+    getUserBySet,
     loadBlog,
     loadDiagram,
     loadDiagram_public,
@@ -55,12 +56,14 @@ function shit(data, width) {
                 //     />,
                 // ]);
                 compList.push(
-                    <ThreeCanvas
+                    <div className="blog_three_wrapper">
+                        <ThreeCanvas
                         width={Math.floor(0.5 * width)}
                         height={0.5 * width}
                         system={system} // ต้อง Define
                         isRun={1} // stop
-                    />
+                        />
+                    </div>
                 );
                 break;
         }
@@ -69,7 +72,7 @@ function shit(data, width) {
 }
 
 export default function BlogShow(props) {
-    const { data } = props;
+    const { data,user,setUser } = props;
 
     const [compList, setCompList] = useState([]);
     const { height, width } = useWindowDimensions();
@@ -81,8 +84,10 @@ export default function BlogShow(props) {
 
     console.log(data.pages[0][2]);
     console.log(data);
-
-    let user = {username:"trapoomlormak", profileImage:"3333"}
+    if(!user){
+        getUserBySet(setUser)
+    }
+    // let user = {username:"trapoomlormak", profileImage:"3333"}
     let blogName = "Pet Cats";
     let bg = require("../../public/blog_cover.jpg")
     return( 
@@ -93,7 +98,10 @@ export default function BlogShow(props) {
                 <Profile name={user.username} url={user.profileImage} />
             </div>
         </div>
-        <div className="blog_cover" style={{backgroundImage: "url("+bg+")"}}> <div className="blog_name">{blogName}</div> </div>
-        {compList}
+        <div className="blog_body_wrapper">
+            <div className="blog_cover_wrapper"> <img className="blog_cover" src={data.cover_img} /> <div className="blog_name">{blogName}</div> </div>
+            {compList}
+        </div>
+        
     </div>);
 }
